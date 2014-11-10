@@ -74,6 +74,47 @@ DEALLOCATE table_cursor
 GO
 
 CREATE TABLE Files (
-	filename	VARCHAR(64)		NOT NULL,
-	itemid		INT				NOT NULL
+	fileid			VARCHAR(64)			NOT NULL,
+	itemid			INT					NOT NULL
+);
+
+CREATE TABLE Bid (
+	bidid			INT IDENTITY UNIQUE	NOT NULL,
+	bidammount		NUMERIC(7,2)		NOT NULL,
+	stamp			DATETIME			NOT NULL,
+	username		VARCHAR(16)			NOT NULL,
+	itemid			INT					NOT NULL
+	CONSTRAINT pk_bid PRIMARY KEY (itemid, bidammount),
+	CONSTRAINT chk_atleast_1 CHECK (bidammount > 1.00)
+);
+
+CREATE TABLE Feedback (
+	comment			VARCHAR(MAX)		NOT NULL,
+	stamp			DATETIME			NOT NULL,
+	feedbacktype	CHAR(1)				NOT NULL,
+	seller			BIT					NOT NULL,
+	itemid			INT					NOT NULL
+	CONSTRAINT pk_feedback PRIMARY KEY (itemid, seller),
+	CONSTRAINT chk_feedbacktype CHECK (feedbacktype IN ('+', '-', '|'))
+);
+
+CREATE TABLE Account (
+	username		VARCHAR(16)			NOT NULL,
+	firstname		VARCHAR(32)			NOT NULL,
+	lastname		VARCHAR(32)			NOT NULL,
+	address1		VARCHAR(64)			NOT NULL,
+	address2		VARCHAR(64)			NOT NULL,
+	zipcode			VARCHAR(16)			NOT NULL,
+	city			VARCHAR(64)			NOT NULL,
+	country			VARCHAR(32)			NOT NULL	DEFAULT 'Nederland',
+	birthdate		DATE				NOT NULL,
+	email			VARCHAR(32)			NOT NULL,
+	pass			VARCHAR(64)			NOT NULL,
+	questionanswer	VARCHAR(255)		NOT NULL,
+	seller			BIT					NOT NULL,
+	salt			CHAR(8)				NOT NULL
+	CONSTRAINT pk_username PRIMARY KEY (username),
+	CONSTRAINT un_email_already_exists UNIQUE (email),
+	CONSTRAINT chk_nospaces_in_username CHECK (username NOT LIKE ('% %')),
+	CONSTRAINT chk_email CHECK (email LIKE ('_%@_%._%') AND email NOT LIKE ('% %'))
 );
