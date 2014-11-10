@@ -4,7 +4,7 @@ I-Project Groep 5
 Welkom bij de repository van het I-Project. Hieronder zul je informatie vinden omtrendt het project. Naast informatie zijn er ook nog wat handige links die je nodig zult hebben.
 
 ----------
-Documenten
+Documenten en info
 -------------
 
 Hier onder staan een aantal documenten en links die zeer handig zijn tijdens het project.
