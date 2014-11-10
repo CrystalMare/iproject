@@ -1,7 +1,7 @@
 <html>
   <body>
     <p>
-      example
+      example 2
     </p>
   </body>
 </html>
