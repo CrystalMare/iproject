@@ -1,0 +1,8 @@
+E:\iproject\database\iproject\iproject\sql\release\iproject_Script.PreDeployment.sql
+E:\iproject\database\iproject\iproject\sql\release\iproject_Script.PostDeployment.sql
+E:\iproject\database\iproject\iproject\sql\release\iproject_Database.sqlsettings
+E:\iproject\database\iproject\iproject\sql\release\iproject_Database.sqldeployment
+E:\iproject\database\iproject\iproject\sql\release\iproject_Database.sqlcmdvars
+E:\iproject\database\iproject\iproject\sql\release\iproject.deploymanifest
+E:\iproject\database\iproject\iproject\sql\release\iproject.dbschema
+E:\iproject\database\iproject\iproject\obj\Release\iproject.dbschema
