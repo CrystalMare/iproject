@@ -12,6 +12,7 @@
 
 USE iproject
 
+
 DECLARE @table_schema varchar(100)
        ,@table_name varchar(100)
        ,@constraint_schema varchar(100)
