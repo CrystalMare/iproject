@@ -75,7 +75,7 @@ GO
 
 CREATE TABLE Files (
 	fileid			VARCHAR(64)			NOT NULL,
-	itemid			INT					NOT NULL
+	auctionid		INT					NOT NULL
 );
 
 CREATE TABLE Bid (
@@ -83,8 +83,8 @@ CREATE TABLE Bid (
 	bidammount		NUMERIC(7,2)		NOT NULL,
 	stamp			DATETIME			NOT NULL,
 	username		VARCHAR(16)			NOT NULL,
-	itemid			INT					NOT NULL
-	CONSTRAINT pk_bid PRIMARY KEY (itemid, bidammount),
+	auctionid		INT					NOT NULL
+	CONSTRAINT pk_bid PRIMARY KEY (auctionid, bidammount),
 	CONSTRAINT chk_atleast_1 CHECK (bidammount > 1.00)
 );
 
@@ -93,8 +93,8 @@ CREATE TABLE Feedback (
 	stamp			DATETIME			NOT NULL,
 	feedbacktype	CHAR(1)				NOT NULL,
 	seller			BIT					NOT NULL,
-	itemid			INT					NOT NULL
-	CONSTRAINT pk_feedback PRIMARY KEY (itemid, seller),
+	auctionid		INT					NOT NULL
+	CONSTRAINT pk_feedback PRIMARY KEY (auctionid, seller),
 	CONSTRAINT chk_feedbacktype CHECK (feedbacktype IN ('+', '-', '|'))
 );
 
@@ -117,4 +117,36 @@ CREATE TABLE Account (
 	CONSTRAINT un_email_already_exists UNIQUE (email),
 	CONSTRAINT chk_nospaces_in_username CHECK (username NOT LIKE ('% %')),
 	CONSTRAINT chk_email CHECK (email LIKE ('_%@_%._%') AND email NOT LIKE ('% %'))
+);
+
+CREATE TABLE Phonenumber (
+	username		VARCHAR(16)			NOT NULL,
+	phone			VARCHAR(32)			NOT NULL
+	CONSTRAINT pk_phonenumber PRIMARY KEY (username, phonenumber),
+	CONSTRAINT un_unique_phone UNIQUE (username, phonenumber)
+);
+
+CREATE TABLE Category (
+	categoryname	VARCHAR(64)			NOT NULL,
+	categoryid		INT IDENTITY		NOT NULL,
+	parrentcategory INT					NULL,
+	sortid			INT					NOT NULL
+	CONSTRAINT pk_category PRIMARY KEY (categoryid),
+	CONSTRAINT chk_not_itself_as_parrent CHECK (parrentcategory != categoryid)
+);
+
+CREATE TABLE Seller (
+	username		VARCHAR(16)			NOT NULL,
+	bankname		VARCHAR(16)			NULL,
+	bankaccount		VARCHAR(43)			NOT NULL,
+	verifyoption	VARCHAR(10)			NOT NULL, -- double check with casus
+	creditcard		VARCHAR(16)			NULL
+	CONSTRAINT pk_seller PRIMARY KEY (username),
+	CONSTRAINT chk_verifyoption CHECK (verifyoption IN ('creditcard', 'postal'))
+);
+
+CREATE TABLE Auctionduration (
+	duration		INT					NOT NULL
+	CONSTRAINT pk_duration PRIMARY KEY (duration),
+	CONSTRAINT chk_duration_more_than_zero CHECK (duration > 0)
 );
