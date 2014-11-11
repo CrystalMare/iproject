@@ -1,4 +1,4 @@
 #!/bin/sh
 
 wget -q --spider heaven-craft.net/tools/update.php
-prinf "Updated hosted repo\n"
+printf "Updated hosted repo\n"
