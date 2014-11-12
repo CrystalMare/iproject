@@ -1,7 +1,21 @@
-.eerste {
-    background-color: #FF0000;
+@media only screen and (max-width: 480px) {
+    .container
+        {
+        padding: 0px;
+        margin: 0px;
+    }
+}
+@media only screen and (min-width: 480px) and (max-width: 768px) {
+    #your_id {width:000px;height:000px;}
+}
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+    #your_id {width:000px;height:000px;}
+}
+@media only screen and (min-width: 959px) {
+    #your_id {width:000px;height:000px;}
 }
 
-.tweede {
-    background-color: #00FF00;
+img.centered {
+    margin-left: auto;
+    margin-right: auto;
 }
