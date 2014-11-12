@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2014-11-10" view-index="0" gantt-divider-location="279" resource-divider-location="300" version="2.0" locale="nl_NL">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2014-11-10" view-index="0" gantt-divider-location="350" resource-divider-location="300" version="2.0" locale="nl_NL">
     <description/>
-    <view zooming-state="default:5" id="gantt-chart">
-        <field id="tpd3" name="Naam" width="62" order="0"/>
-        <field id="tpd4" name="Begin datum" width="20" order="1"/>
-        <field id="tpd5" name="Eind datum" width="17" order="2"/>
+    <view zooming-state="default:6" id="gantt-chart">
+        <field id="tpd3" name="Naam" width="52" order="0"/>
+        <field id="tpd4" name="Begin datum" width="26" order="1"/>
+        <field id="tpd5" name="Eind datum" width="20" order="2"/>
     </view>
     <view id="resource-table">
         <field id="0" name="Naam" width="50" order="0"/>
-        <field id="1" name="Standaard rol" width="49" order="1"/>
+        <field id="1" name="Standaard rol" width="50" order="1"/>
     </view>
     <!-- -->
     <calendars>
@@ -44,28 +44,16 @@
             <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
         </taskproperties>
         <task id="0" name="Plan van Aanpak" meeting="false" start="2014-11-10" duration="4" complete="0" expand="true">
-            <depend id="3" type="2" difference="0" hardness="Strong"/>
             <depend id="9" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="3" name="Structuur eindverslag" color="#8cb6ce" meeting="false" start="2014-11-17" duration="8" complete="0" expand="true">
-            <depend id="14" type="2" difference="0" hardness="Strong"/>
-        </task>
-        <task id="14" name="Concept eindrapport" meeting="false" start="2014-12-01" duration="12" complete="0" expand="true">
-            <depend id="16" type="2" difference="0" hardness="Strong"/>
-        </task>
-        <task id="16" name="Definitief eindrapport" meeting="false" start="2015-01-05" duration="8" complete="0" expand="true"/>
-        <task id="9" name="Ontwerpen website" meeting="false" start="2014-11-17" duration="4" complete="0" expand="true">
-            <depend id="11" type="2" difference="0" hardness="Strong"/>
-        </task>
-        <task id="11" name="HTML en CSS website" meeting="false" start="2014-11-24" duration="4" complete="0" expand="true">
-            <depend id="19" type="2" difference="0" hardness="Strong"/>
-        </task>
-        <task id="19" name="Dynamische website" meeting="false" start="2014-12-01" duration="8" complete="0" expand="true"/>
-        <task id="30" name="Database opzetten" meeting="false" start="2014-12-01" duration="4" complete="0" expand="true">
+        <task id="9" name="Ontwerpen website" meeting="false" start="2014-11-17" duration="4" complete="0" expand="true"/>
+        <task id="36" name="HTML en CSS website" meeting="false" start="2014-11-19" duration="6" complete="0" expand="true"/>
+        <task id="19" name="Dynamische website" meeting="false" start="2014-11-24" duration="8" complete="0" expand="true"/>
+        <task id="30" name="Database opzetten" meeting="false" start="2014-11-17" duration="4" complete="0" expand="true">
             <depend id="17" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="17" name="Beheer applicatie" meeting="false" start="2014-12-08" duration="4" complete="0" expand="true"/>
-        <task id="28" name="Eindpresentatie" meeting="false" start="2015-01-14" duration="6" complete="0" expand="true"/>
+        <task id="17" name="Beheer applicatie" meeting="false" start="2014-11-24" duration="8" complete="0" expand="true"/>
+        <task id="28" name="Eindpresentatie" meeting="false" start="2015-01-12" duration="8" complete="0" expand="true"/>
     </tasks>
     <resources/>
     <allocations/>
@@ -80,9 +68,9 @@
         <displaycolumn property-id="tpd0" order="-1" width="75" visible="false"/>
         <displaycolumn property-id="tpd9" order="-1" width="75" visible="false"/>
         <displaycolumn property-id="tpd2" order="-1" width="75" visible="false"/>
-        <displaycolumn property-id="tpd3" order="0" width="172" visible="true"/>
-        <displaycolumn property-id="tpd4" order="1" width="55" visible="true"/>
-        <displaycolumn property-id="tpd5" order="2" width="48" visible="true"/>
+        <displaycolumn property-id="tpd3" order="0" width="181" visible="true"/>
+        <displaycolumn property-id="tpd4" order="1" width="93" visible="true"/>
+        <displaycolumn property-id="tpd5" order="2" width="72" visible="true"/>
     </taskdisplaycolumns>
     <previous/>
     <roles roleset-name="Default"/>
