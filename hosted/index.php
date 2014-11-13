@@ -5,8 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/global.css">
-        <script src = "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src = "js/bootstrap.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="js/bootstrap.js"></script>
     </head>
     <body>
         <div class="container">
@@ -16,12 +16,12 @@
                     Inloggen | Registreren
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="col-md-3 col-xs-8 col-xs-offset-2 col-md-offset-0 ea-logo">
                     <img src="img/logo_header.png" alt="Logo Eenmaal Andermaal" class="img-responsive">
                 </div>
-                
+
                 <div class="col-md-9 col-xs-12 ea-searchbar">
                     <div class="input-group">
                         <input type="text" class="form-control">
@@ -37,7 +37,7 @@
                         </div>
                     </div>
             </div>
-                
+
             <!-- Navbar -->
             <div class="row">
                 <div class="col-md-12 col-xs-12 ea-nav">
@@ -51,7 +51,7 @@
                             <span class="icon-bar"></span>
                         </button>
                     </div>
-                        
+
                         <div class="collapse navbar-collapse" id="navbar-collapse-1">
                             <ul class="nav navbar-nav navbar-left">
                                 <li class="active"><a href="#">Home</a></li>
@@ -68,9 +68,9 @@
                     </nav>
                 </div>
             </div>
-            
+
             <!-- Content -->
-            
+
             <!-- Footer -->
     </body>
 </html>
