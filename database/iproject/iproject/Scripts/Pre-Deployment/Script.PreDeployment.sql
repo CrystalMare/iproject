@@ -122,8 +122,7 @@ CREATE TABLE Account (
 CREATE TABLE Phonenumber (
 	username		VARCHAR(16)			NOT NULL,
 	phone			VARCHAR(32)			NOT NULL
-	CONSTRAINT pk_phonenumber PRIMARY KEY (username, phonenumber),
-	CONSTRAINT un_unique_phone UNIQUE (username, phonenumber)
+	CONSTRAINT pk_phonenumber PRIMARY KEY (username, phone)
 );
 
 CREATE TABLE Category (
