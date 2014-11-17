@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2014-11-10" view-index="0" gantt-divider-location="479" resource-divider-location="300" version="2.0" locale="nl">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2014-10-27" view-index="0" gantt-divider-location="432" resource-divider-location="300" version="2.0" locale="nl">
     <description/>
     <view zooming-state="default:6" id="gantt-chart">
         <field id="tpd3" name="Naam" width="56" order="0"/>
@@ -46,23 +46,39 @@
         <task id="0" name="Plan van Aanpak" meeting="false" start="2014-11-10" duration="4" complete="0" expand="true">
             <depend id="9" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="9" name="Ontwerpdocument" meeting="false" start="2014-11-17" duration="4" complete="0" expand="true">
+        <task id="9" name="Ontwerpdocument website" meeting="false" start="2014-11-17" duration="4" complete="0" expand="true">
             <depend id="36" type="2" difference="0" hardness="Strong"/>
+            <task id="82" name="Inleiding" meeting="false" start="2014-11-17" duration="1" complete="0" expand="true"/>
+            <task id="84" name="Doelgroep" meeting="false" start="2014-11-17" duration="1" complete="0" expand="true"/>
             <task id="38" name="Vooronderzoek" meeting="false" start="2014-11-17" duration="1" complete="0" expand="true"/>
-            <task id="39" name="Sitemap" meeting="false" start="2014-11-18" duration="1" complete="0" expand="true"/>
             <task id="40" name="Huisstlijl" meeting="false" start="2014-11-18" duration="1" complete="0" expand="true"/>
+            <task id="39" name="Sitemap" meeting="false" start="2014-11-18" duration="1" complete="0" expand="true"/>
             <task id="41" name="Wireframe" meeting="false" start="2014-11-19" duration="2" complete="0" expand="true"/>
+            <task id="67" name="kwaliteitscontrole" meeting="false" start="2014-11-20" duration="1" complete="0" expand="true"/>
         </task>
         <task id="36" name="Realiseren website" meeting="false" start="2014-11-24" duration="12" complete="0" expand="true">
             <depend id="37" type="2" difference="0" hardness="Strong"/>
             <task id="47" name="Statische website" meeting="false" start="2014-11-24" duration="4" complete="0" expand="true"/>
             <task id="48" name="Dynamische website" meeting="false" start="2014-12-01" duration="6" complete="0" expand="true"/>
             <task id="49" name="Testrapport" meeting="false" start="2014-12-10" duration="2" complete="0" expand="true"/>
+            <task id="70" name="kwaliteitscontrole" meeting="false" start="2014-12-11" duration="1" complete="0" expand="true"/>
         </task>
-        <task id="19" name="Realiseren database" meeting="false" start="2014-11-24" duration="4" complete="0" expand="true"/>
-        <task id="30" name="Realiseren beheerapplicatie" meeting="false" start="2014-12-01" duration="4" complete="0" expand="true">
-            <task id="56" name="Ontwerpdocument beheerapplicatie" meeting="false" start="2014-12-01" duration="1" complete="0" expand="true"/>
-            <task id="58" name="Realiseren beheerapplicatie" meeting="false" start="2014-12-02" duration="3" complete="0" expand="true"/>
+        <task id="86" name="Ontwerpdocument database" meeting="false" start="2014-11-24" duration="4" complete="0" expand="true">
+            <task id="87" name="Tehnisch ontwerp" meeting="false" start="2014-11-24" duration="4" complete="0" expand="true"/>
+            <task id="88" name="kwaliteitscontrole" meeting="false" start="2014-11-27" duration="1" complete="0" expand="true"/>
+        </task>
+        <task id="19" name="Realiseren database" meeting="false" start="2014-12-01" duration="4" complete="0" expand="true">
+            <task id="78" name="Realiseren database" meeting="false" start="2014-12-01" duration="3" complete="0" expand="true"/>
+            <task id="79" name="kwaliteitscontrole" meeting="false" start="2014-12-04" duration="1" complete="0" expand="true"/>
+        </task>
+        <task id="74" name="ontwerpdocument beheerapplicatie" color="#000000" meeting="false" start="2014-11-24" duration="4" complete="0" expand="true">
+            <task id="77" name="Vooronderzoek" meeting="false" start="2014-11-24" duration="2" complete="0" expand="true"/>
+            <task id="75" name="Wireframes" color="#009999" meeting="false" start="2014-11-26" duration="2" complete="0" expand="true"/>
+            <task id="81" name="kwaliteitscontrole" meeting="false" start="2014-11-27" duration="1" complete="0" expand="true"/>
+        </task>
+        <task id="30" name="Realiseren beheerapplicatie" meeting="false" start="2014-12-08" duration="4" complete="0" expand="true">
+            <task id="58" name="Realiseren beheerapplicatie" meeting="false" start="2014-12-08" duration="3" complete="0" expand="true"/>
+            <task id="80" name="kwaliteitscontrole" meeting="false" start="2014-12-11" duration="1" complete="0" expand="true"/>
         </task>
         <task id="37" name="Opleveren eindproduct" meeting="false" start="2014-12-15" duration="12" complete="0" expand="true">
             <task id="61" name="Uitloop" meeting="false" start="2014-12-15" duration="8" complete="0" expand="true"/>
@@ -82,9 +98,9 @@
         <displaycolumn property-id="tpd0" order="-1" width="75" visible="false"/>
         <displaycolumn property-id="tpd9" order="-1" width="75" visible="false"/>
         <displaycolumn property-id="tpd2" order="-1" width="75" visible="false"/>
-        <displaycolumn property-id="tpd3" order="0" width="268" visible="true"/>
-        <displaycolumn property-id="tpd4" order="1" width="92" visible="true"/>
-        <displaycolumn property-id="tpd5" order="2" width="115" visible="true"/>
+        <displaycolumn property-id="tpd3" order="0" width="240" visible="true"/>
+        <displaycolumn property-id="tpd4" order="1" width="84" visible="true"/>
+        <displaycolumn property-id="tpd5" order="2" width="104" visible="true"/>
     </taskdisplaycolumns>
     <previous/>
     <roles roleset-name="Default"/>
