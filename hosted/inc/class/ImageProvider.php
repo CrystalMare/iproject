@@ -2,18 +2,30 @@
 
 class ImageProvider
 {
-    var $datalocation;
-    var $table;
+    public static $datalocation = "auctions/";
+    private static $table = "Files";
     
-    function ImageProvider()
+    static function getImagesForAuction($auction)
     {
-        $this->datalocation = "auctions/img/";
-        $this->table = "Files";
-    }
-    
-    function getImagesForAuction($auction)
-    {
-        
+        GLOBAL $DB;
+        $images = array();
+        $table = ImageProvider::$table;
+        $sql =    "SELECT fileid "
+                . "FROM $table "
+                . "WHERE auctionid = ? "
+                . "ORDER BY fileid ASC;";
+        $stmt = sqlsrv_query($DB, $sql, array($auction));
+        if (!$stmt)
+        {
+            echo "exit1";
+            return null;
+        }
+        $i = 0;
+        while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+            $images[$i] = $row['fileid'];
+            $i++;
+        }
+        return new ImageSet($images, $auction);
     }
 
 } 
@@ -21,21 +33,52 @@ class ImageProvider
 class ImageSet
 {
     private $images;
+    private $auctionid;
     
-    function ImageSet(array $images)
+    public function ImageSet($images, $auctionid)
     {
         $this->images = $images;
+        $this->auctionid = $auctionid;
     }
     
-    function getImageCount()
+    public function getImageCount()
     {
         return count($this->images);
     }
     
-    function getImage(int $i)
+    public function getImage($i)
     {
-        if ($i > getImageCount())
-            return null;
-        return $images[$i];
+        if ($i + 1 > $this->getImageCount()) return null;
+        return ImageProvider::$datalocation . $this->auctionid . "/" . $this->images[$i];
     }
 }
+if (!isset($_GET['auction']) || !isset($_GET['id']))
+{
+    header("HTTP/1.1 404 Not Found", 404);
+    echo 'Image not found';
+    exit();
+}
+$auctionid = $_GET['auction'];
+$imageid = $_GET['id'];
+
+$provider = new ImageProvider();
+
+$images = ImageProvider::getImagesForAuction($auctionid);
+if ($images == null)
+{
+    header("HTTP/1.1 404 Not Found", 404);
+    echo 'Image not found';   
+    exit();
+}
+
+$image = $images->getImage($imageid);
+if ($image == null)
+{
+    header("HTTP/1.1 404 Not Found", 404);
+    echo 'Image not found';
+    exit();
+}
+
+header('Content-Type: image/jpg');
+readfile($image);
+
