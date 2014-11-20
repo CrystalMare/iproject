@@ -10,9 +10,6 @@
 --------------------------------------------------------------------------------------
 */
 
-USE iproject
-
-
 DECLARE @table_schema varchar(100)
        ,@table_name varchar(100)
        ,@constraint_schema varchar(100)
@@ -73,48 +70,51 @@ CLOSE table_cursor
 DEALLOCATE table_cursor
 GO
 
-CREATE TABLE Files (
-	fileid			VARCHAR(64)			NOT NULL,
-	itemid			INT					NOT NULL
-);
+declare @procName varchar(500)
+declare cur cursor 
 
-CREATE TABLE Bid (
-	bidid			INT IDENTITY UNIQUE	NOT NULL,
-	bidammount		NUMERIC(7,2)		NOT NULL,
-	stamp			DATETIME			NOT NULL,
-	username		VARCHAR(16)			NOT NULL,
-	itemid			INT					NOT NULL
-	CONSTRAINT pk_bid PRIMARY KEY (itemid, bidammount),
-	CONSTRAINT chk_atleast_1 CHECK (bidammount > 1.00)
-);
+for select [name] from sys.objects where type = 'p'
+open cur
+fetch next from cur into @procName
+while @@fetch_status = 0
+begin
+    exec('drop procedure ' + @procName)
+    fetch next from cur into @procName
+end
+close cur
+deallocate cur
+GO
 
-CREATE TABLE Feedback (
-	comment			VARCHAR(MAX)		NOT NULL,
-	stamp			DATETIME			NOT NULL,
-	feedbacktype	CHAR(1)				NOT NULL,
-	seller			BIT					NOT NULL,
-	itemid			INT					NOT NULL
-	CONSTRAINT pk_feedback PRIMARY KEY (itemid, seller),
-	CONSTRAINT chk_feedbacktype CHECK (feedbacktype IN ('+', '-', '|'))
-);
+DECLARE @SQLCmd nvarchar(1000) 
+DECLARE @Trig varchar(500)
+DECLARE @sch varchar(500)
 
-CREATE TABLE Account (
-	username		VARCHAR(16)			NOT NULL,
-	firstname		VARCHAR(32)			NOT NULL,
-	lastname		VARCHAR(32)			NOT NULL,
-	address1		VARCHAR(64)			NOT NULL,
-	address2		VARCHAR(64)			NOT NULL,
-	zipcode			VARCHAR(16)			NOT NULL,
-	city			VARCHAR(64)			NOT NULL,
-	country			VARCHAR(32)			NOT NULL	DEFAULT 'Nederland',
-	birthdate		DATE				NOT NULL,
-	email			VARCHAR(32)			NOT NULL,
-	pass			VARCHAR(64)			NOT NULL,
-	questionanswer	VARCHAR(255)		NOT NULL,
-	seller			BIT					NOT NULL,
-	salt			CHAR(8)				NOT NULL
-	CONSTRAINT pk_username PRIMARY KEY (username),
-	CONSTRAINT un_email_already_exists UNIQUE (email),
-	CONSTRAINT chk_nospaces_in_username CHECK (username NOT LIKE ('% %')),
-	CONSTRAINT chk_email CHECK (email LIKE ('_%@_%._%') AND email NOT LIKE ('% %'))
-);
+DECLARE TGCursor CURSOR FOR
+
+SELECT ISNULL(tbl.name, vue.name) AS [schemaName]
+     , trg.name AS triggerName
+FROM sys.triggers trg
+LEFT OUTER JOIN (SELECT tparent.object_id, ts.name 
+                 FROM sys.tables tparent 
+                 INNER JOIN sys.schemas ts ON TS.schema_id = tparent.SCHEMA_ID) 
+                 AS tbl ON tbl.OBJECT_ID = trg.parent_id
+LEFT OUTER JOIN (SELECT vparent.object_id, vs.name 
+                 FROM sys.views vparent 
+                 INNER JOIN sys.schemas vs ON vs.schema_id = vparent.SCHEMA_ID) 
+                 AS vue ON vue.OBJECT_ID = trg.parent_id
+ 
+OPEN TGCursor
+FETCH NEXT FROM TGCursor INTO @sch,@Trig
+WHILE @@FETCH_STATUS = 0
+BEGIN
+
+SET @SQLCmd = N'DROP TRIGGER [' + @sch + '].[' + @Trig + ']'
+EXEC sp_executesql @SQLCmd
+PRINT @SQLCmd
+
+FETCH next FROM TGCursor INTO @sch,@Trig
+END
+
+CLOSE TGCursor
+DEALLOCATE TGCursor
+GO

@@ -164,9 +164,6 @@ GO
 --------------------------------------------------------------------------------------
 */
 
-USE iproject
-
-
 DECLARE @table_schema varchar(100)
        ,@table_name varchar(100)
        ,@constraint_schema varchar(100)
@@ -227,51 +224,221 @@ CLOSE table_cursor
 DEALLOCATE table_cursor
 GO
 
-CREATE TABLE Files (
-	fileid			VARCHAR(64)			NOT NULL,
-	itemid			INT					NOT NULL
+declare @procName varchar(500)
+declare cur cursor 
+
+for select [name] from sys.objects where type = 'p'
+open cur
+fetch next from cur into @procName
+while @@fetch_status = 0
+begin
+    exec('drop procedure ' + @procName)
+    fetch next from cur into @procName
+end
+close cur
+deallocate cur
+GO
+
+DECLARE @SQLCmd nvarchar(1000) 
+DECLARE @Trig varchar(500)
+DECLARE @sch varchar(500)
+
+DECLARE TGCursor CURSOR FOR
+
+SELECT ISNULL(tbl.name, vue.name) AS [schemaName]
+     , trg.name AS triggerName
+FROM sys.triggers trg
+LEFT OUTER JOIN (SELECT tparent.object_id, ts.name 
+                 FROM sys.tables tparent 
+                 INNER JOIN sys.schemas ts ON TS.schema_id = tparent.SCHEMA_ID) 
+                 AS tbl ON tbl.OBJECT_ID = trg.parent_id
+LEFT OUTER JOIN (SELECT vparent.object_id, vs.name 
+                 FROM sys.views vparent 
+                 INNER JOIN sys.schemas vs ON vs.schema_id = vparent.SCHEMA_ID) 
+                 AS vue ON vue.OBJECT_ID = trg.parent_id
+ 
+OPEN TGCursor
+FETCH NEXT FROM TGCursor INTO @sch,@Trig
+WHILE @@FETCH_STATUS = 0
+BEGIN
+
+SET @SQLCmd = N'DROP TRIGGER [' + @sch + '].[' + @Trig + ']'
+EXEC sp_executesql @SQLCmd
+PRINT @SQLCmd
+
+FETCH next FROM TGCursor INTO @sch,@Trig
+END
+
+CLOSE TGCursor
+DEALLOCATE TGCursor
+GO
+
+GO
+PRINT N'Creating [dbo].[Account]...';
+
+
+GO
+CREATE TABLE [dbo].[Account] (
+    [username]       VARCHAR (16)  NOT NULL,
+    [firstname]      VARCHAR (32)  NOT NULL,
+    [lastname]       VARCHAR (32)  NOT NULL,
+    [address1]       VARCHAR (64)  NOT NULL,
+    [address2]       VARCHAR (64)  NOT NULL,
+    [zipcode]        VARCHAR (16)  NOT NULL,
+    [city]           VARCHAR (64)  NOT NULL,
+    [country]        VARCHAR (32)  NOT NULL,
+    [birthdate]      DATE          NOT NULL,
+    [email]          VARCHAR (32)  NOT NULL,
+    [pass]           VARCHAR (64)  NOT NULL,
+    [questionanswer] VARCHAR (255) NOT NULL,
+    [seller]         BIT           NOT NULL,
+    [salt]           CHAR (8)      NOT NULL,
+    CONSTRAINT [pk_username] PRIMARY KEY CLUSTERED ([username] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF),
+    CONSTRAINT [un_email_already_exists] UNIQUE NONCLUSTERED ([email] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF)
 );
 
-CREATE TABLE Bid (
-	bidid			INT IDENTITY UNIQUE	NOT NULL,
-	bidammount		NUMERIC(7,2)		NOT NULL,
-	stamp			DATETIME			NOT NULL,
-	username		VARCHAR(16)			NOT NULL,
-	itemid			INT					NOT NULL
-	CONSTRAINT pk_bid PRIMARY KEY (itemid, bidammount),
-	CONSTRAINT chk_atleast_1 CHECK (bidammount > 1.00)
+
+GO
+PRINT N'Creating [dbo].[Auctionduration]...';
+
+
+GO
+CREATE TABLE [dbo].[Auctionduration] (
+    [duration] INT NOT NULL,
+    CONSTRAINT [pk_duration] PRIMARY KEY CLUSTERED ([duration] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF)
 );
 
-CREATE TABLE Feedback (
-	comment			VARCHAR(MAX)		NOT NULL,
-	stamp			DATETIME			NOT NULL,
-	feedbacktype	CHAR(1)				NOT NULL,
-	seller			BIT					NOT NULL,
-	itemid			INT					NOT NULL
-	CONSTRAINT pk_feedback PRIMARY KEY (itemid, seller),
-	CONSTRAINT chk_feedbacktype CHECK (feedbacktype IN ('+', '-', '|'))
+
+GO
+PRINT N'Creating [dbo].[Bid]...';
+
+
+GO
+CREATE TABLE [dbo].[Bid] (
+    [column_1] INT NOT NULL,
+    [column_2] INT NULL
 );
 
-CREATE TABLE Account (
-	username		VARCHAR(16)			NOT NULL,
-	firstname		VARCHAR(32)			NOT NULL,
-	lastname		VARCHAR(32)			NOT NULL,
-	address1		VARCHAR(64)			NOT NULL,
-	address2		VARCHAR(64)			NOT NULL,
-	zipcode			VARCHAR(16)			NOT NULL,
-	city			VARCHAR(64)			NOT NULL,
-	country			VARCHAR(32)			NOT NULL	DEFAULT 'Nederland',
-	birthdate		DATE				NOT NULL,
-	email			VARCHAR(32)			NOT NULL,
-	pass			VARCHAR(64)			NOT NULL,
-	questionanswer	VARCHAR(255)		NOT NULL,
-	seller			BIT					NOT NULL,
-	salt			CHAR(8)				NOT NULL
-	CONSTRAINT pk_username PRIMARY KEY (username),
-	CONSTRAINT un_email_already_exists UNIQUE (email),
-	CONSTRAINT chk_nospaces_in_username CHECK (username NOT LIKE ('% %')),
-	CONSTRAINT chk_email CHECK (email LIKE ('_%@_%._%') AND email NOT LIKE ('% %'))
+
+GO
+PRINT N'Creating [dbo].[Category]...';
+
+
+GO
+CREATE TABLE [dbo].[Category] (
+    [categoryname]    VARCHAR (64) NOT NULL,
+    [categoryid]      INT          IDENTITY (1, 1) NOT NULL,
+    [parrentcategory] INT          NULL,
+    [sortid]          INT          NOT NULL,
+    CONSTRAINT [pk_category] PRIMARY KEY CLUSTERED ([categoryid] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF)
 );
+
+
+GO
+PRINT N'Creating [dbo].[Files]...';
+
+
+GO
+CREATE TABLE [dbo].[Files] (
+    [bidid]      INT            IDENTITY (1, 1) NOT NULL,
+    [bidammount] NUMERIC (7, 2) NOT NULL,
+    [stamp]      DATETIME       NOT NULL,
+    [username]   VARCHAR (16)   NOT NULL,
+    [auctionid]  INT            NOT NULL,
+    UNIQUE NONCLUSTERED ([bidid] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF),
+    CONSTRAINT [pk_bid] PRIMARY KEY CLUSTERED ([auctionid] ASC, [bidammount] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF)
+);
+
+
+GO
+PRINT N'Creating [dbo].[Phonenumber]...';
+
+
+GO
+CREATE TABLE [dbo].[Phonenumber] (
+    [username] VARCHAR (16) NOT NULL,
+    [phone]    VARCHAR (32) NOT NULL,
+    CONSTRAINT [pk_phonenumber] PRIMARY KEY CLUSTERED ([username] ASC, [phone] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF)
+);
+
+
+GO
+PRINT N'Creating [dbo].[Seller]...';
+
+
+GO
+CREATE TABLE [dbo].[Seller] (
+    [username]     VARCHAR (16) NOT NULL,
+    [bankname]     VARCHAR (16) NULL,
+    [bankaccount]  VARCHAR (43) NOT NULL,
+    [verifyoption] VARCHAR (10) NOT NULL,
+    [creditcard]   VARCHAR (16) NULL,
+    CONSTRAINT [pk_seller] PRIMARY KEY CLUSTERED ([username] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF)
+);
+
+
+GO
+PRINT N'Creating On column: country...';
+
+
+GO
+ALTER TABLE [dbo].[Account]
+    ADD DEFAULT 'Nederland' FOR [country];
+
+
+GO
+PRINT N'Creating chk_email...';
+
+
+GO
+ALTER TABLE [dbo].[Account] WITH NOCHECK
+    ADD CONSTRAINT [chk_email] CHECK (email LIKE ('_%@_%._%') AND email NOT LIKE ('% %'));
+
+
+GO
+PRINT N'Creating chk_nospaces_in_username...';
+
+
+GO
+ALTER TABLE [dbo].[Account] WITH NOCHECK
+    ADD CONSTRAINT [chk_nospaces_in_username] CHECK (username NOT LIKE ('% %'));
+
+
+GO
+PRINT N'Creating chk_duration_more_than_zero...';
+
+
+GO
+ALTER TABLE [dbo].[Auctionduration] WITH NOCHECK
+    ADD CONSTRAINT [chk_duration_more_than_zero] CHECK (duration > 0);
+
+
+GO
+PRINT N'Creating chk_not_itself_as_parrent...';
+
+
+GO
+ALTER TABLE [dbo].[Category] WITH NOCHECK
+    ADD CONSTRAINT [chk_not_itself_as_parrent] CHECK (parrentcategory != categoryid);
+
+
+GO
+PRINT N'Creating chk_atleast_1...';
+
+
+GO
+ALTER TABLE [dbo].[Files] WITH NOCHECK
+    ADD CONSTRAINT [chk_atleast_1] CHECK (bidammount > 1.00);
+
+
+GO
+PRINT N'Creating chk_verifyoption...';
+
+
+GO
+ALTER TABLE [dbo].[Seller] WITH NOCHECK
+    ADD CONSTRAINT [chk_verifyoption] CHECK (verifyoption IN ('creditcard', 'postal'));
+
 
 GO
 -- Refactoring step to update target server with deployed transaction logs
@@ -292,6 +459,28 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
+
+GO
+PRINT N'Checking existing data against newly created constraints';
+
+
+GO
+USE [$(DatabaseName)];
+
+
+GO
+ALTER TABLE [dbo].[Account] WITH CHECK CHECK CONSTRAINT [chk_email];
+
+ALTER TABLE [dbo].[Account] WITH CHECK CHECK CONSTRAINT [chk_nospaces_in_username];
+
+ALTER TABLE [dbo].[Auctionduration] WITH CHECK CHECK CONSTRAINT [chk_duration_more_than_zero];
+
+ALTER TABLE [dbo].[Category] WITH CHECK CHECK CONSTRAINT [chk_not_itself_as_parrent];
+
+ALTER TABLE [dbo].[Files] WITH CHECK CHECK CONSTRAINT [chk_atleast_1];
+
+ALTER TABLE [dbo].[Seller] WITH CHECK CHECK CONSTRAINT [chk_verifyoption];
+
 
 GO
 IF EXISTS (SELECT 1

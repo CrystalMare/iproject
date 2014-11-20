@@ -51,36 +51,6 @@ BEGIN
 END
 
 GO
-IF EXISTS (SELECT 1
-           FROM   [master].[dbo].[sysdatabases]
-           WHERE  [name] = N'$(DatabaseName)')
-    BEGIN
-        ALTER DATABASE [$(DatabaseName)]
-            SET ANSI_NULLS ON,
-                ANSI_PADDING ON,
-                ANSI_WARNINGS ON,
-                ARITHABORT ON,
-                CONCAT_NULL_YIELDS_NULL ON,
-                QUOTED_IDENTIFIER ON,
-                ANSI_NULL_DEFAULT ON,
-                CURSOR_DEFAULT LOCAL,
-                RECOVERY FULL 
-            WITH ROLLBACK IMMEDIATE;
-    END
-
-
-GO
-IF EXISTS (SELECT 1
-           FROM   [master].[dbo].[sysdatabases]
-           WHERE  [name] = N'$(DatabaseName)')
-    BEGIN
-        ALTER DATABASE [$(DatabaseName)]
-            SET PAGE_VERIFY NONE 
-            WITH ROLLBACK IMMEDIATE;
-    END
-
-
-GO
 USE [$(DatabaseName)]
 
 GO
@@ -96,72 +66,56 @@ GO
 --------------------------------------------------------------------------------------
 */
 
-USE iproject
-
-DECLARE @table_schema varchar(100)
-       ,@table_name varchar(100)
-       ,@constraint_schema varchar(100)
-       ,@constraint_name varchar(100)
-       ,@cmd nvarchar(200)
- 
- 
---
--- drop all the constraints
---
-DECLARE constraint_cursor CURSOR FOR
-  select CONSTRAINT_SCHEMA, CONSTRAINT_NAME, TABLE_SCHEMA, TABLE_NAME
-    from INFORMATION_SCHEMA.TABLE_CONSTRAINTS
-   where TABLE_NAME != 'sysdiagrams'
-   order by CONSTRAINT_TYPE asc -- FOREIGN KEY, then PRIMARY KEY
-      
- 
-OPEN constraint_cursor
-FETCH NEXT FROM constraint_cursor INTO @constraint_schema, @constraint_name, @table_schema, @table_name
- 
-WHILE @@FETCH_STATUS = 0 
-BEGIN
-     SELECT @cmd = 'ALTER TABLE [' + @table_schema + '].[' + @table_name + '] DROP CONSTRAINT [' + @constraint_name + ']'
-     --select @cmd
-     EXEC sp_executesql @cmd
- 
-     FETCH NEXT FROM constraint_cursor INTO @constraint_schema, @constraint_name, @table_schema, @table_name
-END
- 
-CLOSE constraint_cursor
-DEALLOCATE constraint_cursor
- 
- 
- 
---
--- drop all the tables
---
-DECLARE table_cursor CURSOR FOR
-  select TABLE_SCHEMA, TABLE_NAME
-    from INFORMATION_SCHEMA.TABLES
-   where TABLE_NAME != 'sysdiagrams'
-     and TABLE_TYPE != 'VIEW'
- 
-OPEN table_cursor
-FETCH NEXT FROM table_cursor INTO @table_schema, @table_name
- 
-WHILE @@FETCH_STATUS = 0 
-BEGIN
-     SELECT @cmd = 'DROP TABLE [' + @table_schema + '].[' + @table_name + ']'
-     --select @cmd
-     EXEC sp_executesql @cmd
- 
- 
-     FETCH NEXT FROM table_cursor INTO @table_schema, @table_name
-END
- 
-CLOSE table_cursor 
-DEALLOCATE table_cursor
 GO
+PRINT N'Dropping chk_email...';
 
-CREATE TABLE Files (
-	filename	VARCHAR(64)		NOT NULL,
-	itemid		INT				NOT NULL
-);
+
+GO
+ALTER TABLE [dbo].[Account] DROP CONSTRAINT [chk_email];
+
+
+GO
+PRINT N'Dropping chk_nospaces_in_username...';
+
+
+GO
+ALTER TABLE [dbo].[Account] DROP CONSTRAINT [chk_nospaces_in_username];
+
+
+GO
+PRINT N'Dropping chk_verifyoption...';
+
+
+GO
+ALTER TABLE [dbo].[Seller] DROP CONSTRAINT [chk_verifyoption];
+
+
+GO
+PRINT N'Creating chk_email...';
+
+
+GO
+ALTER TABLE [dbo].[Account] WITH NOCHECK
+    ADD CONSTRAINT [chk_email] CHECK (email LIKE ('_%@_%._%') AND email NOT LIKE ('% %'));
+
+
+GO
+PRINT N'Creating chk_nospaces_in_username...';
+
+
+GO
+ALTER TABLE [dbo].[Account] WITH NOCHECK
+    ADD CONSTRAINT [chk_nospaces_in_username] CHECK (username NOT LIKE ('% %'));
+
+
+GO
+PRINT N'Creating chk_verifyoption...';
+
+
+GO
+ALTER TABLE [dbo].[Seller] WITH NOCHECK
+    ADD CONSTRAINT [chk_verifyoption] CHECK (verifyoption IN ('creditcard', 'postal'));
+
 
 GO
 /*
@@ -175,5 +129,21 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
+
+GO
+PRINT N'Checking existing data against newly created constraints';
+
+
+GO
+USE [$(DatabaseName)];
+
+
+GO
+ALTER TABLE [dbo].[Account] WITH CHECK CHECK CONSTRAINT [chk_email];
+
+ALTER TABLE [dbo].[Account] WITH CHECK CHECK CONSTRAINT [chk_nospaces_in_username];
+
+ALTER TABLE [dbo].[Seller] WITH CHECK CHECK CONSTRAINT [chk_verifyoption];
+
 
 GO

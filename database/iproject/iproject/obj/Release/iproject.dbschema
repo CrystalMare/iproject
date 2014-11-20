@@ -37,5 +37,924 @@
 				</Entry>
 			</Relationship>
 		</Element>
+		<Element Type="ISql100UniqueConstraint">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Files].[bidid]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Files]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="3" />
+		</Element>
+		<Element Type="ISql90DefaultConstraint">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA['Nederland']]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Account]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[dbo].[Account].[country]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="4" />
+		</Element>
+		<Element Type="ISql100Table" Name="[dbo].[Account]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[username]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="16" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[firstname]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="32" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[lastname]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="32" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[address1]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="64" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[address2]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="64" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[zipcode]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="16" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[city]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="64" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[country]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="32" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<AttachedAnnotation Disambiguator="4" />
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[birthdate]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[date]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[email]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="32" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[pass]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="64" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[questionanswer]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[seller]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bit]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[salt]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="8" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[char]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="5" />
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Owner">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="6" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="7" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="8" />
+		</Element>
+		<Element Type="ISql100Table" Name="[dbo].[Auctionduration]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Auctionduration].[duration]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="9" />
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Owner">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="10" />
+		</Element>
+		<Element Type="ISql100Table" Name="[dbo].[Bid]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Bid].[column_1]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Bid].[column_2]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Owner">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="ISql100Table" Name="[dbo].[Category]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Category].[categoryname]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="64" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Category].[categoryid]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Category].[parrentcategory]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Category].[sortid]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="11" />
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Owner">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="12" />
+		</Element>
+		<Element Type="ISql90CheckConstraint" Name="[dbo].[chk_atleast_1]">
+			<Property Name="CheckExpressionScript">
+				<Value><![CDATA[bidammount > 1.00]]></Value>
+			</Property>
+			<Relationship Name="CheckExpressionDependencies">
+				<Entry>
+					<References Name="[dbo].[Files].[bidammount]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Files]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="13" />
+		</Element>
+		<Element Type="ISql90CheckConstraint" Name="[dbo].[chk_duration_more_than_zero]">
+			<Property Name="CheckExpressionScript">
+				<Value><![CDATA[duration > 0]]></Value>
+			</Property>
+			<Relationship Name="CheckExpressionDependencies">
+				<Entry>
+					<References Name="[dbo].[Auctionduration].[duration]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Auctionduration]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="10" />
+		</Element>
+		<Element Type="ISql90CheckConstraint" Name="[dbo].[chk_email]">
+			<Property Name="CheckExpressionScript">
+				<Value><![CDATA[email LIKE ('_%@_%._%') AND email NOT LIKE ('% %')]]></Value>
+			</Property>
+			<Relationship Name="CheckExpressionDependencies">
+				<Entry>
+					<References Name="[dbo].[Account].[email]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Account]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="8" />
+		</Element>
+		<Element Type="ISql90CheckConstraint" Name="[dbo].[chk_nospaces_in_username]">
+			<Property Name="CheckExpressionScript">
+				<Value><![CDATA[username NOT LIKE ('% %')]]></Value>
+			</Property>
+			<Relationship Name="CheckExpressionDependencies">
+				<Entry>
+					<References Name="[dbo].[Account].[username]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Account]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="7" />
+		</Element>
+		<Element Type="ISql90CheckConstraint" Name="[dbo].[chk_not_itself_as_parrent]">
+			<Property Name="CheckExpressionScript">
+				<Value><![CDATA[parrentcategory != categoryid]]></Value>
+			</Property>
+			<Relationship Name="CheckExpressionDependencies">
+				<Entry>
+					<References Name="[dbo].[Category].[parrentcategory]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Category].[categoryid]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Category]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="12" />
+		</Element>
+		<Element Type="ISql90CheckConstraint" Name="[dbo].[chk_verifyoption]">
+			<Property Name="CheckExpressionScript">
+				<Value><![CDATA[verifyoption IN ('creditcard', 'postal')]]></Value>
+			</Property>
+			<Relationship Name="CheckExpressionDependencies">
+				<Entry>
+					<References Name="[dbo].[Seller].[verifyoption]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Seller]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="14" />
+		</Element>
+		<Element Type="ISql100Table" Name="[dbo].[Files]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Files].[bidid]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<AttachedAnnotation Disambiguator="3" />
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Files].[bidammount]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Scale" Value="2" />
+									<Property Name="Precision" Value="7" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[numeric]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Files].[stamp]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[datetime]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Files].[username]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="16" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Files].[auctionid]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="15" />
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Owner">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="13" />
+		</Element>
+		<Element Type="ISql100Table" Name="[dbo].[Phonenumber]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Phonenumber].[username]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="16" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Phonenumber].[phone]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="32" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="16" />
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Owner">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="ISql100PrimaryKeyConstraint" Name="[dbo].[pk_bid]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Files].[auctionid]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Files].[bidammount]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Files]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="15" />
+		</Element>
+		<Element Type="ISql100PrimaryKeyConstraint" Name="[dbo].[pk_category]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Category].[categoryid]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Category]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="11" />
+		</Element>
+		<Element Type="ISql100PrimaryKeyConstraint" Name="[dbo].[pk_duration]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Auctionduration].[duration]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Auctionduration]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="9" />
+		</Element>
+		<Element Type="ISql100PrimaryKeyConstraint" Name="[dbo].[pk_phonenumber]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Phonenumber].[username]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Phonenumber].[phone]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Phonenumber]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="16" />
+		</Element>
+		<Element Type="ISql100PrimaryKeyConstraint" Name="[dbo].[pk_seller]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Seller].[username]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Seller]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="17" />
+		</Element>
+		<Element Type="ISql100PrimaryKeyConstraint" Name="[dbo].[pk_username]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Account].[username]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Account]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="5" />
+		</Element>
+		<Element Type="ISql100Table" Name="[dbo].[Seller]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Seller].[username]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="16" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Seller].[bankname]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="16" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Seller].[bankaccount]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="43" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Seller].[verifyoption]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="10" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Seller].[creditcard]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="16" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<AttachedAnnotation Disambiguator="17" />
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Owner">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="14" />
+		</Element>
+		<Element Type="ISql100UniqueConstraint" Name="[dbo].[un_email_already_exists]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Account].[email]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Account]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="6" />
+		</Element>
 	</Model>
 </DataSchemaModel>

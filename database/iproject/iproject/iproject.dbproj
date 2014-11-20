@@ -34,7 +34,7 @@
     </SuppressWarnings>
     <DeploymentConfigFile>Properties\Database.sqldeployment</DeploymentConfigFile>
     <SqlCommandVariablesFile>Properties\Database.sqlcmdvars</SqlCommandVariablesFile>
-    <DeployToDatabase>False</DeployToDatabase>
+    <DeployToDatabase>True</DeployToDatabase>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>.\sql\debug\</OutputPath>
@@ -136,5 +136,28 @@
   </ItemGroup>
   <ItemGroup>
     <BuildContributorArgument Include="OutDir=$(OutDir)" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Files.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Bid.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Account.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Phonenumber.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Category.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Seller.table.sql">
+      <SubType>Code</SubType>
+    </Build>
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Auctionduration.table.sql">
+      <SubType>Code</SubType>
+    </Build>
   </ItemGroup>
 </Project>

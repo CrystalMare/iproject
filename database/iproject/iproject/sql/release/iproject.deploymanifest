@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetConnectionString>Data Source=SVENLAPTOP\SQLEXPRESS;Integrated Security=True;Pooling=False</TargetConnectionString>
     <TargetDatabase>iproject</TargetDatabase>
-    <DeployToDatabase>False</DeployToDatabase>
+    <DeployToDatabase>True</DeployToDatabase>
     <DeployToScript>True</DeployToScript>
     <SourceModel>iproject.dbschema</SourceModel>
     <DeployScriptFileName>iproject.sql</DeployScriptFileName>
