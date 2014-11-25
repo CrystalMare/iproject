@@ -138,25 +138,25 @@
     <BuildContributorArgument Include="OutDir=$(OutDir)" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Schema Objects\Schemas\dbo\Tables\Files.table.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Bestand.table.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Schemas\dbo\Tables\Bid.table.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Bod.table.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Schemas\dbo\Tables\Account.table.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Gebruiker.table.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Schemas\dbo\Tables\Phonenumber.table.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Gebruikerstelefoon.table.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Schemas\dbo\Tables\Category.table.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Rubriek.table.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Schemas\dbo\Tables\Seller.table.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Verkoper.table.sql">
       <SubType>Code</SubType>
     </Build>
-    <Build Include="Schema Objects\Schemas\dbo\Tables\Auctionduration.table.sql">
+    <Build Include="Schema Objects\Schemas\dbo\Tables\Looptijd.table.sql">
       <SubType>Code</SubType>
     </Build>
   </ItemGroup>
