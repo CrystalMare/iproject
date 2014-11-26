@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Categorie]
+﻿CREATE TABLE [dbo].[Rubriek]
 (
 	rubrieknaam			VARCHAR(50)			NOT NULL,
 	rubrieknummer		INT IDENTITY		NOT NULL,

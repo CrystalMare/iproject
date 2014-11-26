@@ -37,51 +37,101 @@
 				</Entry>
 			</Relationship>
 		</Element>
-		<Element Type="ISql100UniqueConstraint">
-			<Relationship Name="ColumnSpecifications">
-				<Entry>
-					<Element Type="ISqlIndexedColumnSpecification">
-						<Relationship Name="Column">
-							<Entry>
-								<References Name="[dbo].[Files].[bidid]" />
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-			</Relationship>
-			<Relationship Name="DefiningTable">
-				<Entry>
-					<References Name="[dbo].[Files]" />
-				</Entry>
-			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="3" />
-		</Element>
 		<Element Type="ISql90DefaultConstraint">
 			<Property Name="DefaultExpressionScript">
 				<Value><![CDATA['Nederland']]></Value>
 			</Property>
 			<Relationship Name="DefiningTable">
 				<Entry>
-					<References Name="[dbo].[Account]" />
+					<References Name="[dbo].[Gebruiker]" />
 				</Entry>
 			</Relationship>
 			<Relationship Name="ForColumn">
 				<Entry>
-					<References Name="[dbo].[Account].[country]" />
+					<References Name="[dbo].[Gebruiker].[land]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="3" />
+		</Element>
+		<Element Type="ISql90DefaultConstraint">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[GETDATE()]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Gebruiker]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[dbo].[Gebruiker].[registratie]" />
 				</Entry>
 			</Relationship>
 			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="4" />
 		</Element>
-		<Element Type="ISql100Table" Name="[dbo].[Account]">
+		<Element Type="ISql90DefaultConstraint">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[GETDATE()]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Bod]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[dbo].[Bod].[datumtijd]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="5" />
+		</Element>
+		<Element Type="ISql90DefaultConstraint">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[CAST(1 AS BIT)]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Looptijd]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ExpressionDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bit]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[dbo].[Looptijd].[actief]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="6" />
+		</Element>
+		<Element Type="ISql90DefaultConstraint">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[GETDATE()]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Voorwerp]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[dbo].[Voorwerp].[looptijdbeginmoment]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="7" />
+		</Element>
+		<Element Type="ISql100Table" Name="[dbo].[Bestand]">
 			<Property Name="IsAnsiNullsOn" Value="True" />
 			<Relationship Name="Columns">
 				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[username]">
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Bestand].[filenaam]">
 						<Property Name="IsNullable" Value="False" />
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="ISql90TypeSpecifier">
-									<Property Name="Length" Value="16" />
+									<Property Name="Length" Value="24" />
 									<Relationship Name="Type">
 										<Entry>
 											<References ExternalSource="BuiltIns" Name="[varchar]" />
@@ -93,224 +143,20 @@
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[firstname]">
-						<Property Name="IsNullable" Value="False" />
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="ISql90TypeSpecifier">
-									<Property Name="Length" Value="32" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[lastname]">
-						<Property Name="IsNullable" Value="False" />
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="ISql90TypeSpecifier">
-									<Property Name="Length" Value="32" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[address1]">
-						<Property Name="IsNullable" Value="False" />
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="ISql90TypeSpecifier">
-									<Property Name="Length" Value="64" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[address2]">
-						<Property Name="IsNullable" Value="False" />
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="ISql90TypeSpecifier">
-									<Property Name="Length" Value="64" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[zipcode]">
-						<Property Name="IsNullable" Value="False" />
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="ISql90TypeSpecifier">
-									<Property Name="Length" Value="16" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[city]">
-						<Property Name="IsNullable" Value="False" />
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="ISql90TypeSpecifier">
-									<Property Name="Length" Value="64" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[country]">
-						<Property Name="IsNullable" Value="False" />
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="ISql90TypeSpecifier">
-									<Property Name="Length" Value="32" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-						<AttachedAnnotation Disambiguator="4" />
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[birthdate]">
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Bestand].[voorwerpnummer]">
 						<Property Name="IsNullable" Value="False" />
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="ISql90TypeSpecifier">
 									<Relationship Name="Type">
 										<Entry>
-											<References ExternalSource="BuiltIns" Name="[date]" />
+											<References ExternalSource="BuiltIns" Name="[int]" />
 										</Entry>
 									</Relationship>
 								</Element>
 							</Entry>
 						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[email]">
-						<Property Name="IsNullable" Value="False" />
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="ISql90TypeSpecifier">
-									<Property Name="Length" Value="32" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[pass]">
-						<Property Name="IsNullable" Value="False" />
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="ISql90TypeSpecifier">
-									<Property Name="Length" Value="64" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[questionanswer]">
-						<Property Name="IsNullable" Value="False" />
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="ISql90TypeSpecifier">
-									<Property Name="Length" Value="255" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[seller]">
-						<Property Name="IsNullable" Value="False" />
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="ISql90TypeSpecifier">
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[bit]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Account].[salt]">
-						<Property Name="IsNullable" Value="False" />
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="ISql90TypeSpecifier">
-									<Property Name="Length" Value="8" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[char]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-						<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="5" />
+						<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="8" />
 					</Element>
 				</Entry>
 			</Relationship>
@@ -319,15 +165,81 @@
 					<References ExternalSource="BuiltIns" Name="[dbo]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="6" />
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="7" />
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="8" />
 		</Element>
-		<Element Type="ISql100Table" Name="[dbo].[Auctionduration]">
+		<Element Type="ISql100Table" Name="[dbo].[Bod]">
 			<Property Name="IsAnsiNullsOn" Value="True" />
 			<Relationship Name="Columns">
 				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Auctionduration].[duration]">
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Bod].[bodnummer]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Bod].[bodbedrag]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Scale" Value="2" />
+									<Property Name="Precision" Value="7" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[numeric]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Bod].[datumtijd]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[datetime]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<AttachedAnnotation Disambiguator="5" />
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Bod].[gebruikersnaam]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="16" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Bod].[voorwerpnummer]">
 						<Property Name="IsNullable" Value="False" />
 						<Relationship Name="TypeSpecifier">
 							<Entry>
@@ -350,12 +262,824 @@
 				</Entry>
 			</Relationship>
 			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="10" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="11" />
 		</Element>
-		<Element Type="ISql100Table" Name="[dbo].[Bid]">
+		<Element Type="ISql90CheckConstraint" Name="[dbo].[chk_bodbedrag_meer_dan_1]">
+			<Property Name="CheckExpressionScript">
+				<Value><![CDATA[bodbedrag > 1.00]]></Value>
+			</Property>
+			<Relationship Name="CheckExpressionDependencies">
+				<Entry>
+					<References Name="[dbo].[Bod].[bodbedrag]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Bod]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="11" />
+		</Element>
+		<Element Type="ISql90CheckConstraint" Name="[dbo].[chk_controleoptie]">
+			<Property Name="CheckExpressionScript">
+				<Value><![CDATA[controleoptie IN ('creditcard', 'post')]]></Value>
+			</Property>
+			<Relationship Name="CheckExpressionDependencies">
+				<Entry>
+					<References Name="[dbo].[Verkoper].[controleoptie]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Verkoper]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="12" />
+		</Element>
+		<Element Type="ISql90CheckConstraint" Name="[dbo].[chk_feedbacktype]">
+			<Property Name="CheckExpressionScript">
+				<Value><![CDATA[feedbacktype	 IN ('positief', 'negatief', 'neutraal')]]></Value>
+			</Property>
+			<Relationship Name="CheckExpressionDependencies">
+				<Entry>
+					<References Name="[dbo].[Feedback].[feedbacktype]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Feedback]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="13" />
+		</Element>
+		<Element Type="ISql90CheckConstraint" Name="[dbo].[chk_gebruikersnaam_spaties]">
+			<Property Name="CheckExpressionScript">
+				<Value><![CDATA[gebruikersnaam NOT LIKE ('% %')]]></Value>
+			</Property>
+			<Relationship Name="CheckExpressionDependencies">
+				<Entry>
+					<References Name="[dbo].[Gebruiker].[gebruikersnaam]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Gebruiker]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="14" />
+		</Element>
+		<Element Type="ISql90CheckConstraint" Name="[dbo].[chk_gebruikersoort]">
+			<Property Name="CheckExpressionScript">
+				<Value><![CDATA[gebruikersoort IN ('koper', 'verkoper')]]></Value>
+			</Property>
+			<Relationship Name="CheckExpressionDependencies">
+				<Entry>
+					<References Name="[dbo].[Feedback].[gebruikersoort]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Feedback]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="15" />
+		</Element>
+		<Element Type="ISql90CheckConstraint" Name="[dbo].[chk_lengte_meer_dan_nul]">
+			<Property Name="CheckExpressionScript">
+				<Value><![CDATA[looptijd > 0]]></Value>
+			</Property>
+			<Relationship Name="CheckExpressionDependencies">
+				<Entry>
+					<References Name="[dbo].[Looptijd].[looptijd]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Looptijd]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="16" />
+		</Element>
+		<Element Type="ISql90CheckConstraint" Name="[dbo].[chk_mailbox]">
+			<Property Name="CheckExpressionScript">
+				<Value><![CDATA[mailbox LIKE ('_%@_%._%') AND mailbox NOT LIKE ('% %')]]></Value>
+			</Property>
+			<Relationship Name="CheckExpressionDependencies">
+				<Entry>
+					<References Name="[dbo].[Gebruiker].[mailbox]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Gebruiker]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="17" />
+		</Element>
+		<Element Type="ISql90CheckConstraint" Name="[dbo].[chk_ouderrubriek_niet_zelf]">
+			<Property Name="CheckExpressionScript">
+				<Value><![CDATA[ouderrubriek != rubrieknummer]]></Value>
+			</Property>
+			<Relationship Name="CheckExpressionDependencies">
+				<Entry>
+					<References Name="[dbo].[Rubriek].[ouderrubriek]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Rubriek].[rubrieknummer]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Rubriek]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="18" />
+		</Element>
+		<Element Type="ISql90CheckConstraint" Name="[dbo].[chk_startprijs_minimaal_1]">
+			<Property Name="CheckExpressionScript">
+				<Value><![CDATA[startprijs >= 1.00]]></Value>
+			</Property>
+			<Relationship Name="CheckExpressionDependencies">
+				<Entry>
+					<References Name="[dbo].[Voorwerp].[startprijs]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Voorwerp]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="19" />
+		</Element>
+		<Element Type="ISql100Table" Name="[dbo].[Feedback]">
 			<Property Name="IsAnsiNullsOn" Value="True" />
 			<Relationship Name="Columns">
 				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Bid].[column_1]">
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Feedback].[commentaar]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="IsMax" Value="True" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Feedback].[datumtijd]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[datetime]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Feedback].[feedbacktype]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="8" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[char]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Feedback].[gebruikersoort]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="8" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Feedback].[voorwerpnummer]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="20" />
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Owner">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="13" />
+			<AttachedAnnotation Disambiguator="15" />
+		</Element>
+		<Element Type="ISql90ForeignKeyConstraint" Name="[dbo].[fk_bestand_van_voorwerp]">
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[dbo].[Bestand].[voorwerpnummer]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Bestand]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[dbo].[Voorwerp].[voorwerpnummer]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[dbo].[Voorwerp]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="ISql90ForeignKeyConstraint" Name="[dbo].[fk_bod_gebruiker]">
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[dbo].[Bod].[gebruikersnaam]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Bod]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[dbo].[Gebruiker].[gebruikersnaam]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[dbo].[Gebruiker]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="ISql90ForeignKeyConstraint" Name="[dbo].[fk_bod_van_voorwerp]">
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[dbo].[Bod].[voorwerpnummer]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Bod]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[dbo].[Voorwerp].[voorwerpnummer]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[dbo].[Voorwerp]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="ISql90ForeignKeyConstraint" Name="[dbo].[fk_feedback_op_voorwerp]">
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[dbo].[Feedback].[voorwerpnummer]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Feedback]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[dbo].[Voorwerp].[voorwerpnummer]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[dbo].[Voorwerp]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="ISql90ForeignKeyConstraint" Name="[dbo].[fk_gebruikersnaam]">
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[dbo].[Verkoper].[gebruikersnaam]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Verkoper]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[dbo].[Gebruiker].[gebruikersnaam]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[dbo].[Gebruiker]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="ISql90ForeignKeyConstraint" Name="[dbo].[fk_looptijd_van_voorwerp]">
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[dbo].[Voorwerp].[looptijd]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Voorwerp]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[dbo].[Looptijd].[looptijd]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[dbo].[Looptijd]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="ISql90ForeignKeyConstraint" Name="[dbo].[fk_rubriek_van_voorwerp]">
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[dbo].[Voorwerpinrubriek].[rubrieknummer]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Voorwerpinrubriek]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[dbo].[Rubriek].[rubrieknummer]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[dbo].[Rubriek]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="ISql90ForeignKeyConstraint" Name="[dbo].[fk_subrubriek]">
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[dbo].[Rubriek].[ouderrubriek]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Rubriek]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[dbo].[Rubriek].[rubrieknummer]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[dbo].[Rubriek]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="ISql90ForeignKeyConstraint" Name="[dbo].[fk_telefoon_van_gebruiker]">
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[dbo].[Gebruikerstelefoon].[gebruikersnaam]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Gebruikerstelefoon]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[dbo].[Gebruiker].[gebruikersnaam]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[dbo].[Gebruiker]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="ISql90ForeignKeyConstraint" Name="[dbo].[fk_voorwerp_in_rubriek]">
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[dbo].[Voorwerpinrubriek].[voorwerpnummer]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Voorwerpinrubriek]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[dbo].[Voorwerp].[voorwerpnummer]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[dbo].[Voorwerp]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="ISql90ForeignKeyConstraint" Name="[dbo].[fk_voorwerp_van_verkoper]">
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[dbo].[Voorwerp].[verkoper]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Voorwerp]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[dbo].[Verkoper].[gebruikersnaam]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[dbo].[Verkoper]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="ISql90ForeignKeyConstraint" Name="[dbo].[fk_vraag]">
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[dbo].[Gebruiker].[vraag]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Gebruiker]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[dbo].[Vraag].[vraagnummer]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[dbo].[Vraag]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="ISql100ScalarFunction" Name="[dbo].[fnKoper]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[Voorwerp]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Voorwerp].[gesloten]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Voorwerp].[voorwerpnummer]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[fnKoper].[@voorwerpnummer]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Bod]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Bod].[gebruikersnaam]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Bod].[voorwerpnummer]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Bod].[bodbedrag]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="FunctionBody">
+				<Entry>
+					<Element Type="ISqlScriptFunctionImplementation">
+						<Property Name="BodyScript">
+							<Value><![CDATA[
+BEGIN
+	IF EXISTS
+	(
+		SELECT gesloten
+		FROM Voorwerp
+		WHERE voorwerpnummer = @voorwerpnummer
+	)
+	BEGIN
+		RETURN
+		(
+			SELECT TOP 1 gebruikersnaam
+			FROM Bod
+			WHERE voorwerpnummer = @voorwerpnummer
+			ORDER BY bodbedrag DESC
+		)
+	END
+	BEGIN
+		RETURN
+		(
+			NULL
+		)
+	END
+END]]></Value>
+						</Property>
+						<Annotation Type="SysCommentsObjectAnnotation">
+							<Property Name="Length" Value="383" />
+							<Property Name="StartLine" Value="1" />
+							<Property Name="StartColumn" Value="1" />
+							<Property Name="HeaderContents" Value="CREATE FUNCTION [dbo].[fnKoper]&#xD;&#xA;(&#xD;&#xA;&#x9;@voorwerpnummer INT&#xD;&#xA;)&#xD;&#xA;RETURNS VARCHAR(16)" />
+						</Annotation>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Owner">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="ISql100SubroutineParameter" Name="[dbo].[fnKoper].[@voorwerpnummer]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Type">
+				<Entry>
+					<Element Type="ISql90TypeSpecifier">
+						<Property Name="Length" Value="16" />
+						<Relationship Name="Type">
+							<Entry>
+								<References ExternalSource="BuiltIns" Name="[varchar]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="ISql100Table" Name="[dbo].[Gebruiker]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Gebruiker].[gebruikersnaam]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="16" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Gebruiker].[voornaam]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="35" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Gebruiker].[achternaam]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="35" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Gebruiker].[adresregel1]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="35" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Gebruiker].[adresregel2]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="35" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Gebruiker].[postcode]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="9" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Gebruiker].[plaatsnaam]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="35" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Gebruiker].[land]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="35" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<AttachedAnnotation Disambiguator="3" />
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Gebruiker].[geboortedag]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[date]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Gebruiker].[mailbox]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Gebruiker].[wachtwoord]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="64" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[char]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Gebruiker].[antwoordtekst]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Gebruiker].[vraag]">
 						<Property Name="IsNullable" Value="False" />
 						<Relationship Name="TypeSpecifier">
 							<Entry>
@@ -371,7 +1095,118 @@
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Bid].[column_2]">
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Gebruiker].[verkoper]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bit]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Gebruiker].[salt]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="8" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[char]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Gebruiker].[registratie]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[date]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="21" />
+						<AttachedAnnotation Disambiguator="4" />
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Owner">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="22" />
+			<AttachedAnnotation Disambiguator="14" />
+			<AttachedAnnotation Disambiguator="17" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="23" />
+		</Element>
+		<Element Type="ISql100Table" Name="[dbo].[Gebruikerstelefoon]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Gebruikerstelefoon].[gebruikersnaam]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="16" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Gebruikerstelefoon].[telefoonnummer]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="15" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="24" />
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Owner">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="ISql100Table" Name="[dbo].[Looptijd]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Looptijd].[looptijd]">
+						<Property Name="IsNullable" Value="False" />
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="ISql90TypeSpecifier">
@@ -385,18 +1220,587 @@
 						</Relationship>
 					</Element>
 				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Looptijd].[actief]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bit]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="25" />
+						<AttachedAnnotation Disambiguator="6" />
+					</Element>
+				</Entry>
 			</Relationship>
 			<Relationship Name="Owner">
 				<Entry>
 					<References ExternalSource="BuiltIns" Name="[dbo]" />
 				</Entry>
 			</Relationship>
+			<AttachedAnnotation Disambiguator="16" />
 		</Element>
-		<Element Type="ISql100Table" Name="[dbo].[Category]">
+		<Element Type="ISql100PrimaryKeyConstraint" Name="[dbo].[pk_bod]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Bod].[voorwerpnummer]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Bod].[bodbedrag]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Bod]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="10" />
+		</Element>
+		<Element Type="ISql100PrimaryKeyConstraint" Name="[dbo].[pk_feedback]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Feedback].[voorwerpnummer]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Feedback].[gebruikersoort]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Feedback]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="20" />
+		</Element>
+		<Element Type="ISql100PrimaryKeyConstraint" Name="[dbo].[pk_filenaam]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Bestand].[filenaam]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Bestand]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="8" />
+		</Element>
+		<Element Type="ISql100PrimaryKeyConstraint" Name="[dbo].[pk_gebruikersnaam]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Gebruiker].[gebruikersnaam]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Gebruiker]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="21" />
+		</Element>
+		<Element Type="ISql100PrimaryKeyConstraint" Name="[dbo].[pk_looptijd]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Looptijd].[looptijd]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Looptijd]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="25" />
+		</Element>
+		<Element Type="ISql100PrimaryKeyConstraint" Name="[dbo].[pk_rubriek]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Rubriek].[rubrieknummer]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Rubriek]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="26" />
+		</Element>
+		<Element Type="ISql100PrimaryKeyConstraint" Name="[dbo].[pk_uniek_nummer]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Gebruikerstelefoon].[gebruikersnaam]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Gebruikerstelefoon].[telefoonnummer]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Gebruikerstelefoon]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="24" />
+		</Element>
+		<Element Type="ISql100PrimaryKeyConstraint" Name="[dbo].[pk_verkoper]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Verkoper].[gebruikersnaam]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Verkoper]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="27" />
+		</Element>
+		<Element Type="ISql100PrimaryKeyConstraint" Name="[dbo].[pk_voorwerp]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Voorwerp].[voorwerpnummer]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Voorwerp]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="28" />
+		</Element>
+		<Element Type="ISql100PrimaryKeyConstraint" Name="[dbo].[pk_voorwerpinrubriek]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Voorwerpinrubriek].[voorwerpnummer]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Voorwerpinrubriek].[rubrieknummer]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Voorwerpinrubriek]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="29" />
+		</Element>
+		<Element Type="ISql100PrimaryKeyConstraint" Name="[dbo].[pk_vraag]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Vraag].[vraagnummer]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Vraag]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="30" />
+		</Element>
+		<Element Type="ISql100Table" Name="[dbo].[Rubriek]">
 			<Property Name="IsAnsiNullsOn" Value="True" />
 			<Relationship Name="Columns">
 				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Category].[categoryname]">
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Rubriek].[rubrieknaam]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Rubriek].[rubrieknummer]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Rubriek].[ouderrubriek]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Rubriek].[volgnummer]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<AttachedAnnotation Disambiguator="26" />
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Owner">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="18" />
+		</Element>
+		<Element Type="ISql90DmlTrigger" Name="[dbo].[trgMax4Bestanden]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Property Name="SqlTriggerType" Value="1" />
+			<Property Name="BodyScript">
+				<Value><![CDATA[ 
+    BEGIN
+    	IF EXISTS
+		(
+			SELECT *
+			FROM Bestand
+			GROUP BY voorwerpnummer
+			HAVING COUNT(*) > 4
+		)
+		BEGIN
+			RAISERROR('Maximaal 4 Afbeeldingen',18,1)
+			ROLLBACK
+		END
+    END]]></Value>
+			</Property>
+			<Property Name="IsInsertTrigger" Value="True" />
+			<Property Name="IsUpdateTrigger" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[Bestand]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Bestand].[voorwerpnummer]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parent">
+				<Entry>
+					<References Name="[dbo].[Bestand]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="294" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE TRIGGER [trgMax4Bestanden]&#xD;&#xA;    ON [dbo].[Bestand]&#xD;&#xA;    FOR INSERT, UPDATE &#xD;&#xA;    AS" />
+			</Annotation>
+		</Element>
+		<Element Type="ISql100UniqueConstraint" Name="[dbo].[un_bodnummer]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Bod].[bodnummer]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Bod]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="9" />
+		</Element>
+		<Element Type="ISql100UniqueConstraint" Name="[dbo].[un_email_bestaat]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Gebruiker].[mailbox]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Gebruiker]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="22" />
+		</Element>
+		<Element Type="ISql100UniqueConstraint" Name="[dbo].[un_salt]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Gebruiker].[salt]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Gebruiker]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="23" />
+		</Element>
+		<Element Type="ISql100UniqueConstraint" Name="[dbo].[un_vraag]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="ISqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[Vraag].[vraag]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Vraag]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="31" />
+		</Element>
+		<Element Type="ISql100Table" Name="[dbo].[Verkoper]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Verkoper].[gebruikersnaam]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="16" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Verkoper].[bank]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="16" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Verkoper].[rekeningnummer]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="31" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Verkoper].[controleoptie]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="10" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Verkoper].[creditcard]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="16" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[char]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<AttachedAnnotation Disambiguator="27" />
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Owner">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="12" />
+		</Element>
+		<Element Type="ISql100Table" Name="[dbo].[Voorwerp]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Voorwerp].[voorwerpnummer]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Voorwerp].[titel]">
 						<Property Name="IsNullable" Value="False" />
 						<Relationship Name="TypeSpecifier">
 							<Entry>
@@ -413,184 +1817,24 @@
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Category].[categoryid]">
-						<Property Name="IsNullable" Value="False" />
-						<Property Name="IsIdentity" Value="True" />
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="ISql90TypeSpecifier">
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[int]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Category].[parrentcategory]">
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="ISql90TypeSpecifier">
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[int]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Category].[sortid]">
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Voorwerp].[beschrijving]">
 						<Property Name="IsNullable" Value="False" />
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="ISql90TypeSpecifier">
+									<Property Name="IsMax" Value="True" />
 									<Relationship Name="Type">
 										<Entry>
-											<References ExternalSource="BuiltIns" Name="[int]" />
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
 										</Entry>
 									</Relationship>
 								</Element>
 							</Entry>
 						</Relationship>
-						<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="11" />
-					</Element>
-				</Entry>
-			</Relationship>
-			<Relationship Name="Owner">
-				<Entry>
-					<References ExternalSource="BuiltIns" Name="[dbo]" />
-				</Entry>
-			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="12" />
-		</Element>
-		<Element Type="ISql90CheckConstraint" Name="[dbo].[chk_atleast_1]">
-			<Property Name="CheckExpressionScript">
-				<Value><![CDATA[bidammount > 1.00]]></Value>
-			</Property>
-			<Relationship Name="CheckExpressionDependencies">
-				<Entry>
-					<References Name="[dbo].[Files].[bidammount]" />
-				</Entry>
-			</Relationship>
-			<Relationship Name="DefiningTable">
-				<Entry>
-					<References Name="[dbo].[Files]" />
-				</Entry>
-			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="13" />
-		</Element>
-		<Element Type="ISql90CheckConstraint" Name="[dbo].[chk_duration_more_than_zero]">
-			<Property Name="CheckExpressionScript">
-				<Value><![CDATA[duration > 0]]></Value>
-			</Property>
-			<Relationship Name="CheckExpressionDependencies">
-				<Entry>
-					<References Name="[dbo].[Auctionduration].[duration]" />
-				</Entry>
-			</Relationship>
-			<Relationship Name="DefiningTable">
-				<Entry>
-					<References Name="[dbo].[Auctionduration]" />
-				</Entry>
-			</Relationship>
-			<AttachedAnnotation Disambiguator="10" />
-		</Element>
-		<Element Type="ISql90CheckConstraint" Name="[dbo].[chk_email]">
-			<Property Name="CheckExpressionScript">
-				<Value><![CDATA[email LIKE ('_%@_%._%') AND email NOT LIKE ('% %')]]></Value>
-			</Property>
-			<Relationship Name="CheckExpressionDependencies">
-				<Entry>
-					<References Name="[dbo].[Account].[email]" />
-				</Entry>
-			</Relationship>
-			<Relationship Name="DefiningTable">
-				<Entry>
-					<References Name="[dbo].[Account]" />
-				</Entry>
-			</Relationship>
-			<AttachedAnnotation Disambiguator="8" />
-		</Element>
-		<Element Type="ISql90CheckConstraint" Name="[dbo].[chk_nospaces_in_username]">
-			<Property Name="CheckExpressionScript">
-				<Value><![CDATA[username NOT LIKE ('% %')]]></Value>
-			</Property>
-			<Relationship Name="CheckExpressionDependencies">
-				<Entry>
-					<References Name="[dbo].[Account].[username]" />
-				</Entry>
-			</Relationship>
-			<Relationship Name="DefiningTable">
-				<Entry>
-					<References Name="[dbo].[Account]" />
-				</Entry>
-			</Relationship>
-			<AttachedAnnotation Disambiguator="7" />
-		</Element>
-		<Element Type="ISql90CheckConstraint" Name="[dbo].[chk_not_itself_as_parrent]">
-			<Property Name="CheckExpressionScript">
-				<Value><![CDATA[parrentcategory != categoryid]]></Value>
-			</Property>
-			<Relationship Name="CheckExpressionDependencies">
-				<Entry>
-					<References Name="[dbo].[Category].[parrentcategory]" />
-				</Entry>
-				<Entry>
-					<References Name="[dbo].[Category].[categoryid]" />
-				</Entry>
-			</Relationship>
-			<Relationship Name="DefiningTable">
-				<Entry>
-					<References Name="[dbo].[Category]" />
-				</Entry>
-			</Relationship>
-			<AttachedAnnotation Disambiguator="12" />
-		</Element>
-		<Element Type="ISql90CheckConstraint" Name="[dbo].[chk_verifyoption]">
-			<Property Name="CheckExpressionScript">
-				<Value><![CDATA[verifyoption IN ('creditcard', 'postal')]]></Value>
-			</Property>
-			<Relationship Name="CheckExpressionDependencies">
-				<Entry>
-					<References Name="[dbo].[Seller].[verifyoption]" />
-				</Entry>
-			</Relationship>
-			<Relationship Name="DefiningTable">
-				<Entry>
-					<References Name="[dbo].[Seller]" />
-				</Entry>
-			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="14" />
-		</Element>
-		<Element Type="ISql100Table" Name="[dbo].[Files]">
-			<Property Name="IsAnsiNullsOn" Value="True" />
-			<Relationship Name="Columns">
-				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Files].[bidid]">
-						<Property Name="IsNullable" Value="False" />
-						<Property Name="IsIdentity" Value="True" />
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="ISql90TypeSpecifier">
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[int]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-						<AttachedAnnotation Disambiguator="3" />
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Files].[bidammount]">
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Voorwerp].[startprijs]">
 						<Property Name="IsNullable" Value="False" />
 						<Relationship Name="TypeSpecifier">
 							<Entry>
@@ -608,28 +1852,12 @@
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Files].[stamp]">
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Voorwerp].[betalingswijze]">
 						<Property Name="IsNullable" Value="False" />
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="ISql90TypeSpecifier">
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[datetime]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Files].[username]">
-						<Property Name="IsNullable" Value="False" />
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="ISql90TypeSpecifier">
-									<Property Name="Length" Value="16" />
+									<Property Name="Length" Value="255" />
 									<Relationship Name="Type">
 										<Entry>
 											<References ExternalSource="BuiltIns" Name="[varchar]" />
@@ -641,7 +1869,57 @@
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Files].[auctionid]">
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Voorwerp].[betalingsinstructie]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Voorwerp].[plaatsnaam]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="35" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Voorwerp].[land]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="35" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Voorwerp].[looptijd]">
 						<Property Name="IsNullable" Value="False" />
 						<Relationship Name="TypeSpecifier">
 							<Entry>
@@ -654,7 +1932,109 @@
 								</Element>
 							</Entry>
 						</Relationship>
-						<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="15" />
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Voorwerp].[looptijdbeginmoment]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[datetime]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<AttachedAnnotation Disambiguator="7" />
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Voorwerp].[verzendkosten]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Scale" Value="2" />
+									<Property Name="Precision" Value="7" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[numeric]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Voorwerp].[verzendinstructies]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Voorwerp].[verkoper]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="16" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql90ComputedColumn" Name="[dbo].[Voorwerp].[looptijdeindmoment]">
+						<Property Name="ExpressionScript">
+							<Value><![CDATA[DATEADD(DAY, looptijd, looptijdbeginmoment)]]></Value>
+						</Property>
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[Voorwerp].[looptijd]" />
+							</Entry>
+							<Entry>
+								<References Name="[dbo].[Voorwerp].[looptijdbeginmoment]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql90ComputedColumn" Name="[dbo].[Voorwerp].[gesloten]">
+						<Property Name="ExpressionScript">
+							<Value><![CDATA[CASE WHEN GETDATE() > DATEADD(DAY, looptijd, looptijdbeginmoment)
+			THEN CAST(1 AS BIT)
+			ELSE CAST(0 AS BIT)
+		END]]></Value>
+						</Property>
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[Voorwerp].[looptijd]" />
+							</Entry>
+							<Entry>
+								<References Name="[dbo].[Voorwerp].[looptijdbeginmoment]" />
+							</Entry>
+							<Entry>
+								<References ExternalSource="BuiltIns" Name="[bit]" />
+							</Entry>
+						</Relationship>
 					</Element>
 				</Entry>
 			</Relationship>
@@ -663,21 +2043,21 @@
 					<References ExternalSource="BuiltIns" Name="[dbo]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="13" />
+			<AttachedAnnotation Disambiguator="28" />
+			<AttachedAnnotation Disambiguator="19" />
 		</Element>
-		<Element Type="ISql100Table" Name="[dbo].[Phonenumber]">
+		<Element Type="ISql100Table" Name="[dbo].[Voorwerpinrubriek]">
 			<Property Name="IsAnsiNullsOn" Value="True" />
 			<Relationship Name="Columns">
 				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Phonenumber].[username]">
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Voorwerpinrubriek].[voorwerpnummer]">
 						<Property Name="IsNullable" Value="False" />
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="ISql90TypeSpecifier">
-									<Property Name="Length" Value="16" />
 									<Relationship Name="Type">
 										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
+											<References ExternalSource="BuiltIns" Name="[int]" />
 										</Entry>
 									</Relationship>
 								</Element>
@@ -686,21 +2066,20 @@
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Phonenumber].[phone]">
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Voorwerpinrubriek].[rubrieknummer]">
 						<Property Name="IsNullable" Value="False" />
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="ISql90TypeSpecifier">
-									<Property Name="Length" Value="32" />
 									<Relationship Name="Type">
 										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
+											<References ExternalSource="BuiltIns" Name="[int]" />
 										</Entry>
 									</Relationship>
 								</Element>
 							</Entry>
 						</Relationship>
-						<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="16" />
+						<AttachedAnnotation Disambiguator="29" />
 					</Element>
 				</Entry>
 			</Relationship>
@@ -710,148 +2089,33 @@
 				</Entry>
 			</Relationship>
 		</Element>
-		<Element Type="ISql100PrimaryKeyConstraint" Name="[dbo].[pk_bid]">
-			<Relationship Name="ColumnSpecifications">
-				<Entry>
-					<Element Type="ISqlIndexedColumnSpecification">
-						<Relationship Name="Column">
-							<Entry>
-								<References Name="[dbo].[Files].[auctionid]" />
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="ISqlIndexedColumnSpecification">
-						<Relationship Name="Column">
-							<Entry>
-								<References Name="[dbo].[Files].[bidammount]" />
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-			</Relationship>
-			<Relationship Name="DefiningTable">
-				<Entry>
-					<References Name="[dbo].[Files]" />
-				</Entry>
-			</Relationship>
-			<AttachedAnnotation Disambiguator="15" />
-		</Element>
-		<Element Type="ISql100PrimaryKeyConstraint" Name="[dbo].[pk_category]">
-			<Relationship Name="ColumnSpecifications">
-				<Entry>
-					<Element Type="ISqlIndexedColumnSpecification">
-						<Relationship Name="Column">
-							<Entry>
-								<References Name="[dbo].[Category].[categoryid]" />
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-			</Relationship>
-			<Relationship Name="DefiningTable">
-				<Entry>
-					<References Name="[dbo].[Category]" />
-				</Entry>
-			</Relationship>
-			<AttachedAnnotation Disambiguator="11" />
-		</Element>
-		<Element Type="ISql100PrimaryKeyConstraint" Name="[dbo].[pk_duration]">
-			<Relationship Name="ColumnSpecifications">
-				<Entry>
-					<Element Type="ISqlIndexedColumnSpecification">
-						<Relationship Name="Column">
-							<Entry>
-								<References Name="[dbo].[Auctionduration].[duration]" />
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-			</Relationship>
-			<Relationship Name="DefiningTable">
-				<Entry>
-					<References Name="[dbo].[Auctionduration]" />
-				</Entry>
-			</Relationship>
-			<AttachedAnnotation Disambiguator="9" />
-		</Element>
-		<Element Type="ISql100PrimaryKeyConstraint" Name="[dbo].[pk_phonenumber]">
-			<Relationship Name="ColumnSpecifications">
-				<Entry>
-					<Element Type="ISqlIndexedColumnSpecification">
-						<Relationship Name="Column">
-							<Entry>
-								<References Name="[dbo].[Phonenumber].[username]" />
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="ISqlIndexedColumnSpecification">
-						<Relationship Name="Column">
-							<Entry>
-								<References Name="[dbo].[Phonenumber].[phone]" />
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-			</Relationship>
-			<Relationship Name="DefiningTable">
-				<Entry>
-					<References Name="[dbo].[Phonenumber]" />
-				</Entry>
-			</Relationship>
-			<AttachedAnnotation Disambiguator="16" />
-		</Element>
-		<Element Type="ISql100PrimaryKeyConstraint" Name="[dbo].[pk_seller]">
-			<Relationship Name="ColumnSpecifications">
-				<Entry>
-					<Element Type="ISqlIndexedColumnSpecification">
-						<Relationship Name="Column">
-							<Entry>
-								<References Name="[dbo].[Seller].[username]" />
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-			</Relationship>
-			<Relationship Name="DefiningTable">
-				<Entry>
-					<References Name="[dbo].[Seller]" />
-				</Entry>
-			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="17" />
-		</Element>
-		<Element Type="ISql100PrimaryKeyConstraint" Name="[dbo].[pk_username]">
-			<Relationship Name="ColumnSpecifications">
-				<Entry>
-					<Element Type="ISqlIndexedColumnSpecification">
-						<Relationship Name="Column">
-							<Entry>
-								<References Name="[dbo].[Account].[username]" />
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-			</Relationship>
-			<Relationship Name="DefiningTable">
-				<Entry>
-					<References Name="[dbo].[Account]" />
-				</Entry>
-			</Relationship>
-			<AttachedAnnotation Disambiguator="5" />
-		</Element>
-		<Element Type="ISql100Table" Name="[dbo].[Seller]">
+		<Element Type="ISql100Table" Name="[dbo].[Vraag]">
 			<Property Name="IsAnsiNullsOn" Value="True" />
 			<Relationship Name="Columns">
 				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Seller].[username]">
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Vraag].[vraagnummer]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Vraag].[vraag]">
 						<Property Name="IsNullable" Value="False" />
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="ISql90TypeSpecifier">
-									<Property Name="Length" Value="16" />
+									<Property Name="Length" Value="255" />
 									<Relationship Name="Type">
 										<Entry>
 											<References ExternalSource="BuiltIns" Name="[varchar]" />
@@ -860,73 +2124,7 @@
 								</Element>
 							</Entry>
 						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Seller].[bankname]">
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="ISql90TypeSpecifier">
-									<Property Name="Length" Value="16" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Seller].[bankaccount]">
-						<Property Name="IsNullable" Value="False" />
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="ISql90TypeSpecifier">
-									<Property Name="Length" Value="43" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Seller].[verifyoption]">
-						<Property Name="IsNullable" Value="False" />
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="ISql90TypeSpecifier">
-									<Property Name="Length" Value="10" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="ISql100SimpleColumn" Name="[dbo].[Seller].[creditcard]">
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="ISql90TypeSpecifier">
-									<Property Name="Length" Value="16" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[varchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-						<AttachedAnnotation Disambiguator="17" />
+						<AttachedAnnotation Disambiguator="30" />
 					</Element>
 				</Entry>
 			</Relationship>
@@ -935,26 +2133,7 @@
 					<References ExternalSource="BuiltIns" Name="[dbo]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="14" />
-		</Element>
-		<Element Type="ISql100UniqueConstraint" Name="[dbo].[un_email_already_exists]">
-			<Relationship Name="ColumnSpecifications">
-				<Entry>
-					<Element Type="ISqlIndexedColumnSpecification">
-						<Relationship Name="Column">
-							<Entry>
-								<References Name="[dbo].[Account].[email]" />
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-			</Relationship>
-			<Relationship Name="DefiningTable">
-				<Entry>
-					<References Name="[dbo].[Account]" />
-				</Entry>
-			</Relationship>
-			<AttachedAnnotation Disambiguator="6" />
+			<AttachedAnnotation Disambiguator="31" />
 		</Element>
 	</Model>
 </DataSchemaModel>
