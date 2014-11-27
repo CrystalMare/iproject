@@ -7,7 +7,7 @@
 	adresregel2		VARCHAR(35)			NOT NULL,
 	postcode		VARCHAR(9)			NOT NULL,
 	plaatsnaam		VARCHAR(35)			NOT NULL,
-	land			VARCHAR(35)			NOT NULL	DEFAULT 'Nederland',
+	land			VARCHAR(44)			NOT NULL	DEFAULT 'Netherlands',
 	geboortedag		DATE				NOT NULL,
 	mailbox			VARCHAR(255)		NOT NULL,
 	wachtwoord		CHAR(64)			NOT NULL,

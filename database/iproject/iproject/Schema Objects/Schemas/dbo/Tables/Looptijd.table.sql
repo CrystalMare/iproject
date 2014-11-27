@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Looptijd]
 (
-	looptijd		INT					NOT NULL,
+	looptijd		TINYINT				NOT NULL,
 	actief			BIT					NOT NULL	DEFAULT CAST(1 AS BIT)
 
 	CONSTRAINT pk_looptijd				PRIMARY KEY (looptijd),

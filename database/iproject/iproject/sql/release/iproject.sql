@@ -240,7 +240,7 @@ CREATE TABLE [dbo].[Gebruiker] (
     [adresregel2]    VARCHAR (35)  NOT NULL,
     [postcode]       VARCHAR (9)   NOT NULL,
     [plaatsnaam]     VARCHAR (35)  NOT NULL,
-    [land]           VARCHAR (35)  NOT NULL,
+    [land]           VARCHAR (44)  NOT NULL,
     [geboortedag]    DATE          NOT NULL,
     [mailbox]        VARCHAR (255) NOT NULL,
     [wachtwoord]     CHAR (64)     NOT NULL,
@@ -268,13 +268,24 @@ CREATE TABLE [dbo].[Gebruikerstelefoon] (
 
 
 GO
+PRINT N'Creating [dbo].[Land]...';
+
+
+GO
+CREATE TABLE [dbo].[Land] (
+    [landnaam] VARCHAR (44) NOT NULL,
+    CONSTRAINT [pk_land] PRIMARY KEY CLUSTERED ([landnaam] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF)
+);
+
+
+GO
 PRINT N'Creating [dbo].[Looptijd]...';
 
 
 GO
 CREATE TABLE [dbo].[Looptijd] (
-    [looptijd] INT NOT NULL,
-    [actief]   BIT NOT NULL,
+    [looptijd] TINYINT NOT NULL,
+    [actief]   BIT     NOT NULL,
     CONSTRAINT [pk_looptijd] PRIMARY KEY CLUSTERED ([looptijd] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF)
 );
 
@@ -305,31 +316,6 @@ CREATE TABLE [dbo].[Verkoper] (
     [controleoptie]  VARCHAR (10) NOT NULL,
     [creditcard]     CHAR (16)    NULL,
     CONSTRAINT [pk_verkoper] PRIMARY KEY CLUSTERED ([gebruikersnaam] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF)
-);
-
-
-GO
-PRINT N'Creating [dbo].[Voorwerp]...';
-
-
-GO
-CREATE TABLE [dbo].[Voorwerp] (
-    [voorwerpnummer]      INT            IDENTITY (1, 1) NOT NULL,
-    [titel]               VARCHAR (64)   NOT NULL,
-    [beschrijving]        VARCHAR (MAX)  NOT NULL,
-    [startprijs]          NUMERIC (7, 2) NOT NULL,
-    [betalingswijze]      VARCHAR (255)  NOT NULL,
-    [betalingsinstructie] VARCHAR (255)  NULL,
-    [plaatsnaam]          VARCHAR (35)   NOT NULL,
-    [land]                VARCHAR (35)   NOT NULL,
-    [looptijd]            INT            NOT NULL,
-    [looptijdbeginmoment] DATETIME       NOT NULL,
-    [verzendkosten]       NUMERIC (7, 2) NULL,
-    [verzendinstructies]  VARCHAR (255)  NULL,
-    [verkoper]            VARCHAR (16)   NOT NULL,
-    [looptijdeindmoment]  AS             DATEADD(DAY, looptijd, looptijdbeginmoment),
-    [gesloten]            AS             CASE WHEN GETDATE() > DATEADD(DAY, looptijd, looptijdbeginmoment) THEN CAST (1 AS BIT) ELSE CAST (0 AS BIT) END,
-    CONSTRAINT [pk_voorwerp] PRIMARY KEY CLUSTERED ([voorwerpnummer] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF)
 );
 
 
@@ -373,7 +359,7 @@ PRINT N'Creating On column: land...';
 
 GO
 ALTER TABLE [dbo].[Gebruiker]
-    ADD DEFAULT 'Nederland' FOR [land];
+    ADD DEFAULT 'Netherlands' FOR [land];
 
 
 GO
@@ -395,24 +381,6 @@ ALTER TABLE [dbo].[Looptijd]
 
 
 GO
-PRINT N'Creating On column: looptijdbeginmoment...';
-
-
-GO
-ALTER TABLE [dbo].[Voorwerp]
-    ADD DEFAULT GETDATE() FOR [looptijdbeginmoment];
-
-
-GO
-PRINT N'Creating fk_bestand_van_voorwerp...';
-
-
-GO
-ALTER TABLE [dbo].[Bestand] WITH NOCHECK
-    ADD CONSTRAINT [fk_bestand_van_voorwerp] FOREIGN KEY ([voorwerpnummer]) REFERENCES [dbo].[Voorwerp] ([voorwerpnummer]) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-
-GO
 PRINT N'Creating fk_bod_gebruiker...';
 
 
@@ -422,21 +390,12 @@ ALTER TABLE [dbo].[Bod] WITH NOCHECK
 
 
 GO
-PRINT N'Creating fk_bod_van_voorwerp...';
+PRINT N'Creating fk_land_van_gebruiker...';
 
 
 GO
-ALTER TABLE [dbo].[Bod] WITH NOCHECK
-    ADD CONSTRAINT [fk_bod_van_voorwerp] FOREIGN KEY ([voorwerpnummer]) REFERENCES [dbo].[Voorwerp] ([voorwerpnummer]) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-
-GO
-PRINT N'Creating fk_feedback_op_voorwerp...';
-
-
-GO
-ALTER TABLE [dbo].[Feedback] WITH NOCHECK
-    ADD CONSTRAINT [fk_feedback_op_voorwerp] FOREIGN KEY ([voorwerpnummer]) REFERENCES [dbo].[Voorwerp] ([voorwerpnummer]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE [dbo].[Gebruiker] WITH NOCHECK
+    ADD CONSTRAINT [fk_land_van_gebruiker] FOREIGN KEY ([land]) REFERENCES [dbo].[Land] ([landnaam]) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 
 GO
@@ -476,39 +435,12 @@ ALTER TABLE [dbo].[Verkoper] WITH NOCHECK
 
 
 GO
-PRINT N'Creating fk_looptijd_van_voorwerp...';
-
-
-GO
-ALTER TABLE [dbo].[Voorwerp] WITH NOCHECK
-    ADD CONSTRAINT [fk_looptijd_van_voorwerp] FOREIGN KEY ([looptijd]) REFERENCES [dbo].[Looptijd] ([looptijd]) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-
-GO
-PRINT N'Creating fk_voorwerp_van_verkoper...';
-
-
-GO
-ALTER TABLE [dbo].[Voorwerp] WITH NOCHECK
-    ADD CONSTRAINT [fk_voorwerp_van_verkoper] FOREIGN KEY ([verkoper]) REFERENCES [dbo].[Verkoper] ([gebruikersnaam]) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-
-GO
 PRINT N'Creating fk_rubriek_van_voorwerp...';
 
 
 GO
 ALTER TABLE [dbo].[Voorwerpinrubriek] WITH NOCHECK
     ADD CONSTRAINT [fk_rubriek_van_voorwerp] FOREIGN KEY ([rubrieknummer]) REFERENCES [dbo].[Rubriek] ([rubrieknummer]) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-
-GO
-PRINT N'Creating fk_voorwerp_in_rubriek...';
-
-
-GO
-ALTER TABLE [dbo].[Voorwerpinrubriek] WITH NOCHECK
-    ADD CONSTRAINT [fk_voorwerp_in_rubriek] FOREIGN KEY ([voorwerpnummer]) REFERENCES [dbo].[Voorwerp] ([voorwerpnummer]) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 
 GO
@@ -584,15 +516,6 @@ ALTER TABLE [dbo].[Verkoper] WITH NOCHECK
 
 
 GO
-PRINT N'Creating chk_startprijs_minimaal_1...';
-
-
-GO
-ALTER TABLE [dbo].[Voorwerp] WITH NOCHECK
-    ADD CONSTRAINT [chk_startprijs_minimaal_1] CHECK (startprijs >= 1.00);
-
-
-GO
 PRINT N'Creating [dbo].[trgMax4Bestanden]...';
 
 
@@ -615,6 +538,28 @@ CREATE TRIGGER [trgMax4Bestanden]
 		END
     END
 GO
+PRINT N'Creating [dbo].[trgMax2Telefoon]...';
+
+
+GO
+CREATE TRIGGER [trgMax2Telefoon]
+    ON [dbo].[Gebruikerstelefoon]
+    FOR INSERT, UPDATE 
+    AS 
+    BEGIN
+    	IF EXISTS
+		(
+			SELECT *
+			FROM Gebruikerstelefoon
+			GROUP BY gebruikersnaam
+			HAVING COUNT(*) > 2
+		)
+		BEGIN
+			RAISERROR('Maximaal 2 telefoonnummers',18,1)
+			ROLLBACK
+		END
+    END
+GO
 PRINT N'Creating [dbo].[fnKoper]...';
 
 
@@ -627,8 +572,13 @@ RETURNS VARCHAR(16)
 BEGIN
 	IF EXISTS
 	(
-		SELECT gesloten
+		SELECT *
 		FROM Voorwerp
+		WHERE voorwerpnummer = @voorwerpnummer AND gesloten = 1
+	) AND EXISTS
+	(
+		SELECT *
+		FROM Bod
 		WHERE voorwerpnummer = @voorwerpnummer
 	)
 	BEGIN
@@ -647,6 +597,179 @@ BEGIN
 		)
 	END
 END
+GO
+PRINT N'Creating [dbo].[fnVerkoopPrijs]...';
+
+
+GO
+CREATE FUNCTION [dbo].[fnVerkoopPrijs]
+(
+	@voorwerpnummer INT
+)
+RETURNS NUMERIC(7,2)
+BEGIN
+	IF EXISTS
+	(
+		SELECT *
+		FROM Voorwerp
+		WHERE voorwerpnummer = @voorwerpnummer AND gesloten = 1
+	) AND EXISTS
+	(
+		SELECT *
+		FROM Bod
+		WHERE voorwerpnummer = @voorwerpnummer
+	)
+	BEGIN
+		RETURN
+		(
+			SELECT TOP 1 bodbedrag
+			FROM Bod
+			WHERE voorwerpnummer = @voorwerpnummer
+			ORDER BY bodbedrag DESC
+		)
+	END
+	BEGIN
+		RETURN
+		(
+			NULL
+		)
+	END
+END
+GO
+PRINT N'Creating [dbo].[Voorwerp]...';
+
+
+GO
+CREATE TABLE [dbo].[Voorwerp] (
+    [voorwerpnummer]      INT            IDENTITY (1, 1) NOT NULL,
+    [titel]               VARCHAR (64)   NOT NULL,
+    [beschrijving]        VARCHAR (MAX)  NOT NULL,
+    [startprijs]          NUMERIC (7, 2) NOT NULL,
+    [betalingswijze]      VARCHAR (255)  NOT NULL,
+    [betalingsinstructie] VARCHAR (255)  NULL,
+    [plaatsnaam]          VARCHAR (35)   NOT NULL,
+    [land]                VARCHAR (44)   NOT NULL,
+    [looptijd]            TINYINT        NOT NULL,
+    [looptijdbeginmoment] DATETIME       NOT NULL,
+    [verzendkosten]       NUMERIC (7, 2) NULL,
+    [verzendinstructies]  VARCHAR (255)  NULL,
+    [verkoper]            VARCHAR (16)   NOT NULL,
+    [looptijdeindmoment]  AS             DATEADD(DAY, looptijd, looptijdbeginmoment),
+    [gesloten]            AS             CASE WHEN GETDATE() > DATEADD(DAY, looptijd, looptijdbeginmoment) THEN CAST (1 AS BIT) ELSE CAST (0 AS BIT) END,
+    [koper]               AS             dbo.fnKoper(voorwerpnummer),
+    [verkoopprijs]        AS             dbo.fnVerkoopPrijs(voorwerpnummer),
+    CONSTRAINT [pk_voorwerp] PRIMARY KEY CLUSTERED ([voorwerpnummer] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF)
+);
+
+
+GO
+PRINT N'Creating fk_bestand_van_voorwerp...';
+
+
+GO
+ALTER TABLE [dbo].[Bestand] WITH NOCHECK
+    ADD CONSTRAINT [fk_bestand_van_voorwerp] FOREIGN KEY ([voorwerpnummer]) REFERENCES [dbo].[Voorwerp] ([voorwerpnummer]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+
+GO
+PRINT N'Creating fk_bod_van_voorwerp...';
+
+
+GO
+ALTER TABLE [dbo].[Bod] WITH NOCHECK
+    ADD CONSTRAINT [fk_bod_van_voorwerp] FOREIGN KEY ([voorwerpnummer]) REFERENCES [dbo].[Voorwerp] ([voorwerpnummer]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+
+GO
+PRINT N'Creating fk_feedback_op_voorwerp...';
+
+
+GO
+ALTER TABLE [dbo].[Feedback] WITH NOCHECK
+    ADD CONSTRAINT [fk_feedback_op_voorwerp] FOREIGN KEY ([voorwerpnummer]) REFERENCES [dbo].[Voorwerp] ([voorwerpnummer]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+
+GO
+PRINT N'Creating fk_land_van_voorwerp...';
+
+
+GO
+ALTER TABLE [dbo].[Voorwerp] WITH NOCHECK
+    ADD CONSTRAINT [fk_land_van_voorwerp] FOREIGN KEY ([land]) REFERENCES [dbo].[Land] ([landnaam]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+
+GO
+PRINT N'Creating fk_looptijd_van_voorwerp...';
+
+
+GO
+ALTER TABLE [dbo].[Voorwerp] WITH NOCHECK
+    ADD CONSTRAINT [fk_looptijd_van_voorwerp] FOREIGN KEY ([looptijd]) REFERENCES [dbo].[Looptijd] ([looptijd]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+
+GO
+PRINT N'Creating fk_voorwerp_van_verkoper...';
+
+
+GO
+ALTER TABLE [dbo].[Voorwerp] WITH NOCHECK
+    ADD CONSTRAINT [fk_voorwerp_van_verkoper] FOREIGN KEY ([verkoper]) REFERENCES [dbo].[Verkoper] ([gebruikersnaam]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+
+GO
+PRINT N'Creating fk_voorwerp_in_rubriek...';
+
+
+GO
+ALTER TABLE [dbo].[Voorwerpinrubriek] WITH NOCHECK
+    ADD CONSTRAINT [fk_voorwerp_in_rubriek] FOREIGN KEY ([voorwerpnummer]) REFERENCES [dbo].[Voorwerp] ([voorwerpnummer]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+
+GO
+PRINT N'Creating On column: betalingswijze...';
+
+
+GO
+ALTER TABLE [dbo].[Voorwerp]
+    ADD DEFAULT 'Bank/Giro' FOR [betalingswijze];
+
+
+GO
+PRINT N'Creating On column: land...';
+
+
+GO
+ALTER TABLE [dbo].[Voorwerp]
+    ADD DEFAULT 'Netherlands' FOR [land];
+
+
+GO
+PRINT N'Creating On column: looptijdbeginmoment...';
+
+
+GO
+ALTER TABLE [dbo].[Voorwerp]
+    ADD DEFAULT GETDATE() FOR [looptijdbeginmoment];
+
+
+GO
+PRINT N'Creating chk_startprijs_minimaal_1...';
+
+
+GO
+ALTER TABLE [dbo].[Voorwerp] WITH NOCHECK
+    ADD CONSTRAINT [chk_startprijs_minimaal_1] CHECK (startprijs >= 1.00);
+
+
+GO
+PRINT N'Creating chk_titel_lang_genoeg...';
+
+
+GO
+ALTER TABLE [dbo].[Voorwerp] WITH NOCHECK
+    ADD CONSTRAINT [chk_titel_lang_genoeg] CHECK (LEN(titel) > 2);
+
+
 GO
 -- Refactoring step to update target server with deployed transaction logs
 CREATE TABLE  [dbo].[__RefactorLog] (OperationKey UNIQUEIDENTIFIER NOT NULL PRIMARY KEY)
@@ -667,6 +790,257 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
+INSERT INTO Land (landnaam) VALUES ('Andorra');
+INSERT INTO Land (landnaam) VALUES ('United Arab Emirates');
+INSERT INTO Land (landnaam) VALUES ('Afghanistan');
+INSERT INTO Land (landnaam) VALUES ('Antigua and Barbuda');
+INSERT INTO Land (landnaam) VALUES ('Anguilla');
+INSERT INTO Land (landnaam) VALUES ('Albania');
+INSERT INTO Land (landnaam) VALUES ('Armenia');
+INSERT INTO Land (landnaam) VALUES ('Angola');
+INSERT INTO Land (landnaam) VALUES ('Antarctica');
+INSERT INTO Land (landnaam) VALUES ('Argentina');
+INSERT INTO Land (landnaam) VALUES ('American Samoa');
+INSERT INTO Land (landnaam) VALUES ('Austria');
+INSERT INTO Land (landnaam) VALUES ('Australia');
+INSERT INTO Land (landnaam) VALUES ('Aruba');
+INSERT INTO Land (landnaam) VALUES ('Åland');
+INSERT INTO Land (landnaam) VALUES ('Azerbaijan');
+INSERT INTO Land (landnaam) VALUES ('Bosnia and Herzegovina');
+INSERT INTO Land (landnaam) VALUES ('Barbados');
+INSERT INTO Land (landnaam) VALUES ('Bangladesh');
+INSERT INTO Land (landnaam) VALUES ('Belgium');
+INSERT INTO Land (landnaam) VALUES ('Burkina Faso');
+INSERT INTO Land (landnaam) VALUES ('Bulgaria');
+INSERT INTO Land (landnaam) VALUES ('Bahrain');
+INSERT INTO Land (landnaam) VALUES ('Burundi');
+INSERT INTO Land (landnaam) VALUES ('Benin');
+INSERT INTO Land (landnaam) VALUES ('Saint Barthélemy');
+INSERT INTO Land (landnaam) VALUES ('Bermuda');
+INSERT INTO Land (landnaam) VALUES ('Brunei');
+INSERT INTO Land (landnaam) VALUES ('Bolivia');
+INSERT INTO Land (landnaam) VALUES ('Bonaire');
+INSERT INTO Land (landnaam) VALUES ('Brazil');
+INSERT INTO Land (landnaam) VALUES ('Bahamas');
+INSERT INTO Land (landnaam) VALUES ('Bhutan');
+INSERT INTO Land (landnaam) VALUES ('Bouvet Island');
+INSERT INTO Land (landnaam) VALUES ('Botswana');
+INSERT INTO Land (landnaam) VALUES ('Belarus');
+INSERT INTO Land (landnaam) VALUES ('Belize');
+INSERT INTO Land (landnaam) VALUES ('Canada');
+INSERT INTO Land (landnaam) VALUES ('Cocos [Keeling] Islands');
+INSERT INTO Land (landnaam) VALUES ('Democratic Republic of the Congo');
+INSERT INTO Land (landnaam) VALUES ('Central African Republic');
+INSERT INTO Land (landnaam) VALUES ('Republic of the Congo');
+INSERT INTO Land (landnaam) VALUES ('Switzerland');
+INSERT INTO Land (landnaam) VALUES ('Ivory Coast');
+INSERT INTO Land (landnaam) VALUES ('Cook Islands');
+INSERT INTO Land (landnaam) VALUES ('Chile');
+INSERT INTO Land (landnaam) VALUES ('Cameroon');
+INSERT INTO Land (landnaam) VALUES ('China');
+INSERT INTO Land (landnaam) VALUES ('Colombia');
+INSERT INTO Land (landnaam) VALUES ('Costa Rica');
+INSERT INTO Land (landnaam) VALUES ('Cuba');
+INSERT INTO Land (landnaam) VALUES ('Cape Verde');
+INSERT INTO Land (landnaam) VALUES ('Curacao');
+INSERT INTO Land (landnaam) VALUES ('Christmas Island');
+INSERT INTO Land (landnaam) VALUES ('Cyprus');
+INSERT INTO Land (landnaam) VALUES ('Czech Republic');
+INSERT INTO Land (landnaam) VALUES ('Germany');
+INSERT INTO Land (landnaam) VALUES ('Djibouti');
+INSERT INTO Land (landnaam) VALUES ('Denmark');
+INSERT INTO Land (landnaam) VALUES ('Dominica');
+INSERT INTO Land (landnaam) VALUES ('Dominican Republic');
+INSERT INTO Land (landnaam) VALUES ('Algeria');
+INSERT INTO Land (landnaam) VALUES ('Ecuador');
+INSERT INTO Land (landnaam) VALUES ('Estonia');
+INSERT INTO Land (landnaam) VALUES ('Egypt');
+INSERT INTO Land (landnaam) VALUES ('Western Sahara');
+INSERT INTO Land (landnaam) VALUES ('Eritrea');
+INSERT INTO Land (landnaam) VALUES ('Spain');
+INSERT INTO Land (landnaam) VALUES ('Ethiopia');
+INSERT INTO Land (landnaam) VALUES ('Finland');
+INSERT INTO Land (landnaam) VALUES ('Fiji');
+INSERT INTO Land (landnaam) VALUES ('Falkland Islands');
+INSERT INTO Land (landnaam) VALUES ('Micronesia');
+INSERT INTO Land (landnaam) VALUES ('Faroe Islands');
+INSERT INTO Land (landnaam) VALUES ('France');
+INSERT INTO Land (landnaam) VALUES ('Gabon');
+INSERT INTO Land (landnaam) VALUES ('United Kingdom');
+INSERT INTO Land (landnaam) VALUES ('Grenada');
+INSERT INTO Land (landnaam) VALUES ('Georgia');
+INSERT INTO Land (landnaam) VALUES ('French Guiana');
+INSERT INTO Land (landnaam) VALUES ('Guernsey');
+INSERT INTO Land (landnaam) VALUES ('Ghana');
+INSERT INTO Land (landnaam) VALUES ('Gibraltar');
+INSERT INTO Land (landnaam) VALUES ('Greenland');
+INSERT INTO Land (landnaam) VALUES ('Gambia');
+INSERT INTO Land (landnaam) VALUES ('Guinea');
+INSERT INTO Land (landnaam) VALUES ('Guadeloupe');
+INSERT INTO Land (landnaam) VALUES ('Equatorial Guinea');
+INSERT INTO Land (landnaam) VALUES ('Greece');
+INSERT INTO Land (landnaam) VALUES ('South Georgia and the South Sandwich Islands');
+INSERT INTO Land (landnaam) VALUES ('Guatemala');
+INSERT INTO Land (landnaam) VALUES ('Guam');
+INSERT INTO Land (landnaam) VALUES ('Guinea-Bissau');
+INSERT INTO Land (landnaam) VALUES ('Guyana');
+INSERT INTO Land (landnaam) VALUES ('Hong Kong');
+INSERT INTO Land (landnaam) VALUES ('Heard Island and McDonald Islands');
+INSERT INTO Land (landnaam) VALUES ('Honduras');
+INSERT INTO Land (landnaam) VALUES ('Croatia');
+INSERT INTO Land (landnaam) VALUES ('Haiti');
+INSERT INTO Land (landnaam) VALUES ('Hungary');
+INSERT INTO Land (landnaam) VALUES ('Indonesia');
+INSERT INTO Land (landnaam) VALUES ('Ireland');
+INSERT INTO Land (landnaam) VALUES ('Israel');
+INSERT INTO Land (landnaam) VALUES ('Isle of Man');
+INSERT INTO Land (landnaam) VALUES ('India');
+INSERT INTO Land (landnaam) VALUES ('British Indian Ocean Territory');
+INSERT INTO Land (landnaam) VALUES ('Iraq');
+INSERT INTO Land (landnaam) VALUES ('Iran');
+INSERT INTO Land (landnaam) VALUES ('Iceland');
+INSERT INTO Land (landnaam) VALUES ('Italy');
+INSERT INTO Land (landnaam) VALUES ('Jersey');
+INSERT INTO Land (landnaam) VALUES ('Jamaica');
+INSERT INTO Land (landnaam) VALUES ('Jordan');
+INSERT INTO Land (landnaam) VALUES ('Japan');
+INSERT INTO Land (landnaam) VALUES ('Kenya');
+INSERT INTO Land (landnaam) VALUES ('Kyrgyzstan');
+INSERT INTO Land (landnaam) VALUES ('Cambodia');
+INSERT INTO Land (landnaam) VALUES ('Kiribati');
+INSERT INTO Land (landnaam) VALUES ('Comoros');
+INSERT INTO Land (landnaam) VALUES ('Saint Kitts and Nevis');
+INSERT INTO Land (landnaam) VALUES ('North Korea');
+INSERT INTO Land (landnaam) VALUES ('South Korea');
+INSERT INTO Land (landnaam) VALUES ('Kuwait');
+INSERT INTO Land (landnaam) VALUES ('Cayman Islands');
+INSERT INTO Land (landnaam) VALUES ('Kazakhstan');
+INSERT INTO Land (landnaam) VALUES ('Laos');
+INSERT INTO Land (landnaam) VALUES ('Lebanon');
+INSERT INTO Land (landnaam) VALUES ('Saint Lucia');
+INSERT INTO Land (landnaam) VALUES ('Liechtenstein');
+INSERT INTO Land (landnaam) VALUES ('Sri Lanka');
+INSERT INTO Land (landnaam) VALUES ('Liberia');
+INSERT INTO Land (landnaam) VALUES ('Lesotho');
+INSERT INTO Land (landnaam) VALUES ('Lithuania');
+INSERT INTO Land (landnaam) VALUES ('Luxembourg');
+INSERT INTO Land (landnaam) VALUES ('Latvia');
+INSERT INTO Land (landnaam) VALUES ('Libya');
+INSERT INTO Land (landnaam) VALUES ('Morocco');
+INSERT INTO Land (landnaam) VALUES ('Monaco');
+INSERT INTO Land (landnaam) VALUES ('Moldova');
+INSERT INTO Land (landnaam) VALUES ('Montenegro');
+INSERT INTO Land (landnaam) VALUES ('Saint Martin');
+INSERT INTO Land (landnaam) VALUES ('Madagascar');
+INSERT INTO Land (landnaam) VALUES ('Marshall Islands');
+INSERT INTO Land (landnaam) VALUES ('Macedonia');
+INSERT INTO Land (landnaam) VALUES ('Mali');
+INSERT INTO Land (landnaam) VALUES ('Myanmar [Burma]');
+INSERT INTO Land (landnaam) VALUES ('Mongolia');
+INSERT INTO Land (landnaam) VALUES ('Macao');
+INSERT INTO Land (landnaam) VALUES ('Northern Mariana Islands');
+INSERT INTO Land (landnaam) VALUES ('Martinique');
+INSERT INTO Land (landnaam) VALUES ('Mauritania');
+INSERT INTO Land (landnaam) VALUES ('Montserrat');
+INSERT INTO Land (landnaam) VALUES ('Malta');
+INSERT INTO Land (landnaam) VALUES ('Mauritius');
+INSERT INTO Land (landnaam) VALUES ('Maldives');
+INSERT INTO Land (landnaam) VALUES ('Malawi');
+INSERT INTO Land (landnaam) VALUES ('Mexico');
+INSERT INTO Land (landnaam) VALUES ('Malaysia');
+INSERT INTO Land (landnaam) VALUES ('Mozambique');
+INSERT INTO Land (landnaam) VALUES ('Namibia');
+INSERT INTO Land (landnaam) VALUES ('New Caledonia');
+INSERT INTO Land (landnaam) VALUES ('Niger');
+INSERT INTO Land (landnaam) VALUES ('Norfolk Island');
+INSERT INTO Land (landnaam) VALUES ('Nigeria');
+INSERT INTO Land (landnaam) VALUES ('Nicaragua');
+INSERT INTO Land (landnaam) VALUES ('Netherlands');
+INSERT INTO Land (landnaam) VALUES ('Norway');
+INSERT INTO Land (landnaam) VALUES ('Nepal');
+INSERT INTO Land (landnaam) VALUES ('Nauru');
+INSERT INTO Land (landnaam) VALUES ('Niue');
+INSERT INTO Land (landnaam) VALUES ('New Zealand');
+INSERT INTO Land (landnaam) VALUES ('Oman');
+INSERT INTO Land (landnaam) VALUES ('Panama');
+INSERT INTO Land (landnaam) VALUES ('Peru');
+INSERT INTO Land (landnaam) VALUES ('French Polynesia');
+INSERT INTO Land (landnaam) VALUES ('Papua New Guinea');
+INSERT INTO Land (landnaam) VALUES ('Philippines');
+INSERT INTO Land (landnaam) VALUES ('Pakistan');
+INSERT INTO Land (landnaam) VALUES ('Poland');
+INSERT INTO Land (landnaam) VALUES ('Saint Pierre and Miquelon');
+INSERT INTO Land (landnaam) VALUES ('Pitcairn Islands');
+INSERT INTO Land (landnaam) VALUES ('Puerto Rico');
+INSERT INTO Land (landnaam) VALUES ('Palestine');
+INSERT INTO Land (landnaam) VALUES ('Portugal');
+INSERT INTO Land (landnaam) VALUES ('Palau');
+INSERT INTO Land (landnaam) VALUES ('Paraguay');
+INSERT INTO Land (landnaam) VALUES ('Qatar');
+INSERT INTO Land (landnaam) VALUES ('Réunion');
+INSERT INTO Land (landnaam) VALUES ('Romania');
+INSERT INTO Land (landnaam) VALUES ('Serbia');
+INSERT INTO Land (landnaam) VALUES ('Russia');
+INSERT INTO Land (landnaam) VALUES ('Rwanda');
+INSERT INTO Land (landnaam) VALUES ('Saudi Arabia');
+INSERT INTO Land (landnaam) VALUES ('Solomon Islands');
+INSERT INTO Land (landnaam) VALUES ('Seychelles');
+INSERT INTO Land (landnaam) VALUES ('Sudan');
+INSERT INTO Land (landnaam) VALUES ('Sweden');
+INSERT INTO Land (landnaam) VALUES ('Singapore');
+INSERT INTO Land (landnaam) VALUES ('Saint Helena');
+INSERT INTO Land (landnaam) VALUES ('Slovenia');
+INSERT INTO Land (landnaam) VALUES ('Svalbard and Jan Mayen');
+INSERT INTO Land (landnaam) VALUES ('Slovakia');
+INSERT INTO Land (landnaam) VALUES ('Sierra Leone');
+INSERT INTO Land (landnaam) VALUES ('San Marino');
+INSERT INTO Land (landnaam) VALUES ('Senegal');
+INSERT INTO Land (landnaam) VALUES ('Somalia');
+INSERT INTO Land (landnaam) VALUES ('Suriname');
+INSERT INTO Land (landnaam) VALUES ('South Sudan');
+INSERT INTO Land (landnaam) VALUES ('São Tomé and Príncipe');
+INSERT INTO Land (landnaam) VALUES ('El Salvador');
+INSERT INTO Land (landnaam) VALUES ('Sint Maarten');
+INSERT INTO Land (landnaam) VALUES ('Syria');
+INSERT INTO Land (landnaam) VALUES ('Swaziland');
+INSERT INTO Land (landnaam) VALUES ('Turks and Caicos Islands');
+INSERT INTO Land (landnaam) VALUES ('Chad');
+INSERT INTO Land (landnaam) VALUES ('French Southern Territories');
+INSERT INTO Land (landnaam) VALUES ('Togo');
+INSERT INTO Land (landnaam) VALUES ('Thailand');
+INSERT INTO Land (landnaam) VALUES ('Tajikistan');
+INSERT INTO Land (landnaam) VALUES ('Tokelau');
+INSERT INTO Land (landnaam) VALUES ('East Timor');
+INSERT INTO Land (landnaam) VALUES ('Turkmenistan');
+INSERT INTO Land (landnaam) VALUES ('Tunisia');
+INSERT INTO Land (landnaam) VALUES ('Tonga');
+INSERT INTO Land (landnaam) VALUES ('Turkey');
+INSERT INTO Land (landnaam) VALUES ('Trinidad and Tobago');
+INSERT INTO Land (landnaam) VALUES ('Tuvalu');
+INSERT INTO Land (landnaam) VALUES ('Taiwan');
+INSERT INTO Land (landnaam) VALUES ('Tanzania');
+INSERT INTO Land (landnaam) VALUES ('Ukraine');
+INSERT INTO Land (landnaam) VALUES ('Uganda');
+INSERT INTO Land (landnaam) VALUES ('U.S. Minor Outlying Islands');
+INSERT INTO Land (landnaam) VALUES ('United States');
+INSERT INTO Land (landnaam) VALUES ('Uruguay');
+INSERT INTO Land (landnaam) VALUES ('Uzbekistan');
+INSERT INTO Land (landnaam) VALUES ('Vatican City');
+INSERT INTO Land (landnaam) VALUES ('Saint Vincent and the Grenadines');
+INSERT INTO Land (landnaam) VALUES ('Venezuela');
+INSERT INTO Land (landnaam) VALUES ('British Virgin Islands');
+INSERT INTO Land (landnaam) VALUES ('U.S. Virgin Islands');
+INSERT INTO Land (landnaam) VALUES ('Vietnam');
+INSERT INTO Land (landnaam) VALUES ('Vanuatu');
+INSERT INTO Land (landnaam) VALUES ('Wallis and Futuna');
+INSERT INTO Land (landnaam) VALUES ('Samoa');
+INSERT INTO Land (landnaam) VALUES ('Kosovo');
+INSERT INTO Land (landnaam) VALUES ('Yemen');
+INSERT INTO Land (landnaam) VALUES ('Mayotte');
+INSERT INTO Land (landnaam) VALUES ('South Africa');
+INSERT INTO Land (landnaam) VALUES ('Zambia');
+INSERT INTO Land (landnaam) VALUES ('Zimbabwe');
+
 GO
 PRINT N'Checking existing data against newly created constraints';
 
@@ -676,13 +1050,9 @@ USE [$(DatabaseName)];
 
 
 GO
-ALTER TABLE [dbo].[Bestand] WITH CHECK CHECK CONSTRAINT [fk_bestand_van_voorwerp];
-
 ALTER TABLE [dbo].[Bod] WITH CHECK CHECK CONSTRAINT [fk_bod_gebruiker];
 
-ALTER TABLE [dbo].[Bod] WITH CHECK CHECK CONSTRAINT [fk_bod_van_voorwerp];
-
-ALTER TABLE [dbo].[Feedback] WITH CHECK CHECK CONSTRAINT [fk_feedback_op_voorwerp];
+ALTER TABLE [dbo].[Gebruiker] WITH CHECK CHECK CONSTRAINT [fk_land_van_gebruiker];
 
 ALTER TABLE [dbo].[Gebruiker] WITH CHECK CHECK CONSTRAINT [fk_vraag];
 
@@ -692,13 +1062,7 @@ ALTER TABLE [dbo].[Rubriek] WITH CHECK CHECK CONSTRAINT [fk_subrubriek];
 
 ALTER TABLE [dbo].[Verkoper] WITH CHECK CHECK CONSTRAINT [fk_gebruikersnaam];
 
-ALTER TABLE [dbo].[Voorwerp] WITH CHECK CHECK CONSTRAINT [fk_looptijd_van_voorwerp];
-
-ALTER TABLE [dbo].[Voorwerp] WITH CHECK CHECK CONSTRAINT [fk_voorwerp_van_verkoper];
-
 ALTER TABLE [dbo].[Voorwerpinrubriek] WITH CHECK CHECK CONSTRAINT [fk_rubriek_van_voorwerp];
-
-ALTER TABLE [dbo].[Voorwerpinrubriek] WITH CHECK CHECK CONSTRAINT [fk_voorwerp_in_rubriek];
 
 ALTER TABLE [dbo].[Bod] WITH CHECK CHECK CONSTRAINT [chk_bodbedrag_meer_dan_1];
 
@@ -716,7 +1080,23 @@ ALTER TABLE [dbo].[Rubriek] WITH CHECK CHECK CONSTRAINT [chk_ouderrubriek_niet_z
 
 ALTER TABLE [dbo].[Verkoper] WITH CHECK CHECK CONSTRAINT [chk_controleoptie];
 
+ALTER TABLE [dbo].[Bestand] WITH CHECK CHECK CONSTRAINT [fk_bestand_van_voorwerp];
+
+ALTER TABLE [dbo].[Bod] WITH CHECK CHECK CONSTRAINT [fk_bod_van_voorwerp];
+
+ALTER TABLE [dbo].[Feedback] WITH CHECK CHECK CONSTRAINT [fk_feedback_op_voorwerp];
+
+ALTER TABLE [dbo].[Voorwerp] WITH CHECK CHECK CONSTRAINT [fk_land_van_voorwerp];
+
+ALTER TABLE [dbo].[Voorwerp] WITH CHECK CHECK CONSTRAINT [fk_looptijd_van_voorwerp];
+
+ALTER TABLE [dbo].[Voorwerp] WITH CHECK CHECK CONSTRAINT [fk_voorwerp_van_verkoper];
+
+ALTER TABLE [dbo].[Voorwerpinrubriek] WITH CHECK CHECK CONSTRAINT [fk_voorwerp_in_rubriek];
+
 ALTER TABLE [dbo].[Voorwerp] WITH CHECK CHECK CONSTRAINT [chk_startprijs_minimaal_1];
+
+ALTER TABLE [dbo].[Voorwerp] WITH CHECK CHECK CONSTRAINT [chk_titel_lang_genoeg];
 
 
 GO
