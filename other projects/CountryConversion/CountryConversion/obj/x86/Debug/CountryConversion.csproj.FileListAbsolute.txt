@@ -1,0 +1,8 @@
+E:\iproject\other projects\CountryConversion\CountryConversion\bin\Debug\CountryConversion.exe
+E:\iproject\other projects\CountryConversion\CountryConversion\bin\Debug\CountryConversion.pdb
+E:\iproject\other projects\CountryConversion\CountryConversion\bin\Debug\Newtonsoft.Json.dll
+E:\iproject\other projects\CountryConversion\CountryConversion\bin\Debug\Newtonsoft.Json.xml
+E:\iproject\other projects\CountryConversion\CountryConversion\obj\x86\Debug\CountryConversion.csprojResolveAssemblyReference.cache
+E:\iproject\other projects\CountryConversion\CountryConversion\obj\x86\Debug\CountryConversion.exe
+E:\iproject\other projects\CountryConversion\CountryConversion\obj\x86\Debug\CountryConversion.pdb
+E:\iproject\other projects\CountryConversion\CountryConversion\bin\Debug\data.json

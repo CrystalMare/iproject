@@ -6,8 +6,13 @@ RETURNS VARCHAR(16)
 BEGIN
 	IF EXISTS
 	(
-		SELECT gesloten
+		SELECT *
 		FROM Voorwerp
+		WHERE voorwerpnummer = @voorwerpnummer AND gesloten = 1
+	) AND EXISTS
+	(
+		SELECT *
+		FROM Bod
 		WHERE voorwerpnummer = @voorwerpnummer
 	)
 	BEGIN
