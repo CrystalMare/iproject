@@ -13,7 +13,7 @@
 	wachtwoord		CHAR(64)			NOT NULL,
 	antwoordtekst	VARCHAR(255)		NOT NULL,
 	vraag			INT					NOT NULL,
-	verkoper		BIT					NOT NULL,
+	verkoper		AS dbo.fnIsKoper(gebruikersnaam),
 	salt			CHAR(8)				NOT NULL,
 	registratie		DATE				NOT NULL	DEFAULT GETDATE()
 

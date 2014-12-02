@@ -228,6 +228,9 @@
     <Build Include="Schema Objects\Schemas\dbo\Tables\Triggers\Gebruikerstelefoon.trgMax2Telefoon.trigger.sql">
       <SubType>Code</SubType>
     </Build>
+    <Build Include="Schema Objects\Schemas\dbo\Programmability\Functions\fnIsKoper.function.sql">
+      <SubType>Code</SubType>
+    </Build>
   </ItemGroup>
   <ItemGroup>
     <NotInBuild Include="Relationeel schema.png">
