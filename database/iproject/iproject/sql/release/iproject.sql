@@ -292,6 +292,18 @@ CREATE TABLE [dbo].[Verkoper] (
 
 
 GO
+PRINT N'Creating [dbo].[Verkoperverificatie]...';
+
+
+GO
+CREATE TABLE [dbo].[Verkoperverificatie] (
+    [gebruikersnaam] VARCHAR (16) NOT NULL,
+    [aanvraagmoment] DATETIME     NOT NULL,
+    CONSTRAINT [pk_aanvraag_van_gebruiker] PRIMARY KEY CLUSTERED ([gebruikersnaam] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF)
+);
+
+
+GO
 PRINT N'Creating [dbo].[Voorwerpinrubriek]...';
 
 
@@ -332,6 +344,15 @@ PRINT N'Creating On column: actief...';
 GO
 ALTER TABLE [dbo].[Looptijd]
     ADD DEFAULT CAST(1 AS BIT) FOR [actief];
+
+
+GO
+PRINT N'Creating On column: aanvraagmoment...';
+
+
+GO
+ALTER TABLE [dbo].[Verkoperverificatie]
+    ADD DEFAULT GETDATE() FOR [aanvraagmoment];
 
 
 GO
@@ -497,7 +518,7 @@ CREATE TABLE [dbo].[Gebruiker] (
     [geboortedag]    DATE          NOT NULL,
     [mailbox]        VARCHAR (255) NOT NULL,
     [wachtwoord]     CHAR (64)     NOT NULL,
-    [antwoordtekst]  VARCHAR (255) NOT NULL,
+    [antwoordtekst]  CHAR (64)     NOT NULL,
     [vraag]          INT           NOT NULL,
     [verkoper]       AS            dbo.fnIsKoper(gebruikersnaam),
     [salt]           CHAR (8)      NOT NULL,
@@ -551,6 +572,15 @@ PRINT N'Creating fk_gebruikersnaam...';
 GO
 ALTER TABLE [dbo].[Verkoper] WITH NOCHECK
     ADD CONSTRAINT [fk_gebruikersnaam] FOREIGN KEY ([gebruikersnaam]) REFERENCES [dbo].[Gebruiker] ([gebruikersnaam]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+
+GO
+PRINT N'Creating fk_verificatie_van_gebruiker...';
+
+
+GO
+ALTER TABLE [dbo].[Verkoperverificatie] WITH NOCHECK
+    ADD CONSTRAINT [fk_verificatie_van_gebruiker] FOREIGN KEY ([gebruikersnaam]) REFERENCES [dbo].[Gebruiker] ([gebruikersnaam]) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 
 GO
@@ -1105,6 +1135,8 @@ ALTER TABLE [dbo].[Gebruiker] WITH CHECK CHECK CONSTRAINT [fk_vraag];
 ALTER TABLE [dbo].[Gebruikerstelefoon] WITH CHECK CHECK CONSTRAINT [fk_telefoon_van_gebruiker];
 
 ALTER TABLE [dbo].[Verkoper] WITH CHECK CHECK CONSTRAINT [fk_gebruikersnaam];
+
+ALTER TABLE [dbo].[Verkoperverificatie] WITH CHECK CHECK CONSTRAINT [fk_verificatie_van_gebruiker];
 
 ALTER TABLE [dbo].[Gebruiker] WITH CHECK CHECK CONSTRAINT [chk_gebruikersnaam_spaties];
 

@@ -11,7 +11,7 @@
 	geboortedag		DATE				NOT NULL,
 	mailbox			VARCHAR(255)		NOT NULL,
 	wachtwoord		CHAR(64)			NOT NULL,
-	antwoordtekst	VARCHAR(255)		NOT NULL,
+	antwoordtekst	CHAR(64	)			NOT NULL,
 	vraag			INT					NOT NULL,
 	verkoper		AS dbo.fnIsKoper(gebruikersnaam),
 	salt			CHAR(8)				NOT NULL,
