@@ -10,8 +10,8 @@ SET NUMERIC_ROUNDABORT OFF;
 
 GO
 :setvar DatabaseName "iproject"
-:setvar DefaultDataPath "e:\Program Files\Microsoft SQL Server\MSSQL10_50.SQLEXPRESS\MSSQL\DATA\"
-:setvar DefaultLogPath "e:\Program Files\Microsoft SQL Server\MSSQL10_50.SQLEXPRESS\MSSQL\DATA\"
+:setvar DefaultDataPath "C:\Program Files\Microsoft SQL Server\MSSQL10_50.SQLEXPRESS\MSSQL\DATA\"
+:setvar DefaultLogPath "C:\Program Files\Microsoft SQL Server\MSSQL10_50.SQLEXPRESS\MSSQL\DATA\"
 
 GO
 USE [master]
@@ -228,34 +228,6 @@ CREATE TABLE [dbo].[Feedback] (
 
 
 GO
-PRINT N'Creating [dbo].[Gebruiker]...';
-
-
-GO
-CREATE TABLE [dbo].[Gebruiker] (
-    [gebruikersnaam] VARCHAR (16)  NOT NULL,
-    [voornaam]       VARCHAR (35)  NOT NULL,
-    [achternaam]     VARCHAR (35)  NOT NULL,
-    [adresregel1]    VARCHAR (35)  NOT NULL,
-    [adresregel2]    VARCHAR (35)  NOT NULL,
-    [postcode]       VARCHAR (9)   NOT NULL,
-    [plaatsnaam]     VARCHAR (35)  NOT NULL,
-    [land]           VARCHAR (44)  NOT NULL,
-    [geboortedag]    DATE          NOT NULL,
-    [mailbox]        VARCHAR (255) NOT NULL,
-    [wachtwoord]     CHAR (64)     NOT NULL,
-    [antwoordtekst]  VARCHAR (255) NOT NULL,
-    [vraag]          INT           NOT NULL,
-    [verkoper]       BIT           NOT NULL,
-    [salt]           CHAR (8)      NOT NULL,
-    [registratie]    DATE          NOT NULL,
-    CONSTRAINT [pk_gebruikersnaam] PRIMARY KEY CLUSTERED ([gebruikersnaam] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF),
-    CONSTRAINT [un_email_bestaat] UNIQUE NONCLUSTERED ([mailbox] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF),
-    CONSTRAINT [un_salt] UNIQUE NONCLUSTERED ([salt] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF)
-);
-
-
-GO
 PRINT N'Creating [dbo].[Gebruikerstelefoon]...';
 
 
@@ -354,24 +326,6 @@ ALTER TABLE [dbo].[Bod]
 
 
 GO
-PRINT N'Creating On column: land...';
-
-
-GO
-ALTER TABLE [dbo].[Gebruiker]
-    ADD DEFAULT 'Netherlands' FOR [land];
-
-
-GO
-PRINT N'Creating On column: registratie...';
-
-
-GO
-ALTER TABLE [dbo].[Gebruiker]
-    ADD DEFAULT GETDATE() FOR [registratie];
-
-
-GO
 PRINT N'Creating On column: actief...';
 
 
@@ -381,57 +335,12 @@ ALTER TABLE [dbo].[Looptijd]
 
 
 GO
-PRINT N'Creating fk_bod_gebruiker...';
-
-
-GO
-ALTER TABLE [dbo].[Bod] WITH NOCHECK
-    ADD CONSTRAINT [fk_bod_gebruiker] FOREIGN KEY ([gebruikersnaam]) REFERENCES [dbo].[Gebruiker] ([gebruikersnaam]) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-
-GO
-PRINT N'Creating fk_land_van_gebruiker...';
-
-
-GO
-ALTER TABLE [dbo].[Gebruiker] WITH NOCHECK
-    ADD CONSTRAINT [fk_land_van_gebruiker] FOREIGN KEY ([land]) REFERENCES [dbo].[Land] ([landnaam]) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-
-GO
-PRINT N'Creating fk_vraag...';
-
-
-GO
-ALTER TABLE [dbo].[Gebruiker] WITH NOCHECK
-    ADD CONSTRAINT [fk_vraag] FOREIGN KEY ([vraag]) REFERENCES [dbo].[Vraag] ([vraagnummer]) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-
-GO
-PRINT N'Creating fk_telefoon_van_gebruiker...';
-
-
-GO
-ALTER TABLE [dbo].[Gebruikerstelefoon] WITH NOCHECK
-    ADD CONSTRAINT [fk_telefoon_van_gebruiker] FOREIGN KEY ([gebruikersnaam]) REFERENCES [dbo].[Gebruiker] ([gebruikersnaam]) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-
-GO
 PRINT N'Creating fk_subrubriek...';
 
 
 GO
 ALTER TABLE [dbo].[Rubriek] WITH NOCHECK
     ADD CONSTRAINT [fk_subrubriek] FOREIGN KEY ([ouderrubriek]) REFERENCES [dbo].[Rubriek] ([rubrieknummer]) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-
-GO
-PRINT N'Creating fk_gebruikersnaam...';
-
-
-GO
-ALTER TABLE [dbo].[Verkoper] WITH NOCHECK
-    ADD CONSTRAINT [fk_gebruikersnaam] FOREIGN KEY ([gebruikersnaam]) REFERENCES [dbo].[Gebruiker] ([gebruikersnaam]) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 
 GO
@@ -468,24 +377,6 @@ PRINT N'Creating chk_gebruikersoort...';
 GO
 ALTER TABLE [dbo].[Feedback] WITH NOCHECK
     ADD CONSTRAINT [chk_gebruikersoort] CHECK (gebruikersoort IN ('koper', 'verkoper'));
-
-
-GO
-PRINT N'Creating chk_gebruikersnaam_spaties...';
-
-
-GO
-ALTER TABLE [dbo].[Gebruiker] WITH NOCHECK
-    ADD CONSTRAINT [chk_gebruikersnaam_spaties] CHECK (gebruikersnaam NOT LIKE ('% %'));
-
-
-GO
-PRINT N'Creating chk_mailbox...';
-
-
-GO
-ALTER TABLE [dbo].[Gebruiker] WITH NOCHECK
-    ADD CONSTRAINT [chk_mailbox] CHECK (mailbox LIKE ('_%@_%._%') AND mailbox NOT LIKE ('% %'));
 
 
 GO
@@ -559,6 +450,145 @@ CREATE TRIGGER [trgMax2Telefoon]
 			ROLLBACK
 		END
     END
+GO
+PRINT N'Creating [dbo].[fnIsKoper]...';
+
+
+GO
+CREATE FUNCTION [dbo].[fnIsKoper]
+(
+	@gebruikersnaam VARCHAR(16) 
+	
+)
+RETURNS BIT
+BEGIN
+	IF EXISTS
+	(
+		SELECT *
+		FROM Verkoper
+		WHERE gebruikersnaam = @gebruikersnaam
+	)
+	BEGIN RETURN
+	(
+		CAST(1 AS BIT)
+	)
+	END
+
+	BEGIN RETURN
+	(
+		CAST(0 AS BIT)
+	)
+	END
+END
+GO
+PRINT N'Creating [dbo].[Gebruiker]...';
+
+
+GO
+CREATE TABLE [dbo].[Gebruiker] (
+    [gebruikersnaam] VARCHAR (16)  NOT NULL,
+    [voornaam]       VARCHAR (35)  NOT NULL,
+    [achternaam]     VARCHAR (35)  NOT NULL,
+    [adresregel1]    VARCHAR (35)  NOT NULL,
+    [adresregel2]    VARCHAR (35)  NOT NULL,
+    [postcode]       VARCHAR (9)   NOT NULL,
+    [plaatsnaam]     VARCHAR (35)  NOT NULL,
+    [land]           VARCHAR (44)  NOT NULL,
+    [geboortedag]    DATE          NOT NULL,
+    [mailbox]        VARCHAR (255) NOT NULL,
+    [wachtwoord]     CHAR (64)     NOT NULL,
+    [antwoordtekst]  VARCHAR (255) NOT NULL,
+    [vraag]          INT           NOT NULL,
+    [verkoper]       AS            dbo.fnIsKoper(gebruikersnaam),
+    [salt]           CHAR (8)      NOT NULL,
+    [registratie]    DATE          NOT NULL,
+    CONSTRAINT [pk_gebruikersnaam] PRIMARY KEY CLUSTERED ([gebruikersnaam] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF),
+    CONSTRAINT [un_email_bestaat] UNIQUE NONCLUSTERED ([mailbox] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF),
+    CONSTRAINT [un_salt] UNIQUE NONCLUSTERED ([salt] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF)
+);
+
+
+GO
+PRINT N'Creating fk_bod_gebruiker...';
+
+
+GO
+ALTER TABLE [dbo].[Bod] WITH NOCHECK
+    ADD CONSTRAINT [fk_bod_gebruiker] FOREIGN KEY ([gebruikersnaam]) REFERENCES [dbo].[Gebruiker] ([gebruikersnaam]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+
+GO
+PRINT N'Creating fk_land_van_gebruiker...';
+
+
+GO
+ALTER TABLE [dbo].[Gebruiker] WITH NOCHECK
+    ADD CONSTRAINT [fk_land_van_gebruiker] FOREIGN KEY ([land]) REFERENCES [dbo].[Land] ([landnaam]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+
+GO
+PRINT N'Creating fk_vraag...';
+
+
+GO
+ALTER TABLE [dbo].[Gebruiker] WITH NOCHECK
+    ADD CONSTRAINT [fk_vraag] FOREIGN KEY ([vraag]) REFERENCES [dbo].[Vraag] ([vraagnummer]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+
+GO
+PRINT N'Creating fk_telefoon_van_gebruiker...';
+
+
+GO
+ALTER TABLE [dbo].[Gebruikerstelefoon] WITH NOCHECK
+    ADD CONSTRAINT [fk_telefoon_van_gebruiker] FOREIGN KEY ([gebruikersnaam]) REFERENCES [dbo].[Gebruiker] ([gebruikersnaam]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+
+GO
+PRINT N'Creating fk_gebruikersnaam...';
+
+
+GO
+ALTER TABLE [dbo].[Verkoper] WITH NOCHECK
+    ADD CONSTRAINT [fk_gebruikersnaam] FOREIGN KEY ([gebruikersnaam]) REFERENCES [dbo].[Gebruiker] ([gebruikersnaam]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+
+GO
+PRINT N'Creating On column: land...';
+
+
+GO
+ALTER TABLE [dbo].[Gebruiker]
+    ADD DEFAULT 'Netherlands' FOR [land];
+
+
+GO
+PRINT N'Creating On column: registratie...';
+
+
+GO
+ALTER TABLE [dbo].[Gebruiker]
+    ADD DEFAULT GETDATE() FOR [registratie];
+
+
+GO
+PRINT N'Creating chk_gebruikersnaam_spaties...';
+
+
+GO
+ALTER TABLE [dbo].[Gebruiker] WITH NOCHECK
+    ADD CONSTRAINT [chk_gebruikersnaam_spaties] CHECK (gebruikersnaam NOT LIKE ('% %'));
+
+
+GO
+PRINT N'Creating chk_mailbox...';
+
+
+GO
+ALTER TABLE [dbo].[Gebruiker] WITH NOCHECK
+    ADD CONSTRAINT [chk_mailbox] CHECK (mailbox LIKE ('_%@_%._%') AND mailbox NOT LIKE ('% %'));
+
+
 GO
 PRINT N'Creating [dbo].[fnKoper]...';
 
@@ -726,15 +756,6 @@ ALTER TABLE [dbo].[Voorwerpinrubriek] WITH NOCHECK
 
 
 GO
-PRINT N'Creating On column: betalingswijze...';
-
-
-GO
-ALTER TABLE [dbo].[Voorwerp]
-    ADD DEFAULT 'Bank/Giro' FOR [betalingswijze];
-
-
-GO
 PRINT N'Creating On column: land...';
 
 
@@ -750,6 +771,15 @@ PRINT N'Creating On column: looptijdbeginmoment...';
 GO
 ALTER TABLE [dbo].[Voorwerp]
     ADD DEFAULT GETDATE() FOR [looptijdbeginmoment];
+
+
+GO
+PRINT N'Creating On column: betalingswijze...';
+
+
+GO
+ALTER TABLE [dbo].[Voorwerp]
+    ADD DEFAULT 'Bank/Giro' FOR [betalingswijze];
 
 
 GO
@@ -1050,17 +1080,7 @@ USE [$(DatabaseName)];
 
 
 GO
-ALTER TABLE [dbo].[Bod] WITH CHECK CHECK CONSTRAINT [fk_bod_gebruiker];
-
-ALTER TABLE [dbo].[Gebruiker] WITH CHECK CHECK CONSTRAINT [fk_land_van_gebruiker];
-
-ALTER TABLE [dbo].[Gebruiker] WITH CHECK CHECK CONSTRAINT [fk_vraag];
-
-ALTER TABLE [dbo].[Gebruikerstelefoon] WITH CHECK CHECK CONSTRAINT [fk_telefoon_van_gebruiker];
-
 ALTER TABLE [dbo].[Rubriek] WITH CHECK CHECK CONSTRAINT [fk_subrubriek];
-
-ALTER TABLE [dbo].[Verkoper] WITH CHECK CHECK CONSTRAINT [fk_gebruikersnaam];
 
 ALTER TABLE [dbo].[Voorwerpinrubriek] WITH CHECK CHECK CONSTRAINT [fk_rubriek_van_voorwerp];
 
@@ -1070,15 +1090,25 @@ ALTER TABLE [dbo].[Feedback] WITH CHECK CHECK CONSTRAINT [chk_feedbacktype];
 
 ALTER TABLE [dbo].[Feedback] WITH CHECK CHECK CONSTRAINT [chk_gebruikersoort];
 
-ALTER TABLE [dbo].[Gebruiker] WITH CHECK CHECK CONSTRAINT [chk_gebruikersnaam_spaties];
-
-ALTER TABLE [dbo].[Gebruiker] WITH CHECK CHECK CONSTRAINT [chk_mailbox];
-
 ALTER TABLE [dbo].[Looptijd] WITH CHECK CHECK CONSTRAINT [chk_lengte_meer_dan_nul];
 
 ALTER TABLE [dbo].[Rubriek] WITH CHECK CHECK CONSTRAINT [chk_ouderrubriek_niet_zelf];
 
 ALTER TABLE [dbo].[Verkoper] WITH CHECK CHECK CONSTRAINT [chk_controleoptie];
+
+ALTER TABLE [dbo].[Bod] WITH CHECK CHECK CONSTRAINT [fk_bod_gebruiker];
+
+ALTER TABLE [dbo].[Gebruiker] WITH CHECK CHECK CONSTRAINT [fk_land_van_gebruiker];
+
+ALTER TABLE [dbo].[Gebruiker] WITH CHECK CHECK CONSTRAINT [fk_vraag];
+
+ALTER TABLE [dbo].[Gebruikerstelefoon] WITH CHECK CHECK CONSTRAINT [fk_telefoon_van_gebruiker];
+
+ALTER TABLE [dbo].[Verkoper] WITH CHECK CHECK CONSTRAINT [fk_gebruikersnaam];
+
+ALTER TABLE [dbo].[Gebruiker] WITH CHECK CHECK CONSTRAINT [chk_gebruikersnaam_spaties];
+
+ALTER TABLE [dbo].[Gebruiker] WITH CHECK CHECK CONSTRAINT [chk_mailbox];
 
 ALTER TABLE [dbo].[Bestand] WITH CHECK CHECK CONSTRAINT [fk_bestand_van_voorwerp];
 
