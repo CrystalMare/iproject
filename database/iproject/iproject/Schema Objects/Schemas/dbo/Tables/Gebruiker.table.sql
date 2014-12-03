@@ -19,7 +19,7 @@
 
 	CONSTRAINT pk_gebruikersnaam			PRIMARY KEY (gebruikersnaam),
 	CONSTRAINT un_email_bestaat				UNIQUE		(mailbox),
+	CONSTRAINT chk_gebruikersnaam_spaties	CHECK		(gebruikersnaam NOT LIKE ('% %')),
 	CONSTRAINT chk_mailbox					CHECK		(mailbox LIKE ('_%@_%._%') AND mailbox NOT LIKE ('% %')),
 	CONSTRAINT un_salt						UNIQUE		(salt)
-	-- minmaal 16 jaar oud.
 )
