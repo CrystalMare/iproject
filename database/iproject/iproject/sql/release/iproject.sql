@@ -42,6 +42,10 @@ CREATE DATABASE [$(DatabaseName)]
     PRIMARY(NAME = [iproject], FILENAME = N'$(DefaultDataPath)iproject.mdf')
     LOG ON (NAME = [iproject_log], FILENAME = N'$(DefaultLogPath)iproject_log.ldf') COLLATE SQL_Latin1_General_CP1_CI_AS
 GO
+ALTER DATABASE [$(DatabaseName)]
+    SET SINGLE_USER 
+    WITH ROLLBACK IMMEDIATE
+GO
 EXECUTE sp_dbcmptlevel [$(DatabaseName)], 100;
 
 
@@ -1179,6 +1183,12 @@ IF EXISTS (SELECT 1
                 EXECUTE sp_db_vardecimal_storage_format N'$(DatabaseName)', 'ON';
             END
     END
+
+
+GO
+ALTER DATABASE [$(DatabaseName)]
+    SET MULTI_USER 
+    WITH ROLLBACK IMMEDIATE;
 
 
 GO

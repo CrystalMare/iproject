@@ -10,6 +10,6 @@
     <DoNotUseAlterAssemblyStatementsToUpdateCLRTypes>False</DoNotUseAlterAssemblyStatementsToUpdateCLRTypes>
     <GenerateDropsIfNotInProject>True</GenerateDropsIfNotInProject>
     <PerformDatabaseBackup>False</PerformDatabaseBackup>
-    <SingleUserMode>False</SingleUserMode>
+    <SingleUserMode>True</SingleUserMode>
   </Properties>
 </DeploymentConfigurationSettings>
