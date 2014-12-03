@@ -34,9 +34,6 @@ body {
     
 }
 
-html{
-    height: 100%;
-}
 
 .ea-login{
     background: #ffffff; /* Old browsers */
@@ -63,4 +60,8 @@ box-shadow: 0px 5px 5px #bab9b9;
     color:#f76603;
     float: left;
     padding-top:  15px;
+}
+
+.container{
+    background-color: #FFF;
 }
