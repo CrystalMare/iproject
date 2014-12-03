@@ -64,4 +64,60 @@ box-shadow: 0px 5px 5px #bab9b9;
 
 .container{
     background-color: #FFF;
+    -webkit-box-shadow: 0px 2px 9px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    0px 2px 9px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         0px 2px 9px 0px rgba(50, 50, 50, 0.75);
+}
+
+.ea-logo{
+    height: 150px;
+    padding-top: 30px;
+}
+
+.artikel_veilen{
+    width: 280px;
+    margin-right: 25px;
+}
+
+.ea-buttons{
+    padding:0px;
+    border-radius: 0px;
+    margin-bottom: 0px;
+}
+
+.ea-searchbar{
+    margin-top: 60px;
+    height: 80px;
+}
+
+.ea-searchbar-input{
+    height: 80px;
+    border-radius: 5px;
+    padding-left: 7px;
+    width: 90%;
+    background: #69c8ff; /* Old browsers */
+    background: -moz-linear-gradient(top,  #69c8ff 41%, #0d9ce8 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(41%,#69c8ff), color-stop(100%,#0d9ce8)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #69c8ff 41%,#0d9ce8 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #69c8ff 41%,#0d9ce8 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #69c8ff 41%,#0d9ce8 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #69c8ff 41%,#0d9ce8 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#69c8ff', endColorstr='#0d9ce8',GradientType=0 ); /* IE6-9 */
+    background-color: #F76603;
+
+}
+
+.open > .dropdown-toggle.btn-default{
+    background-color: #F76603;
+}
+.ea-searchbar-input-twee{
+    background-color: #FFF;
+    border-radius: 5px;
+    margin-top: 7px;
+    height: 65px;
+    width: 100%;
+}
+
+.ea-nav-categorie{
+    min-width: 180%;
 }
