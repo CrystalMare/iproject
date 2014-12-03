@@ -46,3 +46,28 @@ PRIJS INCLUSIEF BTW! BTW AFTREKBAAR', 8900.00, NULL, 'Amsterdam', 'Netherlands',
 ('Volkswagen Polo 1.4 44KW 2000 Zwart', 'VW POLO 1.4 MPI BJ 2000  APK TOT 8-2015, AIRCO,CENTR.VERGRENDELING MET COMFORT SLUITING.
 ELECT.RAMEN EN SPIEGELS, HOOGTE VERSTELBARE STOELEN,RADIO CD, B UMPERS EN SPIEGELS IN KLEUR, ALLE BOEKJES EN SLEUTELS ERBIJ.', 
 1550.00, NULL, 'Enschede', 'Netherlands', 5, 0, 'Ophalen in Enschede', 'crystalmare')
+
+INSERT INTO Rubriek (rubrieknaam, volgnummer) VALUES
+('Auto''s', 2),
+('Kleding', 1),
+('Binnenhuis', 3),
+('Buitenhuis', 4),
+('Speelgoed', 5);
+
+INSERT INTO Rubriek (rubrieknaam, ouderrubriek, volgnummer) VALUES
+('Opel', 1, 1),
+('Peugeot', 1, 2),
+('Mercedes', 1, 3),
+('Volkswagen', 1, 4),
+('Volvo', 1, 5);
+
+INSERT INTO Rubriek (rubrieknaam, ouderrubriek, volgnummer) VALUES
+('Tuin', 4, 1);
+
+INSERT INTO Rubriek (rubrieknaam, ouderrubriek, volgnummer) VALUES
+('Tuin Meubelen', 11, 1);
+
+INSERT INTO Voorwerpinrubriek (voorwerpnummer, rubrieknummer) VALUES
+(1, 6),
+(2, 7),
+(3, 9);
