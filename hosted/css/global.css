@@ -76,6 +76,8 @@ box-shadow: 0px 5px 5px #bab9b9;
 
 .artikel_veilen{
     width: 305px;
+    text-align: center;
+    font-weight: bold;
 
 }
 
@@ -105,7 +107,6 @@ box-shadow: 0px 5px 5px #bab9b9;
     background: linear-gradient(to bottom,  #69c8ff 41%,#0d9ce8 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#69c8ff', endColorstr='#0d9ce8',GradientType=0 ); /* IE6-9 */
     background-color: #F76603;
-
 }
 
 .open > .dropdown-toggle.btn-default{
@@ -146,6 +147,10 @@ h4{
     width: 100%;
     float:left;
     max-width: 100%;
+    overflow: hidden;
+    max-height: 250px;
+    min-height: 250px;
+
 }#slideshow IMG {
     position:absolute;
     top:0;
@@ -168,7 +173,7 @@ h4{
 }
 
 .ea-artikel-title{
-    background: #ffffff; /* Old browsers */
+background: #ffffff; /* Old browsers */
 background: -moz-linear-gradient(top,  #ffffff 0%, #f2f2f2 100%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f2f2f2)); /* Chrome,Safari4+ */
 background: -webkit-linear-gradient(top,  #ffffff 0%,#f2f2f2 100%); /* Chrome10+,Safari5.1+ */
@@ -179,7 +184,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 margin-bottom: 5px;
 box-shadow: 0px 2px 2px #bab9b9;
 border: none;
-
 }
 .panel-default > .panel-heading {
     text-align: center;
