@@ -7,8 +7,13 @@
         <link rel="stylesheet" type="text/css" href="css/global.css">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="js/bootstrap.js"></script>
+<<<<<<< HEAD
+        <script src="js/hover.js"></script>
+=======
         <script type="text/javascript" src="js/slider.js"></script>
-		<script src="js/hover.js"></script>    </head>
+
+>>>>>>> origin/new
+    </head>
     <body>
         <div class="container">
             <!-- Header -->
@@ -80,9 +85,15 @@
             <div class="row">
             
         <!-- Jssor Slider Begin -->
-
+            <div id="slideshow">
+                <img class="active" src="img/slider_homepage.png" alt="slide1" />
+                <img src="img/slider_homepage2.png" alt="slide2" />
+                <img src="img/slider_homepage3.png" alt="slide3" />
+            </div>
     	<!-- Jssor Slider End -->
 	
+
+		<div class="col-md-12 col-xs-12">
 
                 <div id="hover-menu" class="hover-menu col-md-12 col-xs-12">
                     <div class="col-md-3">
@@ -93,12 +104,12 @@
                     Hallo
                     </div>                
                 </div>
-            <div id="slideshow">
-                <img class="active" src="img/slider_homepage.png" alt="slide1" />
-                <img src="img/slider_homepage2.png" alt="slide2" />
-                <img src="img/slider_homepage3.png" alt="slide3" />
-            </div>
 
+                    <div class="jumbotron">                 
+                        <h1>Hello, world!</h1>
+                        <p>...</p>
+                        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+                    </div>
                 </div>
             </div>
 

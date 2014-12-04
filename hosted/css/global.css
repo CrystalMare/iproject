@@ -122,7 +122,6 @@ box-shadow: 0px 5px 5px #bab9b9;
     min-width: 180%;
 }
 
-<<<<<<< Updated upstream
 .hover-menu {
     background: #ffffff;
     background: -moz-linear-gradient(top,  #ffffff 20%, #ffffff 30%, #e3e3e3 100%);
@@ -137,7 +136,7 @@ box-shadow: 0px 5px 5px #bab9b9;
     width: calc(100% - 30px);
     height: 250px;
     display:none;
-=======
+
 .navbar{
     border: none;
 }
@@ -154,7 +153,7 @@ h4{
     padding-top: 20px;
 }
 
-<<<<<<< Updated upstream
+
 #slideshow {
     position:relative;
     margin-top: 35px;
@@ -175,26 +174,32 @@ h4{
 }#slideshow IMG.last-active {
     z-index:9;
 }
-=======
+
 .ea-artikel-homepage{
     border: none;
 }
 
 .ea-artikel-title{
     background: #ffffff; /* Old browsers */
-background: -moz-linear-gradient(top,  #ffffff 0%, #f2f2f2 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f2f2f2)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  #ffffff 0%,#f2f2f2 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  #ffffff 0%,#f2f2f2 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  #ffffff 0%,#f2f2f2 100%); /* IE10+ */
-background: linear-gradient(to bottom,  #ffffff 0%,#f2f2f2 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f2f2f2',GradientType=0 ); /* IE6-9 */
-margin-bottom: 3px;
+	background: -moz-linear-gradient(top,  #ffffff 0%, #f2f2f2 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f2f2f2));
+	background: -webkit-linear-gradient(top,  #ffffff 0%,#f2f2f2 100%);
+	background: -o-linear-gradient(top,  #ffffff 0%,#f2f2f2 100%);
+	background: -ms-linear-gradient(top,  #ffffff 0%,#f2f2f2 100%);
+	background: linear-gradient(to bottom,  #ffffff 0%,#f2f2f2 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f2f2f2',GradientType=0 );
+
 }
 .panel-default > .panel-heading {
     text-align: center;
     color:#0c5071;
->>>>>>> Stashed changes
+}
+
+.ea-home{
+    border-style: solid;
+    border-width: 2px;
+    border-color: #0c5071;
+    padding: 5px;
 }
 
 .hover-menu img {

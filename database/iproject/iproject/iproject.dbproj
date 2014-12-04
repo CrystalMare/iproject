@@ -242,5 +242,8 @@
     <NotInBuild Include="Relationeel schema.png">
       <SubType>NotInBuild</SubType>
     </NotInBuild>
+    <NotInBuild Include="demodata.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
   </ItemGroup>
 </Project>
