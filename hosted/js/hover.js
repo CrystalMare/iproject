@@ -1,12 +1,26 @@
-var $f1 = function test(o1) {
-	$("#hover-menu").css("display", "inline");
-	return "OK";
-}
-var $f2 = function test2(o2) {
-	$("#hover-menu").css("display", "none");
-}
+$(document).ready(function( ) {
 
-$(document).ready(function() {
-	//$("li").hover($f1, $f2);
-	$f1();
+	$(".cat").hover(
+		//Hovering button
+		function() {
+			$("#hover").css("display", "inline");
+			if ($(this).attr("id") == "hover")
+				return;
+			updateHover($(this).attr("id").substring(1));
+		}, 
+		//No longer hovering button
+		function() {
+			$("#hover").css("display", "none")
+		}
+	);
 });
+
+function updateHover(menuid) {
+	if (menuid == "1")
+	{
+		$("#hover").html('<div class="col-md-3"><img src="img/hover_image.png" alt="Auto\'s" class="img-responsive" /></div><div class="col-md-9">Eerste MENU</div>');
+	} else if (menuid == "2")
+	{
+		$("#hover").html('<div class="col-md-3"><img src="img/hover_image.png" alt="Auto\'s" class="img-responsive" /></div><div class="col-md-9">Tweede MENU</div>');
+	}
+}

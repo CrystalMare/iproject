@@ -8,6 +8,7 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="js/bootstrap.js"></script>
         <script type="text/javascript" src="js/slider.js"></script>
+        <script type="text/javascript" src="js/hover.js"></script>
 
     </head>
     <body>
@@ -61,10 +62,10 @@
                             <ul class="nav navbar-nav navbar-left">
                                 <li style="background-color: #F76603;" class="artikel_veilen"><a href="#">ARTIKEL VEILEN!</a></li>
                                 <li class="active"><a href="#">KLEDING</a></li>
-                                <li><a href="#">AUTO'S</a></li>
-                                <li><a href="#">BINNENHUIS</a></li>
-                                <li><a href="#">BUITENHUIS</a></li>
-                                <li><a href="#">SPEELGOED</a></li>
+                                <li id="c1" class="cat"><a href="#">AUTO'S</a></li>
+                                <li id="c2" class="cat"><a href="#">BINNENHUIS</a></li>
+                                <li id="c3" class="cat"><a href="#">BUITENHUIS</a></li>
+                                <li id="c4" class="cat"><a href="#">SPEELGOED</a></li>
                                 <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Webwinkel <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
@@ -86,18 +87,15 @@
 	
 
 		<div class="col-md-12 col-xs-12">
-<div id="slideshow">
+            <div id="hover" class="hover-menu cat col-md-12 col-xs-12">
+            </div>
+
+            <div id="slideshow">
                 <img class="active" src="img/slider_homepage.png" alt="slide1" />
                 <img src="img/slider_homepage2.png" alt="slide2" />
                 <img src="img/slider_homepage3.png" alt="slide3" />
             </div>
-                                <div class="jumbotron">
-                                
-
-                        <h1>Hello, world!</h1>
-                        <p>...</p>
-                        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
-                    </div>
+                              
                 </div>
             </div>
 
