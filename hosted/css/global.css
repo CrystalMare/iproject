@@ -324,8 +324,15 @@ border: none;
     border-style: solid;
 }
 .content-explanation h2{
+    
+}
+.content-explanation .step1{
     color: #FF9900;
     padding-left: 10px;
+}
+.content-explanation .step2{
+    color: #FF9900;
+    
 }
 .register-1{
     margin-left: 20px;
