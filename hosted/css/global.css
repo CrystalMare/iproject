@@ -240,3 +240,138 @@ border: none;
     text-align: center;
 }
 
+
+--WEBDEVS
+
+#registerFormHolder form
+{
+    padding: 50px 0;
+    background: #fafafa;
+    width: 50%;
+    margin: 0 auto;
+}
+
+#registerFormHolder form div
+{
+    overflow: hidden;
+
+}
+
+#registerFormHolder form label, form input 
+{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#registerFormHolder form label {
+    font-weight: bold;
+    background: linear-gradient(#f1f1f1, #e2e2e2);
+    padding: 5.3px 4px;
+    color: #444;
+    
+    border: 1px solid #d4d4d4;
+    /* lets remove the right border */
+    border-right: 0;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    
+    line-height: 1.5em;
+    width: 30%;
+    
+    /* takes the width properly now and also the
+    spacing between the label and input field got removed. */
+    float: left;
+    
+    text-align: center;
+    cursor: pointer;
+    margin-top: 2px;
+}
+
+#registerFormHolder form input
+{
+    width: 60%;
+    padding: 5px;
+    border: 1px solid #d4d4d4;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 4px;
+    
+    line-height: 1.5em;
+    float: right;
+    
+    /* some box shadow sauce :D */
+    box-shadow: inset 0px 2px 2px #ececec;
+}
+
+#registerFormHolder form input:focus {
+    /* No outline on focus */
+    outline: 0;
+    /* a darker border ? */
+    border: 1px solid #bbb;
+}
+
+.content-explanation{
+    background-color: white;
+    min-height: 150px;
+    min-width: 90%;
+    text-align: left;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 25px;
+    border-width: 2px;
+    border-color: rgb(34, 144, 202);
+    border-style: solid;
+}
+.content-explanation h2{
+    color: #FF9900;
+    padding-left: 10px;
+}
+.register-1{
+    margin-left: 20px;
+    
+    padding-left: 0px;
+}
+.register-1 form label
+{
+    text-align: center;
+}
+.register-1 form input
+{
+    display: block;
+    width: 300px;
+    height: 50px;
+}
+
+.buttonNext {
+    -moz-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+    box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #378de5) );
+    background:-moz-linear-gradient( center top, #79bbff 5%, #378de5 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#378de5');
+    background-color:#79bbff;
+    text-indent:0;
+    border:1px solid #84bbf3;
+    display:inline-block;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:15px;
+    font-weight:bold;
+    font-style:normal;
+    height:50px;
+    line-height:50px;
+    width:165px;
+    text-decoration:none;
+    text-align:center;
+    text-shadow:1px 1px 0px #528ecc;
+}
+.register-1 .buttonNext:hover {
+}.buttonNext:active {
+    position:relative;
+    top:1px;
+}
+
+
+
+
