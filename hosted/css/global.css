@@ -162,8 +162,9 @@ h4{
     z-index:9;
 }
 =======
-.ea-artikel-homepage{
+.ea-artikel-home{
     border: none;
+    margin-bottom: 20px;
 }
 
 .ea-artikel-title{
@@ -192,3 +193,11 @@ border: none;
     padding: 5px;
 }
 
+.content-home{
+    margin-top: 50px;
+    
+}
+.content-home-twee{
+    margin-top: 30px;
+   margin-bottom: 100px; 
+}
