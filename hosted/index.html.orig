@@ -7,8 +7,12 @@
         <link rel="stylesheet" type="text/css" href="css/global.css">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="js/bootstrap.js"></script>
+<<<<<<< HEAD
+        <script src="js/hover.js"></script>
+=======
         <script type="text/javascript" src="js/slider.js"></script>
 
+>>>>>>> origin/new
     </head>
     <body>
         <div class="container">
@@ -60,7 +64,7 @@
                         <div class="collapse navbar-collapse ea-buttons" id="navbar-collapse-1">
                             <ul class="nav navbar-nav navbar-left">
                                 <li style="background-color: #F76603;" class="artikel_veilen"><a href="#">ARTIKEL VEILEN!</a></li>
-                                <li class="active"><a href="#">KLEDING</a></li>
+                                <li id="mymenu" class="active"><a href="#">KLEDING</a></li>
                                 <li><a href="#">AUTO'S</a></li>
                                 <li><a href="#">BINNENHUIS</a></li>
                                 <li><a href="#">BUITENHUIS</a></li>
@@ -81,19 +85,27 @@
             <div class="row">
             
         <!-- Jssor Slider Begin -->
-            
-    	<!-- Jssor Slider End -->
-	
-
-		<div class="col-md-12 col-xs-12">
-<div id="slideshow">
+            <div id="slideshow">
                 <img class="active" src="img/slider_homepage.png" alt="slide1" />
                 <img src="img/slider_homepage2.png" alt="slide2" />
                 <img src="img/slider_homepage3.png" alt="slide3" />
             </div>
-                                <div class="jumbotron">
-                                
+    	<!-- Jssor Slider End -->
+	
 
+		<div class="col-md-12 col-xs-12">
+
+                <div id="hover-menu" class="hover-menu col-md-12 col-xs-12">
+                    <div class="col-md-3">
+                        <img src="img/hover_image.png" alt="Auto's" class="img-responsive" />
+                    </div>
+
+                    <div class="col-md-9">
+                    Hallo
+                    </div>                
+                </div>
+
+                    <div class="jumbotron">                 
                         <h1>Hello, world!</h1>
                         <p>...</p>
                         <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
@@ -107,7 +119,7 @@
                 <div class="col-md-4 col-xs-4">
                     <div class="panel panel-default ea-artikel-homepage">
                       <div class="panel-heading ea-artikel-title">Audi A6 SPORT Full Options</div>
-                        <div class="panel-body ea-home-body">
+                        <div class="panel-body ea-home">
                         <img src="img/audi.jpg" alt="audi" class="img-responsive">
                         </div>
                     </div>
@@ -115,16 +127,16 @@
                 <div class="col-md-4 col-xs-4">
                     <div class="panel panel-default ea-artikel-homepage">
                       <div class="panel-heading ea-artikel-title">Pokemon Omega Ruby</div>
-                        <div class="panel-body ea-home-body">
+                        <div class="panel-body ea-home">
                         <img src="img/pokemon.jpg" alt="pokemon" class="img-responsive">
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-4">
                     <div class="panel panel-default ea-artikel-homepage">
-                      <div class="panel-heading ea-artikel-title">Nike Air Yeezy II</div>
-                        <div class="panel-body ea-home-body">
-                        <img src="img/nike.png" alt="nike" class="img-responsive">
+                      <div class="panel-heading ea-artikel-title">Panel heading</div>
+                        <div class="panel-body ea-home">
+                        Panel content
                         </div>
                     </div>
                 </div>
@@ -135,25 +147,25 @@
                 
                 <div class="col-md-4 col-xs-4">
                     <div class="panel panel-default ea-artikel-homepage">
-                      <div class="panel-heading ea-artikel-title">iPhone 6 Plus 16 GB</div>
-                        <div class="panel-body ea-home-body">
-                        <img src="img/iphone.png" alt="iphone" class="img-responsive">
+                      <div class="panel-heading ea-artikel-title">Panel heading</div>
+                        <div class="panel-body ea-home">
+                        Panel content
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-4">
                     <div class="panel panel-default ea-artikel-homepage">
-                      <div class="panel-heading ea-artikel-title">Shady XV</div>
-                        <div class="panel-body ea-home-body">
-                        <img src="img/shady.png" alt="shady" class="img-responsive">
+                      <div class="panel-heading ea-artikel-title">Panel heading</div>
+                        <div class="panel-body ea-home">
+                        Panel content
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-4">
                     <div class="panel panel-default ea-artikel-homepage">
-                      <div class="panel-heading ea-artikel-title">Eastpak Blauw</div>
-                        <div class="panel-body ea-home-body">
-                        <img src="img/eastpak.png" alt="eastpak" class="img-responsive">
+                      <div class="panel-heading ea-artikel-title">Panel heading</div>
+                        <div class="panel-body ea-home">
+                        Panel content
                         </div>
                     </div>
                 </div>
