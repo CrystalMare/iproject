@@ -332,7 +332,8 @@ border: none;
 }
 .content-explanation .step2{
     color: #FF9900;
-    
+    text-align: center;
+
 }
 .register-1{
     margin-left: 20px;
@@ -374,10 +375,98 @@ border: none;
     text-shadow:1px 1px 0px #528ecc;
 }
 .register-1 .buttonNext:hover {
-}.buttonNext:active {
+}
+.register-4
+{
+    margin: 1px auto;
+    text-align: center;
+}
+.buttonNext:active {
     position:relative;
     top:1px;
 }
+
+.gegevens-left-holder{
+    float: left;
+    width: 50%;
+    min-height: 300px;
+    height: 100%;
+    margin-bottom: 25px;
+}
+.gegevens-right-holder{
+    float: right;
+    width: 50%;
+    height: 100%;
+    min-height: 300px;
+    margin-bottom: 25px;
+}
+.gegevens-left-holder h4
+{
+    color: #FF9900;
+    text-align: left;
+}
+.gegevens-right-holder h4
+{
+    color: #FF9900;
+    text-align: left;
+}
+.gegevens-left
+{
+    width: 80%;
+    margin: 0px auto;
+}
+.gegevens-right
+{
+    width: 80%;
+    margin: 0px auto;
+}
+.gegevens-left input, select
+{
+    display: block;
+    width: 100%;
+}
+.gegevens-left label
+{
+    margin-top: 5px;
+    color: rgb(34, 144, 202);
+}
+.gegevens-right input, select
+{
+    display: block;
+    width: 100%;
+}
+.gegevens-right label
+{
+    margin-top: 5px;
+    color: rgb(34, 144, 202);
+}
+
+.buttonRegister
+{
+    -moz-box-shadow:inset 0px 1px 0px 0px #3498db;
+    box-shadow:inset 0px 1px 0px 0px #3498db;
+    background:-moz-linear-gradient( center top, #ffce79 5%, #3498db 100% );
+    background-color:#3498db;
+    border-radius: 4px;
+    text-indent:-1px;
+    border:1px solid #eeb44f;
+    display:inline-block;
+    color:#ffffff;
+    font-family: "Gotham SSm A", "Gotham SSm B", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+    font-size:11px;
+    font-weight:bold;
+    font-style:normal;
+    height:39px;
+    line-height:39px;
+    width:130px;
+    text-decoration:none;
+    text-align:center;
+    text-shadow:1px 1px 0px #ce8e28;
+    margin-top: 20%;
+
+}
+
+
 
 
 
