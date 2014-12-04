@@ -130,13 +130,16 @@ box-shadow: 0px 5px 5px #bab9b9;
 .ea-footer{
     background-color: #0c5071;
     height: 300px;
+    text-align: center;
 
 }
 
-.h4{
+h4{
     color:#F76603;
+    padding-top: 20px;
 }
 
+<<<<<<< Updated upstream
 #slideshow {
     position:relative;
     margin-top: 35px;
@@ -157,3 +160,31 @@ box-shadow: 0px 5px 5px #bab9b9;
 }#slideshow IMG.last-active {
     z-index:9;
 }
+=======
+.ea-artikel-homepage{
+    border: none;
+}
+
+.ea-artikel-title{
+    background: #ffffff; /* Old browsers */
+background: -moz-linear-gradient(top,  #ffffff 0%, #f2f2f2 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f2f2f2)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #ffffff 0%,#f2f2f2 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #ffffff 0%,#f2f2f2 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #ffffff 0%,#f2f2f2 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #ffffff 0%,#f2f2f2 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f2f2f2',GradientType=0 ); /* IE6-9 */
+
+}
+.panel-default > .panel-heading {
+    text-align: center;
+    color:#0c5071;
+}
+
+.ea-home{
+    border-style: solid;
+    border-width: 2px;
+    border-color: #0c5071;
+    padding: 5px;
+}
+>>>>>>> Stashed changes
