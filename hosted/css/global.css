@@ -312,16 +312,47 @@ border: none;
 
 .content-explanation{
     background-color: white;
-    min-height: 150px;
+    min-height: 120px;
     min-width: 90%;
     text-align: left;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-left: 20px;
     margin-right: 20px;
     border-radius: 25px;
     border-width: 2px;
     border-color: rgb(34, 144, 202);
     border-style: solid;
+}
+.stepholder
+{
+    
+    width: 100%;
+    min-width: 90%;
+    height: 100%;
+    margin-top: 35px;
+    margin-bottom: 10px;
+}
+.stepOne
+{
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(73,139,177);
+    display: inline-block;
+    text-align: center;
+    width: 250px;
+    position: relative;
+    float: left;
+}
+.stepTwo
+{
+    font-size: 20px;
+    font-weight: bold;
+    color:  rgb(73,139,177);
+    display: inline-block;
+    float: ;
+    text-align: right;
+    width: 250px;
+    font-size: 20px;
 }
 .content-explanation h2{
     

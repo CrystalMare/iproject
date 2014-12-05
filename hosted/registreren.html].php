@@ -92,22 +92,7 @@
                             <p class="content-header">REGISTREREN STAP 1 </p>
                         </div>
                         <div class="content-explanation">
-                        <div class="stepholder">
-                        <div class="stepOne">
-                        Stap 1 - Email
-
-                        </div>
-                        <div class="stepTwo">
-                        Stap 2 - Code
-                        </div>
-                           <div class="stepTwo">
-                        Stap 3 - Gegevens
-                        </div>
-                           <div class="stepTwo">
-                        Stap 4 - Bieden!
-                        </div>
-
-                        </div>
+                        <h2 class="step1">Uitleg in stappen:</h2>
                         </div>
                     </div>
 
@@ -115,14 +100,33 @@
 
             <!-- Content -->
             <div class="col-md-12 col-xs-12 content-home">
+            <php
+                session_start();
+                include './hosted/inc/registerFunctions.php';
+                if(isset($_POST['submit']))
+                {
+                    if($errors = validateRegisterForm())
+                    {
+                        echo "<ul>";
+                        echo $errors;
+                        echo "<ul>"
+                    }
+                    else
+                    {
+                        saveNewUser();
+
+                        header("#")
+                    }
+                }
+            ?>
                 <div class="register-1">
-                    <form action="registreren-submitCode.html" method="POST" id="registerForm-1" name="registerFrom-1">
+                    <form action="#" method="POST" id="registerForm-1" name="registerFrom-1">
                         <label for="email">Voer uw emailadres in</label>
-                        <input name="email" placeholder="email" type="text">
+                        <input name="email" placeholder="email" type="text">  
                     <br />
-                    <button type="submit" name='submit' class="buttonNext">Registreer!</button>
+                    <input type="submit" name='submit' class="buttonRegister" value="Ga verder!"></button>
+                    </form>
                 </div>
-                </form>
 
                 <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
                 <h1>HELLO WORLD!</h1>
