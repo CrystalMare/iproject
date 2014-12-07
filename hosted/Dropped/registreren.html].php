@@ -1,7 +1,10 @@
+
+
+
 <!DOCTYPE html>
 <html lang="nl">
     <head>
-        <title>EA inloggen</title>
+        <title>EA registreren</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/global.css">
@@ -86,39 +89,46 @@
                 <div class="row">
                     <div class="col-md-12 col-xs-12">
                          <div class="content-bar">
-                            <p class="content-header">INLOGGEN</p>
+                            <p class="content-header">REGISTREREN STAP 1 </p>
                         </div>
                         <div class="content-explanation">
-                            <h2 class="step2">Inloggen</h2>
+                        <h2 class="step1">Uitleg in stappen:</h2>
                         </div>
                     </div>
+
                 </div>
 
             <!-- Content -->
             <div class="col-md-12 col-xs-12 content-home">
+            <php
+                session_start();
+                include './hosted/inc/registerFunctions.php';
+                if(isset($_POST['submit']))
+                {
+                    if($errors = validateRegisterForm())
+                    {
+                        echo "<ul>";
+                        echo $errors;
+                        echo "<ul>"
+                    }
+                    else
+                    {
+                        saveNewUser();
 
-            <div class="content-login">
-            <div class="gegevens-login">
-            <form action="registreren-4.html" method="POST" id="registerForm" name="registerForm">
+                        header("#")
+                    }
+                }
+            ?>
+                <div class="register-1">
+                    <form action="#" method="POST" id="registerForm-1" name="registerFrom-1">
+                        <label for="email">Voer uw emailadres in</label>
+                        <input name="email" placeholder="email" type="text">  
+                    <br />
+                    <input type="submit" name='submit' class="buttonRegister" value="Ga verder!"></button>
+                    </form>
+                </div>
 
-             <label for="username">Username:</label>
-             <input name="username" placeholder="Voer uw gebruikersnaam in" type="text">
-             <br />
-             <label for="password">Password:</label>
-             <input name="password" placeholder-"Voer uw wachtwoord in" type="password">
-             <div class="buttonHolder">
-             <button type="submit" name='submit' class="buttonLogin">Login</button>
-             </div>
-             </form>
-
-             </div>
-
-            </div>
-
-            
-                
-
-            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
                 <h1>HELLO WORLD!</h1>
             </div>
             <!-- Footer -->
