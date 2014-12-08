@@ -11,15 +11,15 @@
 	geboortedag		DATE				NOT NULL,
 	mailbox			VARCHAR(255)		NOT NULL,
 	wachtwoord		CHAR(64)			NOT NULL,
-	antwoordtekst	CHAR(64	)			NOT NULL,
+	antwoordtekst	CHAR(64)			NOT NULL,
 	vraag			INT					NOT NULL,
 	verkoper		AS dbo.fnIsKoper(gebruikersnaam),
 	salt			CHAR(8)				NOT NULL,
-	registratie		DATE				NOT NULL	DEFAULT GETDATE()
+	registratie		DATE				NOT NULL	DEFAULT GETDATE(),
+	verwijderd		BIT					NOT NULL	DEFAULT CAST(0 AS BIT)
 
 	CONSTRAINT pk_gebruikersnaam			PRIMARY KEY (gebruikersnaam),
 	CONSTRAINT un_email_bestaat				UNIQUE		(mailbox),
-	CONSTRAINT chk_gebruikersnaam_spaties	CHECK		(gebruikersnaam NOT LIKE ('% %')),
 	CONSTRAINT chk_mailbox					CHECK		(mailbox LIKE ('_%@_%._%') AND mailbox NOT LIKE ('% %')),
 	CONSTRAINT un_salt						UNIQUE		(salt)
 )

@@ -78,7 +78,7 @@ INSERT INTO Bod (gebruikersnaam, voorwerpnummer, bodbedrag) VALUES ('satan', 1, 
 INSERT INTO Bod (gebruikersnaam, voorwerpnummer, bodbedrag) VALUES ('sesamstraat', 1, 9100);
 INSERT INTO Bod (gebruikersnaam, voorwerpnummer, bodbedrag) VALUES ('satan', 2, 3500.50);
 
-INSERT INTO Bestand (filenaam, voorwerpnummer) VALUES (
+INSERT INTO Bestand (filenaam, voorwerpnummer) VALUES
 ('auction_1_1.jpg', 1), ('auction_1_2.jpg', 1), ('auction_1_3.jpg', 1), ('auction_1_4.jpg', 1),
 ('auction_2_1.jpg', 2), ('auction_2_2.jpg', 2), ('auction_2_3.jpg', 2), ('auction_2_4.jpg', 2),
 ('auction_3_1.jpg', 3), ('auction_3_2.jpg', 3), ('auction_3_3.jpg', 3);
