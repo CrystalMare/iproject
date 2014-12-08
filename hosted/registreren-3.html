@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="nl">
     <head>
-        <title>Bootstrap Test</title>
+        <title>EA registreren stap 3</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/global.css">
@@ -14,7 +14,7 @@
             <!-- Header -->
             <div class="row">
                 <div class="col-md-12 col-xs-12 ea-login">
-                     <div class="registerbutton_home">
+                    <div class="registerbutton_home">
                         <a href="registreren.html">
                             Registeren
                         </a>
@@ -85,103 +85,77 @@
                 <!-- Slider -->
                 <div class="row">
                     <div class="col-md-12 col-xs-12">
-                        <div id="slideshow">
-                            <img class="active" src="img/slider_homepage.png" alt="slide1" />
-                            <img src="img/slider_homepage2.png" alt="slide2" />
-                            <img src="img/slider_homepage3.png" alt="slide3" />
+                         <div class="content-bar">
+                            <p class="content-header">REGISTREREN STAP 3 </p>
                         </div>
-                        <div class="jumbotron">            
-                            <h1>Hello, world!</h1>
-                            <p>...</p>
-                            <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+                        <div class="content-explanation">
+                        <h2 class="step1">Stap 3:</h2>
                         </div>
                     </div>
+
                 </div>
-
-
-            <!-- Page Title -->
-            <div class="col-md-12 col-xs-12 ea-title">
-                    <div class="registerbutton_home">Registeren</div> 
-            </div>
 
             <!-- Content -->
             <div class="col-md-12 col-xs-12 content-home">
-                <div class="col-md-3 col-xs-3">
-                    <div class="panel panel-default ea-artikel-title">
-                        <div class="panel-heading ea-artikel-title">Audi A6 SPORT Full Options</div>
-                        <div class="panel-body ea-home-body">
-                            <img src="img/audi.jpg" alt="audi" class="img-responsive">
-                        </div>
-                        <div class="panel-heading ea-artikel-footer">&#8364;18.000,000</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-xs-3">
-                    <div class="panel panel-default ea-artikel-title">
-                        <div class="panel-heading ea-artikel-title">Pokemon Omega Ruby</div>
-                        <div class="panel-body ea-home-body">
-                            <img src="img/pokemon.jpg" alt="pokemon" class="img-responsive">
-                        </div>
-                        <div class="panel-heading ea-artikel-footer">&#8364;18.000,000</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-xs-3">
-                    <div class="panel panel-default ea-artikel-title">
-                        <div class="panel-heading ea-artikel-title">Nike Air Yeezy II</div>
-                        <div class="panel-body ea-home-body">
-                            <img src="img/nike.png" alt="nike" class="img-responsive">
-                        </div>
-                        <div class="panel-heading ea-artikel-footer">&#8364;18.000,000</div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-xs-3">
-                    <div class="panel panel-default ea-artikel-title">
-                      <div class="panel-heading ea-artikel-title">Nike Air Yeezy II</div>
-                        <div class="panel-body ea-home-body">
-                        <img src="img/nike.png" alt="nike" class="img-responsive">
-                        </div>
-                        <div class="panel-heading ea-artikel-footer">&#8364;18.000,000</div>
-                    </div>
-                </div>
-            </div>
+            <form action="registreren-4.html" method="POST" id="registerForm" name="registerForm">
+            
 
-            <div class="col-md-12 col-xs-12 content-home-twee">
-                <div class="col-md-3 col-xs-3">
-                    <div class="panel panel-default ea-artikel-title">
-                        <div class="panel-heading ea-artikel-title">iPhone 6 Plus 16 GB</div>
-                        <div class="panel-body ea-home-body">
-                            <img src="img/iphone.png" alt="iphone" class="img-responsive">
-                        </div>
-                        <div class="panel-heading ea-artikel-footer">&#8364;18.000,000</div>
-                    </div>
+                <div class="gegevens-left-holder">
+                <div class="gegevens-left">
+                    <h4>Gebruikers Account</h4>
+                    <br />
+                    <label for="username">Username:</label>
+                    <input name="username" placeholder="Voer uw gebruikersnaam in" type="text">
+                    <label for="password">Wachtwoord</label>
+                    <input name="password" placeholder="Voer uw wachtwoord in" type="password">
+                    <label for="password">Herhaal wachtwoord</label>
+                    <input name="password" placeholder="" type="password">
+                    <label>Geheime vraag</label>
+                    <select>
+                      <option value="one">one</option>
+                      <option value="two">two</option>
+                      <option value="three">three</option>
+                      <option value="four">four</option>
+                    </select>
+                    <label for="questionAnswer">Antwoord geheime vraag</label>
+                    <input id="question" name="questionAnswer" placeholder="Voer het antwoord op uw geheime vraag in" type="text">
+
+                    <button type="submit" name='submit' class="buttonRegister">Registreer!</button>
                 </div>
-                <div class="col-md-3 col-xs-3">
-                    <div class="panel panel-default ea-artikel-title">
-                        <div class="panel-heading ea-artikel-title">Shady XV</div>
-                        <div class="panel-body ea-home-body">
-                            <img src="img/shady.png" alt="shady" class="img-responsive">
-                        </div>
-                        <div class="panel-heading ea-artikel-footer">&#8364;18.000,000</div>
-                    </div>
+
                 </div>
-                <div class="col-md-3 col-xs-3">
-                    <div class="panel panel-default ea-artikel-title">
-                      <div class="panel-heading ea-artikel-title">Eastpak Blauw</div>
-                        <div class="panel-body ea-home-body">
-                        <img src="img/eastpak.png" alt="eastpak" class="img-responsive">
-                        </div>
-                        <div class="panel-heading ea-artikel-footer">&#8364;18.000,000</div>
-                    </div>
+
+                <div class="gegevens-right-holder">
+                <div class="gegevens-right">
+                    <h4>Persoonsgegevens</h4>
+                    <br />
+                    <label for="firstname">Voornaam:</label>
+                    <input name="firstname" placeholder="Voer uw voornaam in" type="text">
+                    <label for="lastname">Achternaam</label>
+                    <input name="lastname" placeholder="Voer uw achternaam in" type="text">
+                    <label for="adres">Adres</label>
+                    <input name="adres" placeholder="Voer uw adres in" type="text">
+                    <label for="zipcode">Postcode</label>
+                    <input name="zipcode" placeholder="Postcode" type="text">
+                    <label for="country">Land</label>
+                    <input name="country" placeholder="Land" type="text">
+                    <label for="phone1">Telefoonnr. 1</label>
+                    <input name="phone1" placeholder="Telefoonnummer" type="text">
+                    <label for="phone2">Telefoonnr. 2</label>
+                    <input name="phone2" placeholder="Telefoonnummer 2" type="text">
+                    <label for="birthdate">Geboortedatum</label>
+                    <input name="day" placeholder="Dag" type="text">
+                    <input name="month" placeholder="Maand" type="text">
+                    <input name="year" placeholder="Jaar" type="text">
                 </div>
-                <div class="col-md-3 col-xs-3">
-                    <div class="panel panel-default ea-artikel-title">
-                        <div class="panel-heading ea-artikel-title">Eastpak Blauw</div>
-                        <div class="panel-body ea-home-body">
-                            <img src="img/eastpak.png" alt="eastpak" class="img-responsive">
-                        </div>
-                        <div class="panel-heading ea-artikel-footer">&#8364;18.000,000</div>
-                    </div>
                 </div>
-            </div>
+
+
+            </form>
+</div>
+                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                <h1>HELLO WORLD!</h1>
+            
             <!-- Footer -->
             <div class="col-md-12 col-xs-12 ea-footer">
                 <div class="col-md-3 col-xs-3">

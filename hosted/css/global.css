@@ -44,6 +44,13 @@ body {
     background: -ms-linear-gradient(top,  #ffffff 0%,#f2f2f2 100%); /* IE10+ */
     background: linear-gradient(to bottom,  #ffffff 0%,#f2f2f2 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f2f2f2',GradientType=0 ); /* IE6-9 */
+background: -moz-linear-gradient(top,  #ffffff 0%, #f2f2f2 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f2f2f2)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #ffffff 0%,#f2f2f2 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #ffffff 0%,#f2f2f2 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #ffffff 0%,#f2f2f2 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #ffffff 0%,#f2f2f2 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f2f2f2',GradientType=0 ); /* IE6-9 */
 
 height: 50px;
 box-shadow: 0px 5px 5px #bab9b9;
@@ -74,10 +81,20 @@ box-shadow: 0px 5px 5px #bab9b9;
     padding-top: 30px;
 }
 
-.artikel_veilen{
+ul li.artikel-veilen{
     width: 305px;
+    text-align: center;
+    font-weight: bold;
+    background-color: #F76603;
 
 }
+ul.nav li.artikel-veilen:hover{
+    background-color: #000000;
+    color:#000000;
+}
+
+
+
 
 
 .ea-buttons{
@@ -105,11 +122,11 @@ box-shadow: 0px 5px 5px #bab9b9;
     background: linear-gradient(to bottom,  #69c8ff 41%,#0d9ce8 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#69c8ff', endColorstr='#0d9ce8',GradientType=0 ); /* IE6-9 */
     background-color: #F76603;
-
 }
 
 .open > .dropdown-toggle.btn-default{
     background-color: #F76603;
+   ]
 }
 .ea-searchbar-input-twee{
     background-color: #FFF;
@@ -130,15 +147,23 @@ box-shadow: 0px 5px 5px #bab9b9;
 .ea-footer{
     background-color: #0c5071;
     height: 300px;
-    text-align: center;
+    text-align: left;
 
 }
 
 h4{
     color:#F76603;
     padding-top: 20px;
+    text-align: left;
 }
+.footer-links{
+    text-align: left;
 
+}
+.footer-links a{
+    color: white;
+    text-align: left;
+}
 
 #slideshow {
     position:relative;
@@ -146,6 +171,10 @@ h4{
     width: 100%;
     float:left;
     max-width: 100%;
+    overflow: hidden;
+    max-height: 250px;
+    min-height: 250px;
+
 }#slideshow IMG {
     position:absolute;
     top:0;
@@ -167,8 +196,12 @@ h4{
     margin-bottom: 20px;
 }
 
+ul li.item{
+    color: blue;
+}
+
 .ea-artikel-title{
-    background: #ffffff; /* Old browsers */
+background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(top,  #ffffff 0%, #f2f2f2 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f2f2f2)); /* Chrome,Safari4+ */
     background: -webkit-linear-gradient(top,  #ffffff 0%,#f2f2f2 100%); /* Chrome10+,Safari5.1+ */
@@ -192,7 +225,6 @@ h4{
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f2f2f2',GradientType=0 ); /* IE6-9 */
     margin-bottom: 5px;
     border: none;
-
 }
 
 .panel-default > .panel-heading {
@@ -230,3 +262,344 @@ h4{
     height: 50px;
     box-shadow: 0px 2px 2px #bab9b9;
 }
+.content-bar{
+    position:relative;
+    margin-top: 0px;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    max-height: 25px;
+    min-height: 25px;
+    background-color: white;
+    color: black;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+
+--WEBDEVS
+
+#registerFormHolder form
+{
+    padding: 50px 0;
+    background: #fafafa;
+    width: 50%;
+    margin: 0 auto;
+}
+
+#registerFormHolder form div
+{
+    overflow: hidden;
+
+}
+
+#registerFormHolder form label, form input 
+{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#registerFormHolder form label {
+    font-weight: bold;
+    background: linear-gradient(#f1f1f1, #e2e2e2);
+    padding: 5.3px 4px;
+    color: #444;
+    
+    border: 1px solid #d4d4d4;
+    /* lets remove the right border */
+    border-right: 0;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    
+    line-height: 1.5em;
+    width: 30%;
+    
+    /* takes the width properly now and also the
+    spacing between the label and input field got removed. */
+    float: left;
+    
+    text-align: center;
+    cursor: pointer;
+    margin-top: 2px;
+}
+
+#registerFormHolder form input
+{
+    width: 60%;
+    padding: 5px;
+    border: 1px solid #d4d4d4;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 4px;
+    
+    line-height: 1.5em;
+    float: right;
+    
+    /* some box shadow sauce :D */
+    box-shadow: inset 0px 2px 2px #ececec;
+}
+
+#registerFormHolder form input:focus {
+    /* No outline on focus */
+    outline: 0;
+    /* a darker border ? */
+    border: 1px solid #bbb;
+}
+
+.content-explanation{
+    background-color: white;
+    min-height: 120px;
+    min-width: 90%;
+    text-align: left;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 25px;
+    border-width: 2px;
+    border-color: rgb(34, 144, 202);
+    border-style: solid;
+}
+.content-login{
+    background-color: white;
+    min-height: 220px;
+    min-width: 90%;
+    text-align: left;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 25px;
+    border-width: 2px;
+    border-color: rgb(34, 144, 202);
+    border-style: solid;
+
+}
+.content-login-holder{
+
+}
+.content-login form input, form label
+{
+    margin: 0px auto;
+    width: 90%;
+}
+.stepholder
+{
+    
+    width: 100%;
+    min-width: 90%;
+    height: 100%;
+    margin-top: 35px;
+    margin-bottom: 10px;
+}
+.stepOne
+{
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(73,139,177);
+    display: inline-block;
+    text-align: center;
+    width: 250px;
+    position: relative;
+    float: left;
+}
+.stepTwo
+{
+    font-size: 20px;
+    font-weight: bold;
+    color:  rgb(73,139,177);
+    display: inline-block;
+    float: ;
+    text-align: right;
+    width: 250px;
+    font-size: 20px;
+}
+.content-explanation h2{
+    
+}
+.content-explanation .step1{
+    color: #FF9900;
+    padding-left: 10px;
+}
+.content-explanation .step2{
+    color: #FF9900;
+    text-align: center;
+
+}
+.register-1{
+    margin-left: 20px;
+    
+    padding-left: 0px;
+}
+.register-1 form label
+{
+    text-align: center;
+}
+.register-1 form input
+{
+    display: block;
+    width: 300px;
+    height: 50px;
+}
+
+.buttonNext {
+    -moz-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+    box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #378de5) );
+    background:-moz-linear-gradient( center top, #79bbff 5%, #378de5 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#378de5');
+    background-color:#79bbff;
+    text-indent:0;
+    border:1px solid #84bbf3;
+    display:inline-block;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:15px;
+    font-weight:bold;
+    font-style:normal;
+    height:50px;
+    line-height:50px;
+    width:165px;
+    text-decoration:none;
+    text-align:center;
+    text-shadow:1px 1px 0px #528ecc;
+}
+.register-1 .buttonNext:hover {
+}
+.register-4
+{
+    margin: 1px auto;
+    text-align: center;
+}
+.buttonNext:active {
+    position:relative;
+    top:1px;
+}
+
+.gegevens-left-holder{
+    float: left;
+    width: 50%;
+    min-height: 300px;
+    height: 100%;
+    margin-bottom: 25px;
+}
+.gegevens-right-holder{
+    float: right;
+    width: 50%;
+    height: 100%;
+    min-height: 300px;
+    margin-bottom: 25px;
+}
+.gegevens-left-holder h4
+{
+    color: #FF9900;
+    text-align: left;
+}
+.gegevens-right-holder h4
+{
+    color: #FF9900;
+    text-align: left;
+}
+.gegevens-left
+{
+    width: 80%;
+    margin: 0px auto;
+}
+.gegevens-right
+{
+    width: 80%;
+    margin: 0px auto;
+}
+.gegevens-left input, select
+{
+    display: block;
+    width: 100%;
+}
+.gegevens-left label
+{
+    margin-top: 5px;
+    color: rgb(34, 144, 202);
+}
+
+.gegevens-login
+{
+    width: 50%;
+    margin: 0 auto;
+
+}
+
+.gegevens-login input, select
+{
+}
+.gegevens-login label
+{
+    margin-top: 5px;
+    color: rgb(34, 144, 202);
+    text-align: center;
+}
+.gegevens-right input, select
+{
+    display: block;
+    width: 100%;
+}
+.gegevens-right label
+{
+    margin-top: 5px;
+    color: rgb(34, 144, 202);
+}
+
+.buttonRegister
+{
+    -moz-box-shadow:inset 0px 1px 0px 0px #3498db;
+    box-shadow:inset 0px 1px 0px 0px #3498db;
+    background:-moz-linear-gradient( center top, #ffce79 5%, #3498db 100% );
+    background-color:#3498db;
+    border-radius: 4px;
+    text-indent:-1px;
+    border:1px solid #eeb44f;
+    display:inline-block;
+    color:#ffffff;
+    font-family: "Gotham SSm A", "Gotham SSm B", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+    font-size:11px;
+    font-weight:bold;
+    font-style:normal;
+    height:39px;
+    line-height:39px;
+    width:130px;
+    text-decoration:none;
+    text-align:center;
+    text-shadow:1px 1px 0px #ce8e28;
+    margin-top: 20%;
+}
+.buttonHolder
+{
+    margin: 1px auto;
+}
+.buttonLogin
+{
+    -moz-box-shadow:inset 0px 1px 0px 0px #3498db;
+    box-shadow:inset 0px 1px 0px 0px #3498db;
+    background:-moz-linear-gradient( center top, #ffce79 5%, #3498db 100% );
+    background-color:#3498db;
+    border-radius: 4px;
+    text-indent:-1px;
+    border:1px solid #eeb44f;
+    display:inline-block;
+    color:#ffffff;
+    font-family: "Gotham SSm A", "Gotham SSm B", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+    font-size:11px;
+    font-weight:bold;
+    font-style:normal;
+    height:39px;
+    line-height:39px;
+    width:130px;
+    text-decoration:none;
+    text-align:center;
+    text-shadow:1px 1px 0px #ce8e28;
+    margin: 0 auto;
+}
+
+
+
+
+
+
