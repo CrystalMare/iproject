@@ -2,7 +2,7 @@
 
 GLOBAL $DB;
 
-$serverName = "SVENLAPTOP\SQLEXPRESS";
+$serverName = "SVENLAPTOP\\SQLEXPRESS";
 $connectionInfo = array( "Database"=>"iproject");
 
 $DB = sqlsrv_connect($serverName, $connectionInfo);
