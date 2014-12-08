@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="SQL Server - iproject@127.0.0.1" uuid="b38ed06b-2a58-43e9-baa7-fc53dd84ffd3">
+      <secret-storage>master_key</secret-storage>
+      <domain-auth>true</domain-auth>
+      <first-sync>true</first-sync>
+    </data-source>
+  </component>
+</project>
+

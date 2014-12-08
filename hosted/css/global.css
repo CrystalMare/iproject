@@ -216,10 +216,6 @@ h4{
     margin-bottom: 20px;
 }
 
-ul li.item{
-    color: blue;
-}
-
 .ea-artikel-title{
 background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(top,  #ffffff 0%, #f2f2f2 100%); /* FF3.6+ */
@@ -618,7 +614,26 @@ background: #ffffff; /* Old browsers */
     margin: 0 auto;
 }
 
+.hover-menu {
+    background: #ffffff;
+    background: -moz-linear-gradient(top,  #ffffff 20%, #ffffff 30%, #e3e3e3 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(20%,#ffffff), color-stop(30%,#ffffff), color-stop(100%,#e3e3e3));
+    background: -webkit-linear-gradient(top,  #ffffff 20%,#ffffff 30%,#e3e3e3 100%);
+    background: -o-linear-gradient(top,  #ffffff 20%,#ffffff 30%,#e3e3e3 100%);
+    background: -ms-linear-gradient(top,  #ffffff 20%,#ffffff 30%,#e3e3e3 100%);
+    background: linear-gradient(to bottom,  #ffffff 20%,#ffffff 30%,#e3e3e3 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e3e3e3',GradientType=0 );
 
+    position: absolute;
+    width: calc(100% - 30px);
+    height: 250px;
+    display:none;
+    z-index: 20;
+}
+
+.hover-menu img {
+    padding-top: 15px;
+}
 
 
 

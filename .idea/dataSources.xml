@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="3188323683">
+    <data-source source="LOCAL" name="SQL Server - iproject@127.0.0.1" uuid="b38ed06b-2a58-43e9-baa7-fc53dd84ffd3">
+      <driver-ref>sqlserver.ms</driver-ref>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://127.0.0.1:1433;databaseName=iproject</jdbc-url>
+      <driver-properties>
+        <property name="integratedSecurity" value="true" />
+      </driver-properties>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+
