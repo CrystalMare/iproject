@@ -237,12 +237,18 @@
     <Build Include="Schema Objects\Schemas\dbo\Tables\Keys\Verkoperverificatie.fk_verificatie_van_gebruiker.fkey.sql">
       <SubType>Code</SubType>
     </Build>
+    <Build Include="Schema Objects\Schemas\dbo\Programmability\Stored Procedures\BlokkeerAccount.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
   </ItemGroup>
   <ItemGroup>
     <NotInBuild Include="Relationeel schema.png">
       <SubType>NotInBuild</SubType>
     </NotInBuild>
     <NotInBuild Include="demodata.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="verwijderAccountVoorbeeld.sql">
       <SubType>NotInBuild</SubType>
     </NotInBuild>
   </ItemGroup>
