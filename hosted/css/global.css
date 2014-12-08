@@ -88,13 +88,6 @@ ul li.artikel-veilen{
     background-color: #F76603;
 
 }
-ul.nav li.artikel-veilen:hover{
-    background-color: #000000;
-    color:#000000;
-}
-
-
-
 
 
 .ea-buttons{
@@ -130,7 +123,10 @@ ul.nav li.artikel-veilen:hover{
 }
 
 .navbar-default .navbar-nav > li.artikel_veilen {
+    width: 305px;
     font-size: 130%;
+    background-color: #f76603;
+    text-align: center;
 }
 
 .navbar-default .navbar-nav > li.artikel_veilen > a:hover,
@@ -168,6 +164,7 @@ ul.nav li.artikel-veilen:hover{
     background-color: #0c5071;
     height: 300px;
     text-align: left;
+    margin-top: 50px;
 
 }
 
@@ -277,6 +274,7 @@ background: #ffffff; /* Old browsers */
 
     height: 50px;
     box-shadow: 0px 2px 2px #bab9b9;
+    text-align: center;
 }
 .content-bar{
     position:relative;
@@ -614,6 +612,12 @@ background: #ffffff; /* Old browsers */
     margin: 0 auto;
 }
 
+.ea-page-title{
+    text-align: center;
+    color: #1aa9f1;
+    font-size: 150%;
+    padding-top: 10px;
+}
 .hover-menu {
     background: #ffffff;
     background: -moz-linear-gradient(top,  #ffffff 20%, #ffffff 30%, #e3e3e3 100%);
@@ -634,7 +638,3 @@ background: #ffffff; /* Old browsers */
 .hover-menu img {
     padding-top: 15px;
 }
-
-
-
-
