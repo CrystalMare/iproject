@@ -1,25 +1,39 @@
-$(document).ready(function( ) {
+function menufixer() {
+    console.log("ya");
+    $('.menu-button-active').removeClass('menu-button-active');
+}
 
+$(document).ready(function( ) {
     $(".cat").hover(
         //Hovering button
         function() {
-            $("#hover").css("display", "inline");
-            //$("#c1").css("color")
-            var menubuttonid = $(this).attr("id").substring(1);
 
+            $("#hover").css("display", "inline");
+            if ($(this).attr("id") != "hover") {
+                $('.menu-button-active').removeClass('menu-button-active');
+            }
+            var menubutton = $(this);
+
+            var linkinbutton = $('#' + menubutton.attr('id') + ' a');
+            linkinbutton.addClass('menu-button-active');
+
+            //console.log(menubutton);
             //color: #1aa9f1;
             //background-color: #fff;
             if ($(this).attr("id") == "hover")
                 return;
-            updateHover(menubuttonid);
+
+            updateHover(menubutton);
         },
         //No longer hovering button
         function() {
             $("#hover").css("display", "none")
-
         }
     );
+    setInterval(menufixer, 500);
 });
+
+
 
 function updateHover(menuid) {
     /*

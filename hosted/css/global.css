@@ -290,9 +290,6 @@ background: #ffffff; /* Old browsers */
     text-align: center;
 }
 
-
---WEBDEVS
-
 #registerFormHolder form
 {
     padding: 50px 0;
@@ -637,4 +634,9 @@ background: #ffffff; /* Old browsers */
 
 .hover-menu img {
     padding-top: 15px;
+}
+
+.menu-button-active {
+    color: #1aa9f1 !important;
+    background-color: #ffffff !important;
 }
