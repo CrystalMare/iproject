@@ -1,7 +1,7 @@
 <?php
 
-GLOBAL $BUFFER;
-$BUFFER = array();
+global $buffer;
+$buffer = array();
 
 function loadPage($page){
     if(pageExists($page))
@@ -13,7 +13,7 @@ function loadPage($page){
         parsePage($content);
     }
     else{
-        echo '404';
+        echo '404 Placeholder';
         exit();
     }
 }
@@ -37,8 +37,8 @@ function parsePage($content)
 
 function parseContent($content)
 {
-    GLOBAL $BUFFER;
-    foreach ($BUFFER as $key => $value) {
+    global $buffer;
+    foreach ($buffer as $key => $value) {
         $content = str_replace('%' . $key . '%', $value, $content);
     }
     return $content;
