@@ -706,3 +706,11 @@ background: #ffffff; /* Old browsers */
     list-style-type: none;
     padding:0px;
 }
+.bodplaatsen{
+    width: 200px;
+    margin-top:24px;
+}
+
+.bod-gegevens{
+    min-height: 345px;
+}
