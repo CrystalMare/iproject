@@ -256,8 +256,7 @@
 	WHERE Verkoper.gebruikersnaam = @gebruikersnaam;
 
 	DELETE FROM [dbo].[Gebruikerstelefoon]
-	WHERE gebruikersnaam = @gebruikersnaam;
-RETURN CAST(0 AS BIT);]]></Value>
+	WHERE gebruikersnaam = @gebruikersnaam;]]></Value>
 			</Property>
 			<Relationship Name="BodyDependencies">
 				<Entry>
@@ -314,9 +313,6 @@ RETURN CAST(0 AS BIT);]]></Value>
 				<Entry>
 					<References Name="[dbo].[Gebruikerstelefoon].[gebruikersnaam]" />
 				</Entry>
-				<Entry>
-					<References ExternalSource="BuiltIns" Name="[bit]" />
-				</Entry>
 			</Relationship>
 			<Relationship Name="Owner">
 				<Entry>
@@ -342,7 +338,7 @@ RETURN CAST(0 AS BIT);]]></Value>
 				</Entry>
 			</Relationship>
 			<Annotation Type="SysCommentsObjectAnnotation">
-				<Property Name="Length" Value="567" />
+				<Property Name="Length" Value="543" />
 				<Property Name="StartLine" Value="1" />
 				<Property Name="StartColumn" Value="1" />
 				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[BlokkeerAccount]&#xD;&#xA;&#x9;@gebruikersnaam VARCHAR(16)&#xD;&#xA;AS" />

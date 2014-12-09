@@ -207,7 +207,7 @@ h4{
 }#slideshow IMG.last-active {
     z-index:9;
 }
-=======
+
 .ea-artikel-home{
     border: none;
     margin-bottom: 20px;
@@ -289,9 +289,6 @@ background: #ffffff; /* Old browsers */
     border-bottom: 1px solid black;
     text-align: center;
 }
-
-
---WEBDEVS
 
 #registerFormHolder form
 {
@@ -516,7 +513,7 @@ background: #ffffff; /* Old browsers */
 .gegevens-left
 {
     width: 80%;
-    margin: 0px auto;
+    margin: 0 auto;
 }
 .gegevens-right
 {

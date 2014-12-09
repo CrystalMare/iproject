@@ -19,5 +19,3 @@ AS
 
 	DELETE FROM [dbo].[Gebruikerstelefoon]
 	WHERE gebruikersnaam = @gebruikersnaam;
-RETURN CAST(0 AS BIT);
-
