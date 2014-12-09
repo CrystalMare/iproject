@@ -6422,7 +6422,7 @@ button.close {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff54b4eb', endColorstr='#ff1d9ce5', GradientType=0);
   -webkit-filter: none;
           filter: none;
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid #2fa4e7;
 }
 .btn-success {
   background-image: -webkit-linear-gradient(#88c149, #73a839 60%, #699934);
