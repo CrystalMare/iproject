@@ -2,12 +2,12 @@
 
 GLOBAL $CONFIG, $DB;
 
-DEFINE('images', 'images/auction');
-DEFINE('include', 'inc/');
+DEFINE('img', 'images/auction');
+DEFINE('inc', 'inc/');
 DEFINE('pages', 'pages/');
 DEFINE('index', 'index');
 
-$CONFIG['db']['server'] = "SVENLAPTOP\\SQLEXPRESS";
+$CONFIG['db']['server'] = "SVENLAPTOP";
 $CONFIG['db']['connection'] = array( "Database"=>"iproject");
 
 function closeDB() {
@@ -17,6 +17,9 @@ function closeDB() {
 
 function openDB() {
     GLOBAL $DB, $CONFIG;
-    $DB = sqlsrv_connect($CONFIG['server'], $CONFIG['connection']);
-    if (!$DB) die(\print_r(sqlsrv_errors(), true));
+    $DB = sqlsrv_connect($DB['db']['server'], $CONFIG['db']['connection']);
+    if (!$DB){
+        var_dump(sqlsrv_errors());
+        die(\print_r("Fatal error", true));
+    }
 }

@@ -1,35 +1,45 @@
 <?php
+
+GLOBAL $BUFFER;
+$BUFFER = array();
+
 function loadPage($page){
     if(pageExists($page))
     {
-        $content = "";
         ob_start();
         include(pages . $page . '.php');
+        include(pages . $page . '.html');
         $content = ob_get_clean();
         parsePage($content);
     }
     else{
-        header('Location: ?p=404');
+        echo '404';
         exit();
     }
 }
 
 function pageExists($page)
 {
-    switch($page){
-        case index:
-            return true;
-        case '404':
-            return true;
-        default:
-            return false;
+    $files = scandir(pages);
+    if (in_array($page . '.php', $files) && in_array($page . '.html', $files)) {
+        return true;
     }
+    return false;
 }
 
 function parsePage($content)
 {
+    $content = parseContent($content);
     echo $content;
     ob_flush();
 }
 
-%iets%
+
+function parseContent($content)
+{
+    GLOBAL $BUFFER;
+    foreach ($BUFFER as $key => $value) {
+        $content = str_replace('%' . $key . '%', $value, $content);
+    }
+    return $content;
+}
