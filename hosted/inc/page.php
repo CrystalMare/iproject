@@ -7,8 +7,12 @@ function loadPage($page){
     if(pageExists($page))
     {
         ob_start();
+        include(pages . 'navigation/header.php');
+        include(pages . 'navigation/header.html');
         include(pages . $page . '.php');
         include(pages . $page . '.html');
+        include(pages . 'navigation/footer.php');
+        include(pages . 'navigation/footer.html');
         $content = ob_get_clean();
         parsePage($content);
     }
