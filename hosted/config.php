@@ -7,8 +7,13 @@ DEFINE('inc', 'inc/');
 DEFINE('pages', 'pages/');
 DEFINE('index', 'index');
 
-$CONFIG['sql']['server'] = "SVENLAPTOP";
-$CONFIG['sql']['connection'] = array( "Database"=>"iproject");
+    $CONFIG['sql'] = array(
+        'host'              => 'mssql.iproject.icasites.nl',
+        'connectioninfo'    => array(
+        'Database'          => 'iproject5',
+        'UID'               => 'iproject5',
+        'PWD'               => '7ruchEbE'
+        ));
 
 $CONFIG['site'] = array(
     'host'              => 'localhost:2117/iproject/hosted'
@@ -32,7 +37,7 @@ function closeDB() {
 
 function openDB() {
     GLOBAL $DB, $CONFIG;
-    $DB = sqlsrv_connect($DB['sql']['server'], $CONFIG['sql']['connection']);
+    $DB = sqlsrv_connect($CONFIG['sql']['host'], $CONFIG['sql']['connectioninfo']);
     if (!$DB){
         var_dump(sqlsrv_errors());
         die(\print_r("Fatal error", true));
