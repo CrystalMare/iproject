@@ -122,6 +122,16 @@ ul li.artikel-veilen{
    ]
 }
 
+.right
+{
+    float: right;
+    margin-top: 10px;
+}
+.left
+{
+    margin-top: 10px;
+}
+
 .navbar-default .navbar-nav > li.artikel_veilen {
     width: 305px;
     font-size: 130%;
@@ -643,7 +653,16 @@ background: #ffffff; /* Old browsers */
 .ea-verzend-instructies{
     height: 100px;
 }
-
+.middle
+{
+    text-align: center;
+    margin-top: 10px;
+}
+.button-center-placeholder
+{
+    margin: 0px auto;
+    width: 20%;
+}
 .form-horizontal .form-group{
     margin-left: 0px;
 }
