@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 //Load cofiguration
 include 'config.php';
