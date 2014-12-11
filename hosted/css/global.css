@@ -633,7 +633,7 @@ background: #ffffff; /* Old browsers */
 }
 
 .hover-menu img {
-    padding-top: 15px;
+    padding-top: 0px;
 }
 
 /* Input field: beschrijving hoogte veranderd*/
@@ -941,3 +941,34 @@ background: #ffffff; /* Old browsers */
     cursor: pointer;
 }
 #acdnmenu div.arrowImage {position:absolute; overflow:hidden;}
+
+
+.hover-scroll{
+    overflow: scroll;
+    max-height: 250px;
+}
+
+.hover-afbeelding{
+    max-height: 223px;
+    margin-top: 15px;
+    border: solid 1px;
+}
+
+.hover-kolom{
+height: 225px;
+margin-top:15px;
+overflow: scroll;
+padding-top: 10px;
+margin-right: 20px;
+}
+
+.hover-subcategorien{
+    list-style: none;
+    margin-left: -40px;
+    color: rgb(77,120,170);
+}
+
+.bekijk-artikel{
+    width: 100%;
+    border-radius: 0px;
+}
