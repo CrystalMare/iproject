@@ -14,10 +14,11 @@ function sendCode($email) {
     $date = time();
     $hash = hash("sha256", $email . $date);
     $code = "email=$email&date=$date&key=$hash";
+    $shortcode = $hash . ':' . $email . ':' . $date;
 
     $mail = new PHPMailer;
     $mail->isSMTP();
-    $mail->SMTPDebug = 2;
+    //$mail->SMTPDebug = 2;
     $mail->Host = $CONFIG['mail']['host'];
     $mail->SMTPAuth = true;
     $mail->Username = $CONFIG['mail']['username'];
@@ -35,8 +36,9 @@ function sendCode($email) {
     $mail->Body = "Geachte Heer/Mevrouw,<br /><br />"
         . "Welkom bij EenmaalAndermaal!<br />"
         . "Hierbij versturen wij u de bevestigingscode voor uw registratie.<br />"
-        . "Om de code te activeren klikt u op de onderstaande link:<br /><br />"
-        . "<a href='http://$host?page=activeren&$code'>http://$host?p=activeren&$code</a><br /><br />"
+        . "Uw registratie code is: <b>$shortcode</b><br />"
+        . "U kunt ook activeren door op de onderstaande link te klikken:<br /><br />"
+        . "<a href='http://$host?page=activeren&$code'>http://$host?page=activeren&$code</a><br /><br />"
         . "Met vriendelijke groet,<br /><br />"
         . "$from";
     $mail->isHTML();
@@ -59,8 +61,6 @@ function sendMail($email, $subject, $body) {
     $mail->FromName = $CONFIG['mail']['fullname'];
 
     $mail->addAddress($email);
-    $host = $CONFIG['site']['host'];
-    $from = $CONFIG['mail']['fullname'];
     $mail->Subject = $subject;
     $mail->Body = $body;
     $mail->isHTML();

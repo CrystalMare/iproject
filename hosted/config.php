@@ -11,7 +11,7 @@ $CONFIG['sql']['server'] = "SVENLAPTOP";
 $CONFIG['sql']['connection'] = array( "Database"=>"iproject");
 
 $CONFIG['site'] = array(
-    'host'              => 'localhost'
+    'host'              => 'localhost:2117/iproject/hosted'
 );
 
 $CONFIG['mail'] = array(

@@ -4,8 +4,9 @@
     <data-source name="SQL Server - iproject@localhost" uuid="4a3514e1-0ae6-46c9-a4eb-22116a5182e5">
       <secret-storage>master_key</secret-storage>
       <domain-auth>true</domain-auth>
-      <first-sync>true</first-sync>
       <user-name>sa</user-name>
+      <schema-pattern>iproject.*</schema-pattern>
+      <default-schemas>iproject.*</default-schemas>
     </data-source>
   </component>
 </project>

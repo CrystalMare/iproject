@@ -34,9 +34,12 @@ function post() {
     }
 
     require(inc . 'mail.php');
-    echo sendCode($_POST['email']);
 
-    $buffer['emailerror'] = "Er is een email verstuurd naar " . $_POST['email'];
-
+    if (sendCode($_POST['email']) == 1)
+    {
+        $buffer['emailerror'] = "Er is een email verstuurd naar " . $_POST['email'];
+    } else {
+        $buffer['emailerror'] = "Er is iets mis gegaan. Probeer het nog een keer.";
+    }
     return;
 }
