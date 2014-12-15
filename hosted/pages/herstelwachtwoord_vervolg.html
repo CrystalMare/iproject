@@ -1,14 +1,13 @@
 <!-- Page Title -->
 <div class="col-md-12 col-xs-12 ea-title">
-    <div class="ea-page-title">Account Registratie</div>
+    <div class="ea-page-title">Wachtwoord herstel</div>
 </div>
 
 <!-- Content -->
-
 <div class="col-md-12 col-xs-12 content-home">
-    <div class="panel panel-info">
+	<div class="panel panel-info">
         <div class="panel-heading">
-            <h3 class="panel-title">STAP 2:</h3>
+            <h3 class="panel-title">Wachtwoord herstel</h3>
         </div>
         <div class="panel-body">
             Praesent pretium nibh nibh, in pulvinar sapien ullamcorper non. Phasellus faucibus mi a sem vulputate, nec
@@ -21,12 +20,25 @@
         </div>
     </div>
 
-    <div class="col-md-3 col-xs-3">
-    <label for="codeInvoer">Voer uw code in:</label>
-    <input type="text" class="form-control" id="codeInvoer" placeholder="Voer uw code in">
-    </div>
     <div class="col-md-12 col-xs-12">
-    <a href="#" class="btn btn-warning knop-wijziging">Registreer</a>
+    	<div class="col-md-4 col-xs-3">
+			<label for="geheimeVraag">Geheime vraag:</label>
+		            <select class="form-control" id="select">
+		                <option>Geheime vraag</option>
+		                <option>1</option>
+		                <option>3</option>
+		                <option>5</option>
+		                <option>7</option>
+		                <option>10</option>
+		            </select>
+    	</div>
+    	<div class="col-md-12 col-xs-12">
+            <label for="beantwoord">beantwoord</label>
+            <input type="text" class="form-control ea-beschrijving" id="beantwoord"
+            placeholder="beantwoord" autocomplete="off" style="cursor: auto;">
+    	</div>
+    	<div class="col-md-12 col-xs-12">
+                    <a href="#" class="btn btn-warning bodplaatsen">Verzenden</a>
+    	</div>
     </div>
 </div>
-
