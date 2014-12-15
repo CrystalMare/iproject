@@ -29,14 +29,19 @@ function post() {
     $state = verifyRegistration();
     if ($state == 'ok') {
         $state = commitRegistration();
+    } else {
+
+        $key = $_SESSION['register']['key'];
+        header("Location: ?page=registreeraccount&key=$key&err=$state");
+        exit();
     }
+
 
     if ($state != 'ok') {
-    $key = $_SESSION['register']['key'];
-    header("Location: ?page=accountregistreren&key=$key&err=$state");
-    exit();
+        $key = $_SESSION['register']['key'];
+        header("Location: ?page=registreeraccount&key=$key&err=$state");
+        exit();
     }
-
 }
 function verifyRegistration() {
     global $DB;
@@ -67,16 +72,18 @@ function commitRegistration() {
         . "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $salt = randomSalt();
     $wachtwoord = hash('sha256', $_POST['password'] . $salt);
+    $antwoord = hash('sha256', $_POST['questionAnswer']);
+    $geboortedag = $_POST['year'] . $_POST['month'] . $_POST['day'];
     $params = array(
-        $_POST['username'], $_POST['firstname'], $_POST['achternaam'], $_POST['adres'], "",
-        str_replace("", " ", $_POST['zipcode']), "", $_POST['country'], str_replace("/", "-", $_POST['geboortedatum']),
-        $_SESSION['register']['email'], $wachtwoord, $_POST['vraag'], $_POST['questionAnswer'], $salt
+        $_POST['username'], $_POST['firstname'], $_POST['lastname'], $_POST['adres'], $_POST['adres2'],
+        str_replace(" ", "", $_POST['zipcode']), $_POST['town'], $_POST['country'], $geboortedag,
+        $_SESSION['register']['email'], $wachtwoord, $_POST['vraag'], $antwoord, $salt
     );
+    var_dump($params);
     $stmt = sqlsrv_query($DB, $sql, $params);
     if (!sqlsrv_errors()) {
         return "ok";
     } else {
-        var_dump(sqlsrv_errors());
         return "check";
     }
 }

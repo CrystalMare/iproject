@@ -38,6 +38,7 @@ function post() {
     if (sendCode($_POST['email']) == 1)
     {
         $buffer['emailerror'] = "Er is een email verstuurd naar " . $_POST['email'];
+        header("Location: index.php?page=activeren&status=sent");
     } else {
         $buffer['emailerror'] = "Er is iets mis gegaan. Probeer het nog een keer.";
     }

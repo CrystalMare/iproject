@@ -26,11 +26,17 @@ function checkKey($key, $email, $time) {
 
 function get() {
     global $buffer;
+
+    if (isset($_GET['status']) && $_GET['status'] == 'sent') {
+        $buffer['status'] = "Er is een email naar u verstuurd met de verificatiecode.";
+        return;
+    }
+
+
     if (!isset($_GET['key']) || !isset($_GET['date']) || !isset($_GET['email'])) {
         $buffer['status'] = "Dit is geen volledige code";
         return;
-    }
-    else {
+    } else {
         $code = $_GET['key'];
         $date = $_GET['date'];
         $email = $_GET['email'];

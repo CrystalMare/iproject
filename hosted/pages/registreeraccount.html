@@ -12,14 +12,15 @@
 
 <!-- Content -->
 <div class="col-md-12 col-xs-12 content-home">
-    <form action="?page=creer" method="POST" id="registerForm" name="registerForm">
+    <form action="?page=maakaccount&key=%key%" method="POST" id="registerForm" name="registerForm">
 
 
         <div class="gegevens-left-holder">
             <div class="gegevens-left">
                 <h4>Gebruikers Account</h4>
+                %error%
                 <br />
-                <label for="username">Username:</label>
+                <label for="username">Gebruikersnaam</label>
                 <input name="username" placeholder="Voer uw gebruikersnaam in" type="text">
                 <label for="password">Wachtwoord</label>
                 <input name="password" placeholder="Voer uw wachtwoord in" type="password">
@@ -47,18 +48,29 @@
                 <input name="lastname" placeholder="Voer uw achternaam in" type="text">
                 <label for="adres">Adres</label>
                 <input name="adres" placeholder="Voer uw adres in" type="text">
+                <input name="adres2" type="text">
                 <label for="zipcode">Postcode</label>
                 <input name="zipcode" placeholder="Postcode" type="text">
+                <label for="town">Woonplaats</label>
+                <input name="town" placeholder="Voer uw woonplaats in" type="text">
                 <label for="country">Land</label>
-                <input name="country" placeholder="Land" type="text">
+                <select name="country">
+                    %countries%
+                </select>
                 <label for="phone1">Telefoonnr. 1</label>
                 <input name="phone1" placeholder="Telefoonnummer" type="text">
                 <label for="phone2">Telefoonnr. 2</label>
                 <input name="phone2" placeholder="Telefoonnummer 2" type="text">
                 <label for="birthdate">Geboortedatum</label>
-                <input name="day" placeholder="Dag" type="text">
-                <input name="month" placeholder="Maand" type="text">
-                <input name="year" placeholder="Jaar" type="text">
+                <select name="day">
+                    %days%
+                </select>
+                <select name="month">
+                    %months%
+                </select>
+                <select name="year">
+                    %years%
+                </select>
             </div>
         </div>
 

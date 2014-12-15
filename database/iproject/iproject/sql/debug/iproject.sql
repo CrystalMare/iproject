@@ -39,6 +39,10 @@ PRINT N'Creating $(DatabaseName)...'
 GO
 CREATE DATABASE [$(DatabaseName)] COLLATE SQL_Latin1_General_CP1_CI_AS
 GO
+ALTER DATABASE [$(DatabaseName)]
+    SET SINGLE_USER 
+    WITH ROLLBACK IMMEDIATE
+GO
 EXECUTE sp_dbcmptlevel [$(DatabaseName)], 100;
 
 
@@ -511,12 +515,39 @@ CREATE TABLE [dbo].[Gebruiker] (
     [verkoper]       AS            dbo.fnIsKoper(gebruikersnaam),
     [salt]           CHAR (8)      NOT NULL,
     [registratie]    DATE          NOT NULL,
+    [verwijderd]     BIT           NOT NULL,
     CONSTRAINT [pk_gebruikersnaam] PRIMARY KEY CLUSTERED ([gebruikersnaam] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF),
     CONSTRAINT [un_email_bestaat] UNIQUE NONCLUSTERED ([mailbox] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF),
     CONSTRAINT [un_salt] UNIQUE NONCLUSTERED ([salt] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF)
 );
 
 
+GO
+PRINT N'Creating [dbo].[BlokkeerAccount]...';
+
+
+GO
+CREATE PROCEDURE [dbo].[BlokkeerAccount]
+	@gebruikersnaam VARCHAR(16)
+AS
+	UPDATE [dbo].[Gebruiker]
+	SET voornaam = '--',
+		achternaam = '--',
+		adresregel1 = '--',
+		adresregel2 = '--',
+		postcode = '--',
+		geboortedag = GETDATE(),
+		verwijderd = CAST(1 AS BIT)
+	WHERE gebruikersnaam = @gebruikersnaam;
+
+	UPDATE [dbo].[Verkoper]
+	SET bank = NULL,
+		rekeningnummer = NULL,
+		creditcard = NULL
+	WHERE Verkoper.gebruikersnaam = @gebruikersnaam;
+
+	DELETE FROM [dbo].[Gebruikerstelefoon]
+	WHERE gebruikersnaam = @gebruikersnaam;
 GO
 PRINT N'Creating fk_bod_gebruiker...';
 
@@ -590,12 +621,12 @@ ALTER TABLE [dbo].[Gebruiker]
 
 
 GO
-PRINT N'Creating chk_gebruikersnaam_spaties...';
+PRINT N'Creating On column: verwijderd...';
 
 
 GO
-ALTER TABLE [dbo].[Gebruiker] WITH NOCHECK
-    ADD CONSTRAINT [chk_gebruikersnaam_spaties] CHECK (gebruikersnaam NOT LIKE ('% %'));
+ALTER TABLE [dbo].[Gebruiker]
+    ADD DEFAULT CAST(0 AS BIT) FOR [verwijderd];
 
 
 GO
@@ -1125,8 +1156,6 @@ ALTER TABLE [dbo].[Gebruikerstelefoon] WITH CHECK CHECK CONSTRAINT [fk_telefoon_
 ALTER TABLE [dbo].[Verkoper] WITH CHECK CHECK CONSTRAINT [fk_gebruikersnaam];
 
 ALTER TABLE [dbo].[Verkoperverificatie] WITH CHECK CHECK CONSTRAINT [fk_verificatie_van_gebruiker];
-
-ALTER TABLE [dbo].[Gebruiker] WITH CHECK CHECK CONSTRAINT [chk_gebruikersnaam_spaties];
 
 ALTER TABLE [dbo].[Gebruiker] WITH CHECK CHECK CONSTRAINT [chk_mailbox];
 
