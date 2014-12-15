@@ -124,6 +124,27 @@
 		</Element>
 		<Element Type="ISql90DefaultConstraint">
 			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[CAST(0 AS BIT)]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[Gebruiker]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ExpressionDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bit]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[dbo].[Gebruiker].[verwijderd]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="8" />
+		</Element>
+		<Element Type="ISql90DefaultConstraint">
+			<Property Name="DefaultExpressionScript">
 				<Value><![CDATA[GETDATE()]]></Value>
 			</Property>
 			<Relationship Name="DefiningTable">
@@ -136,7 +157,7 @@
 					<References Name="[dbo].[Bod].[datumtijd]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="8" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="9" />
 		</Element>
 		<Element Type="ISql90DefaultConstraint">
 			<Property Name="DefaultExpressionScript">
@@ -152,7 +173,7 @@
 					<References Name="[dbo].[Verkoperverificatie].[aanvraagmoment]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="9" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="10" />
 		</Element>
 		<Element Type="ISql90DefaultConstraint">
 			<Property Name="DefaultExpressionScript">
@@ -168,7 +189,7 @@
 					<References Name="[dbo].[Voorwerp].[betalingswijze]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="10" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="11" />
 		</Element>
 		<Element Type="ISql100Table" Name="[dbo].[Bestand]">
 			<Property Name="IsAnsiNullsOn" Value="True" />
@@ -204,7 +225,7 @@
 								</Element>
 							</Entry>
 						</Relationship>
-						<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="11" />
+						<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="12" />
 					</Element>
 				</Entry>
 			</Relationship>
@@ -213,6 +234,115 @@
 					<References ExternalSource="BuiltIns" Name="[dbo]" />
 				</Entry>
 			</Relationship>
+		</Element>
+		<Element Type="ISql100Procedure" Name="[dbo].[BlokkeerAccount]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+	UPDATE [dbo].[Gebruiker]
+	SET voornaam = '--',
+		achternaam = '--',
+		adresregel1 = '--',
+		adresregel2 = '--',
+		postcode = '--',
+		geboortedag = GETDATE(),
+		verwijderd = CAST(1 AS BIT)
+	WHERE gebruikersnaam = @gebruikersnaam;
+
+	UPDATE [dbo].[Verkoper]
+	SET bank = NULL,
+		rekeningnummer = NULL,
+		creditcard = NULL
+	WHERE Verkoper.gebruikersnaam = @gebruikersnaam;
+
+	DELETE FROM [dbo].[Gebruikerstelefoon]
+	WHERE gebruikersnaam = @gebruikersnaam;]]></Value>
+			</Property>
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[Gebruiker]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Gebruiker].[voornaam]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Gebruiker].[achternaam]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Gebruiker].[adresregel1]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Gebruiker].[adresregel2]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Gebruiker].[postcode]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Gebruiker].[geboortedag]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Gebruiker].[verwijderd]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[bit]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Gebruiker].[gebruikersnaam]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[BlokkeerAccount].[@gebruikersnaam]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Verkoper]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Verkoper].[bank]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Verkoper].[rekeningnummer]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Verkoper].[creditcard]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Verkoper].[gebruikersnaam]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Gebruikerstelefoon]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Gebruikerstelefoon].[gebruikersnaam]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Owner">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="ISql100SubroutineParameter" Name="[dbo].[BlokkeerAccount].[@gebruikersnaam]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Property Name="Length" Value="16" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="543" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[BlokkeerAccount]&#xD;&#xA;&#x9;@gebruikersnaam VARCHAR(16)&#xD;&#xA;AS" />
+			</Annotation>
 		</Element>
 		<Element Type="ISql100Table" Name="[dbo].[Bod]">
 			<Property Name="IsAnsiNullsOn" Value="True" />
@@ -266,7 +396,7 @@
 								</Element>
 							</Entry>
 						</Relationship>
-						<AttachedAnnotation Disambiguator="8" />
+						<AttachedAnnotation Disambiguator="9" />
 					</Element>
 				</Entry>
 				<Entry>
@@ -300,7 +430,7 @@
 								</Element>
 							</Entry>
 						</Relationship>
-						<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="12" />
+						<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="13" />
 					</Element>
 				</Entry>
 			</Relationship>
@@ -309,8 +439,8 @@
 					<References ExternalSource="BuiltIns" Name="[dbo]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="13" />
 			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="14" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="15" />
 		</Element>
 		<Element Type="ISql90CheckConstraint" Name="[dbo].[chk_bodbedrag_meer_dan_1]">
 			<Property Name="CheckExpressionScript">
@@ -326,7 +456,7 @@
 					<References Name="[dbo].[Bod]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="14" />
+			<AttachedAnnotation Disambiguator="15" />
 		</Element>
 		<Element Type="ISql90CheckConstraint" Name="[dbo].[chk_controleoptie]">
 			<Property Name="CheckExpressionScript">
@@ -342,7 +472,7 @@
 					<References Name="[dbo].[Verkoper]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="15" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="16" />
 		</Element>
 		<Element Type="ISql90CheckConstraint" Name="[dbo].[chk_feedbacktype]">
 			<Property Name="CheckExpressionScript">
@@ -356,22 +486,6 @@
 			<Relationship Name="DefiningTable">
 				<Entry>
 					<References Name="[dbo].[Feedback]" />
-				</Entry>
-			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="16" />
-		</Element>
-		<Element Type="ISql90CheckConstraint" Name="[dbo].[chk_gebruikersnaam_spaties]">
-			<Property Name="CheckExpressionScript">
-				<Value><![CDATA[gebruikersnaam NOT LIKE ('% %')]]></Value>
-			</Property>
-			<Relationship Name="CheckExpressionDependencies">
-				<Entry>
-					<References Name="[dbo].[Gebruiker].[gebruikersnaam]" />
-				</Entry>
-			</Relationship>
-			<Relationship Name="DefiningTable">
-				<Entry>
-					<References Name="[dbo].[Gebruiker]" />
 				</Entry>
 			</Relationship>
 			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="17" />
@@ -567,7 +681,7 @@
 					<References ExternalSource="BuiltIns" Name="[dbo]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="16" />
+			<AttachedAnnotation Disambiguator="17" />
 			<AttachedAnnotation Disambiguator="18" />
 		</Element>
 		<Element Type="ISql90ForeignKeyConstraint" Name="[dbo].[fk_bestand_van_voorwerp]">
@@ -1467,8 +1581,25 @@ END]]></Value>
 								</Element>
 							</Entry>
 						</Relationship>
-						<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="25" />
 						<AttachedAnnotation Disambiguator="7" />
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="ISql100SimpleColumn" Name="[dbo].[Gebruiker].[verwijderd]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="ISql90TypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bit]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="25" />
+						<AttachedAnnotation Disambiguator="8" />
 					</Element>
 				</Entry>
 			</Relationship>
@@ -1478,7 +1609,6 @@ END]]></Value>
 				</Entry>
 			</Relationship>
 			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="26" />
-			<AttachedAnnotation Disambiguator="17" />
 			<AttachedAnnotation Disambiguator="20" />
 			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="27" />
 		</Element>
@@ -1645,7 +1775,7 @@ END]]></Value>
 					<References Name="[dbo].[Bod]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="13" />
+			<AttachedAnnotation Disambiguator="14" />
 		</Element>
 		<Element Type="ISql100PrimaryKeyConstraint" Name="[dbo].[pk_feedback]">
 			<Relationship Name="ColumnSpecifications">
@@ -1692,7 +1822,7 @@ END]]></Value>
 					<References Name="[dbo].[Bestand]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="11" />
+			<AttachedAnnotation Disambiguator="12" />
 		</Element>
 		<Element Type="ISql100PrimaryKeyConstraint" Name="[dbo].[pk_gebruikersnaam]">
 			<Relationship Name="ColumnSpecifications">
@@ -2059,7 +2189,7 @@ END]]></Value>
 					<References Name="[dbo].[Bod]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="12" />
+			<AttachedAnnotation Disambiguator="13" />
 		</Element>
 		<Element Type="ISql100UniqueConstraint" Name="[dbo].[un_email_bestaat]">
 			<Relationship Name="ColumnSpecifications">
@@ -2210,7 +2340,7 @@ END]]></Value>
 					<References ExternalSource="BuiltIns" Name="[dbo]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="15" />
+			<AttachedAnnotation Disambiguator="16" />
 		</Element>
 		<Element Type="ISql100Table" Name="[dbo].[Verkoperverificatie]">
 			<Property Name="IsAnsiNullsOn" Value="True" />
@@ -2247,7 +2377,7 @@ END]]></Value>
 							</Entry>
 						</Relationship>
 						<AttachedAnnotation Disambiguator="31" />
-						<AttachedAnnotation Disambiguator="9" />
+						<AttachedAnnotation Disambiguator="10" />
 					</Element>
 				</Entry>
 			</Relationship>
@@ -2344,7 +2474,7 @@ END]]></Value>
 								</Element>
 							</Entry>
 						</Relationship>
-						<AttachedAnnotation Disambiguator="10" />
+						<AttachedAnnotation Disambiguator="11" />
 					</Element>
 				</Entry>
 				<Entry>

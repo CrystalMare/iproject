@@ -16,12 +16,19 @@ switch ($_SERVER['REQUEST_METHOD']) {
 function setDefaultBuffer() {
     global $buffer;
     $buffer['vragen'] = "";
+    $buffer['days'] = "";
+    $buffer['months'] = "";
+    $buffer['years'] = "";
+    $buffer['countries'] = "";
+    $buffer['key'] = $_GET['key'];
+    $buffer['error'] = "";
+
 }
 
 function get() {
-    global $buffer, $CONFIG, $DB;
+    global $buffer, $DB;
     if (!isset($_SESSION['register']) || !isset($_GET['key']) || $_GET['key'] != $_SESSION['register']['key'] || $_GET['key'] != $_SESSION['register']['key']) {
-        header("Location: ?page=registreren");
+        header(307, "Location: index.php?page=registreren");
         exit();
     }
 
@@ -55,6 +62,43 @@ function get() {
                 $buffer['error'] = "Controleer uw invoer.";
                 break;
         }
+    }
+
+    //Landen
+    $sql = "SELECT landnaam FROM Land ORDER BY landnaam ASC";
+    $stmt = sqlsrv_query($DB, $sql);
+    if (!$stmt) {
+        die(print_r(sqlsrv_errors()));
+    }
+    while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+        $country = $row['landnaam'];
+        if ($country == "Netherlands") {
+            $buffer['countries'] .= "<option selected='selected' value='$country'>$country</option>";
+        } else {
+            $buffer['countries'] .= "<option value='$country'>$country</option>";
+        }
+    }
+
+    //Days
+    for ($i = 1; $i <= 31; $i++) {
+        if ($i < 10) {
+            $buffer['days'] .= "<option value='0$i'>0$i</option>";
+        } else {
+            $buffer['days'] .= "<option value='$i'>$i</option>";
+        }
+    }
+    //Months
+    for ($i = 1; $i <= 12; $i++) {
+        if ($i < 10) {
+            $buffer['months'] .= "<option value='0$i'>0$i</option>";
+        } else {
+            $buffer['months'] .= "<option value='$i'>$i</option>";
+        }
+
+    }
+    //Years
+    for ($i = 2014; $i >= 1900; $i--) {
+        $buffer['years'] .= "<option value='$i'>$i</option>";
     }
 
 }

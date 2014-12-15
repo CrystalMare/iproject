@@ -122,6 +122,16 @@ ul li.artikel-veilen{
    ]
 }
 
+.right
+{
+    float: right;
+    margin-top: 10px;
+}
+.left
+{
+    margin-top: 10px;
+}
+
 .navbar-default .navbar-nav > li.artikel_veilen {
     width: 305px;
     font-size: 130%;
@@ -643,7 +653,16 @@ background: #ffffff; /* Old browsers */
 .ea-verzend-instructies{
     height: 100px;
 }
-
+.middle
+{
+    text-align: center;
+    margin-top: 10px;
+}
+.button-center-placeholder
+{
+    margin: 0px auto;
+    width: 20%;
+}
 .form-horizontal .form-group{
     margin-left: 0px;
 }
@@ -972,6 +991,7 @@ margin-right: 20px;
     width: 100%;
     border-radius: 0px;
 }
+<<<<<<< HEAD
 
 .mijn-account{
     margin-left: -30px;
@@ -989,3 +1009,5 @@ label{
 .btn-primary{
     margin-top: 10px;
 }
+=======
+>>>>>>> df8297634d7e909ea7ddde13ccc2f4afa4536ad3

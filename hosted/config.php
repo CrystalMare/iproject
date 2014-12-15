@@ -16,7 +16,7 @@ DEFINE('index', 'index');
         ));
 
 $CONFIG['site'] = array(
-    'host'              => 'localhost:2117/iproject/hosted'
+    'host'              => 'localhost:8080'
 );
 
 $CONFIG['mail'] = array(

@@ -56,7 +56,7 @@
                         Test
                     </div>
                     <div class ="col-md-3 col-xs-3">
-                        <a href="#" class="btn btn-warning bodplaatsen">Geef feedback</a>
+                        <a href="#" class="btn btn-warning bodplaatsen" data-toggle="modal" data-target="#feedback-modal">Geef feedback</a>
                     </div>
                 </div>
                 <div class ="col-md-12 col-xs-12">
@@ -67,10 +67,49 @@
                         Test
                     </div>
                     <div class ="col-md-3 col-xs-3">
-                        <a href="#" class="btn btn-warning bodplaatsen">Geef feedback</a>
+                        <a href="#" class="btn btn-warning bodplaatsen" data-toggle="modal" data-target="#feedback-modal">Geef feedback</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+<div class="modal" id="feedback-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Feedback geven voor Curtis</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+            <div class="col-lg-6 col-md-6 col-xs-6">
+                <label for="naamArtikel">Van:</label>
+                <input type="text" class="form-control" id="naamArtikel" placeholder="TEST" autocomplete="off" style="cursor: auto;">
+            </div>
+            <div class="col-lg-6 col-md-6 col-xs-6">
+                <label for="naamArtikel">Tevredenheid:</label>
+                
+                 <select class="form-control" id="select">
+                    <option>Goed</option>
+                    <option>Matig</option>
+                    <option>Slecht</option>
+                </select>
+            </div>
+            <div class="col-lg-12 col-md-12 col-xs-12">
+                <label for="naamArtikel">Toelichting:</label>
+                <input type="text" class="form-control ea-beschrijving" id="naamArtikel" placeholder="TEST" autocomplete="off" style="cursor: auto;">
+            </div>
+        </div>
+    </div>
+      <div class="modal-footer">
+        <div class="col-lg-12">
+            <div class="button-center-placeholder">
+            <button type="button" class="btn btn-warning middle" data-dismiss="modal">Geef feedback</button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
