@@ -21,8 +21,8 @@ function setDefaultBuffer() {
 
 function get() {
     global $buffer;
-    $buffer["test"] = 'Hello penis';
-
+    $_SESSION['username'] = null;
+    header('Location: index.php');
 }
 
 function post() {
