@@ -70,11 +70,7 @@ function get()
     $buffer['gesloten'] = $row['gesloten'];
     $buffer['laatstebod'] = $row['gesloten'];
 
-$auction = 1;
-    for ($i = 0; $i < ImageProvider::getImagesForAuction(1)->getImageCount(); $i++) {
-
-    }
-    var_dump(ImageProvider::getImagesForAuction($auction)->getImageCount());
+$auction = 3;
 
     if(ImageProvider::getImagesForAuction($auction)->getImageCount() > 0)   {
         $buffer['pic'] = <<<"END"
@@ -101,13 +97,11 @@ $auction = 1;
                 </div>
 END;
         }
-
-    else If(ImageProvider::getImagesForAuction($auction)->getImageCount() > 1)   {
+    If(ImageProvider::getImagesForAuction($auction)->getImageCount() > 1)   {
         $buffer['pic'] .= <<<"END"
-
     <div class="col-md-4 kleine-thumbnail col-xs-4">
                     <a href="#" data-toggle="modal" data-target="#basicModal1">
-                        <img src="inc/image.php?auction=$auction &id=1" alt="geen foto" class="img-thumbnail">
+                        <img src="inc/image.php?auction=$auction&id=1" alt="geen foto" class="img-thumbnail">
                     </a>                </div>
 
                 <div class="modal fade" id="basicModal1" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
@@ -128,7 +122,7 @@ END;
                 </div>
 END;
     }
-    else If(ImageProvider::getImagesForAuction($auction)->getImageCount() > 2)   {
+    If(ImageProvider::getImagesForAuction($auction)->getImageCount() > 2)   {
         $buffer['pic'] .= <<<"END"
                     <div class="col-md-4 kleine-thumbnail col-xs-4">
                     <a href="#" data-toggle="modal" data-target="#basicModal2">
@@ -153,7 +147,7 @@ END;
                 </div>
 END;
     }
-    else If(ImageProvider::getImagesForAuction($auction)->getImageCount() > 3)   {
+    If(ImageProvider::getImagesForAuction($auction)->getImageCount() > 3)   {
         $buffer['pic'] .= <<<"END"
 
                     <div class="col-md-4 kleine-thumbnail col-xs-4">
@@ -205,10 +199,7 @@ END;
                 </div>
 END;
     }
-
-
-    var_dump($buffer);
-
+    
 }
 
 function post() {
