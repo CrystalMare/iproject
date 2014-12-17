@@ -725,8 +725,7 @@ background: #ffffff; /* Old browsers */
     padding:0px;
 }
 .bodplaatsen{
-    width: 200px;
-    margin-top:24px;
+    width: 100%;
 }
 
 .bod-gegevens{
@@ -762,6 +761,7 @@ background: #ffffff; /* Old browsers */
 .nog-te-geven-feedback{
     max-height: 140px;
     min-height: 140px;
+    padding-top: 10px;
     border-radius: 5px;
     border: solid 1px #bcbcbc;
     border-radius: 5px;
@@ -991,3 +991,23 @@ margin-right: 20px;
     width: 100%;
     border-radius: 0px;
 }
+<<<<<<< HEAD
+
+.mijn-account{
+    margin-left: -30px;
+    width: 100%;
+}
+
+label{
+    margin-top: 5px;
+}
+
+.knop-wijziging{
+    margin-top: 10px;
+}
+
+.btn-primary{
+    margin-top: 10px;
+}
+=======
+>>>>>>> df8297634d7e909ea7ddde13ccc2f4afa4536ad3
