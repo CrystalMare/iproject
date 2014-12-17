@@ -15,7 +15,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
 function setDefaultBuffer() {
     global $buffer;
-
+    $buffer['looptijden'] = "";
+    $buffer['countries'] = "";
 }
 
 function get() {
@@ -26,7 +27,18 @@ function get() {
     }
 
     //Looptijd
-
+    foreach (DatabaseTools::getAuctionDurations() as $value) {
+        $buffer['looptijden'] .= "<option value='$value'>$value</option>";
+    }
+    unset($value);
+    //Landen
+    foreach (DatabaseTools::getCountries() as $value) {
+        if ($value == "Netherlands") {
+            $buffer['countries'] .= "<option selected='selected' value='$value'>$value</option>";
+        } else {
+            $buffer['countries'] .= "<option value='$value'>$value</option>";
+        }
+    }
 
 
 }
