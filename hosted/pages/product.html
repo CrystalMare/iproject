@@ -12,7 +12,6 @@
                 <h3 class="panel-title">%titel%</h3>
             </div>
             <div class="panel-body">
-
                 %pic%
             </div>
         </div>
@@ -28,21 +27,49 @@
                 <h2>Uw gegevens</h2>
 
                 <div class="col-md-3 col-xs-3">
-                    %titel%
+                    <ul class ="artikel-gegevens">
+                        <li>Titel:</li>
+                        <li>Startprijs:</li>
+                        <li>Betalingswijze:</li>
+                        <li>Plaatsnaam:</li>
+                        <li>Land:</li>
+                        <li>Looptijd:</li>
+                        <li>Verzendkosten:</li>
+                        <li>Verzendinstructies:</li>
+                        <li>Verkoper:</li>
+                        <li>Sluiting:</li>
+
+                    </ul>
 
                 </div>
                 <div class="col-md-9 gegevens col-xs-9">
                     <ul class="lijst-gegevens">
-                        <li>lijst-item1</li>
-                        <li>lijst-item2</li>
-                        <li>lijst-item3</li>
-                        <li>lijst-item4</li>
-                        <li>lijst-item5</li>
+                        <li>%titel%</li>
+                        <li>%startprijs%</li>
+                        <li>%betalingswijze%</li>
+                        <li>%plaatsnaam%</li>
+                        <li>%land%</li>
+                        <li>%looptijd%</li>
+                        <li>%verzendkosten%</li>
+                        <li>%verzendinstructies%</li>
+                        <li>%verkoper%</li>
+                        <li>%looptijdeindmoment%</li>
+
                     </ul>
                 </div>
-                <h3>Dagen</h3>
+                <div class="col-md-3 col-xs-3">
+                    <h3>Dagen</h3>
+                </div>
+                <div class="col-md-9 gegevens gegevens-dag col-xs-9">
+                    <p>test</p>
+                </div>
+                <div class="col-md-3 col-xs-3">
+                    <h3>Uren</h3>
+                </div>
+                <div class="col-md-9 gegevens gegevens-tijd col-xs-9">
+                    <p>test</p>
+                </div>
 
-                <h3>Uren</h3>
             </div>
         </div>
     </div>
@@ -50,10 +77,10 @@
     <div class="col-md-4 col-xs-4">
         <div class="panel panel-info">
             <div class="panel-heading-product-afbeelding">
-                <h3 class="panel-title">Huidige bod:</h3>
+                <h3 class="panel-title">Huidige bod: %bedrag%</h3>
             </div>
             <div class="panel-body">
-                <p> Bied geschiedenis</p>
+                <p> %bieder% %geschiedenis% </p>
             </div>
         </div>
     </div>
@@ -63,12 +90,8 @@
                 <h3 class="panel-title">Product beschrijving </h3>
             </div>
             <div class="panel-body">
-                <p>Sed tempus semper ante et dapibus. Pellentesque habitant morbi tristique senectus et netus et
-                    malesuada fames ac turpis egestas. Nunc sagittis mauris convallis dolor pulvinar sodales. Sed
-                    iaculis nibh leo, et commodo quam feugiat et. Aliquam ligula nibh, hendrerit in sem sit amet,
-                    placerat finibus nisi. Morbi sit amet velit maximus massa semper vehicula. Cras at magna at diam
-                    pretium sodales. Proin commodo ante nec risus iaculis malesuada. Proin eget porta erat, non
-                    tristique arcu.
+                <p>
+                    %beschrijving%
                 </p>
             </div>
         </div>

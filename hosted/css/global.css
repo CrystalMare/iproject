@@ -1013,3 +1013,16 @@ label{
 .kleine-thumbnail{
     padding: 0;
 }
+
+.artikel-gegevens{
+    list-style: none;
+    margin-left: -35%;
+}
+
+.gegevens-dag{
+    font-size: 200%;
+}
+
+.gegevens-tijd{
+    font-size: 200%;
+}

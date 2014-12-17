@@ -30,15 +30,27 @@ function get()
 
     $laatsteBod = "SELECT max(bodbedrag) AS bodbedrag FROM Bod WHERE voorwerpnummer = ?";
 
-    $artikelGegevens = "SELECT titel, beschrijving, startprijs, betalingswijze, betalingsinstructie, plaatsnaam, land, verzendinstructies, verkoper, looptijdeindmoment, gesloten FROM Voorwerp " .
-        "WHERE voorwerpnummer = ?";
+    $bodGeschiedenis ="SELECT bodbedrag, gebruikersnaam, datumtijd FROM Bod WHERE voorwerpnummer = ? ORDER BY bodbedrag DESC;";
+
+    $artikelGegevens = "SELECT titel, beschrijving, startprijs, betalingswijze, betalingsinstructie, plaatsnaam, land,
+            verzendinstructies, verkoper, looptijdeindmoment, gesloten FROM Voorwerp WHERE voorwerpnummer = ?";
 
     $params = array(1);
 
     $stmt = sqlsrv_query($DB, $artikelGegevens, $params);
     $stmtLaatsteBod = sqlsrv_query($DB, $laatsteBod, $params);
+    $stmtBodGeschiedenis = sqlsrv_query($DB, $bodGeschiedenis, $params);
+
     $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
     $rowLaatsteBod = sqlsrv_fetch_array($stmtLaatsteBod, SQLSRV_FETCH_ASSOC);
+    $rowBodGeschiedenis = sqlsrv_fetch_array($stmtBodGeschiedenis, SQLSRV_FETCH_ASSOC);
+
+
+    foreach(getBidHistory(1) as $value) {
+        var_dump($value);
+    }
+
+
 
     if (!$stmt) {
         die(print_r(sqlsrv_errors()));
@@ -49,6 +61,10 @@ function get()
         return;
     }
 
+    if (!sqlsrv_has_rows($stmtBodGeschiedenis)) {
+        $buffer['error'] = "Er is nog niet eerder geboden.";
+        return;
+    }
 
     if ($stmtLaatsteBod) {
         if (sqlsrv_has_rows($stmtLaatsteBod)) {
@@ -61,15 +77,19 @@ function get()
     }
 
     $buffer['titel'] = $row['titel'];
+    $buffer['startprijs'] = $row['startprijs'];
     $buffer['beschrijving'] = $row['beschrijving'];
     $buffer['betalingswijze'] = $row['betalingswijze'];
     $buffer['plaatsnaam'] = $row['plaatsnaam'];
     $buffer['land'] = $row['land'];
+    $buffer['verkoper'] = $row['verkoper'];
     $buffer['verzendinstructies'] = $row['verzendinstructies'];
     $buffer['looptijdeindmoment'] = $row['looptijdeindmoment']->format('Y-m-d H:i:s');
     $buffer['gesloten'] = $row['gesloten'];
     $buffer['laatstebod'] = $row['gesloten'];
 
+    $buffer['geschiedenis'] = $rowBodGeschiedenis['bodbedrag'];
+    $buffer['bieder'] = $rowBodGeschiedenis['gebruikersnaam'];
 $auction = 3;
 
     if(ImageProvider::getImagesForAuction($auction)->getImageCount() > 0)   {
@@ -199,7 +219,7 @@ END;
                 </div>
 END;
     }
-    
+
 }
 
 function post() {
@@ -208,4 +228,14 @@ function post() {
 }
 
 
-
+function getBidHistory($auction) {
+    global $DB;
+    $tsql = "SELECT bodbedrag, gebruikersnaam, datumtijd FROM Bod WHERE voorwerpnummer = 1 ORDER BY bodbedrag DESC;";
+    $params = array($auction);
+    $stmt = sqlsrv_query($DB, $tsql, $params);
+    $history = array();
+    while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+        array_push($history, $row);
+    }
+    return $history;
+}
