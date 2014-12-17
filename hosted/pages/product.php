@@ -70,16 +70,17 @@ function get()
     $buffer['gesloten'] = $row['gesloten'];
     $buffer['laatstebod'] = $row['gesloten'];
 
-$auction = 4;
+$auction = 1;
     for ($i = 0; $i < ImageProvider::getImagesForAuction(1)->getImageCount(); $i++) {
 
     }
+    var_dump(ImageProvider::getImagesForAuction($auction)->getImageCount());
 
-    If(ImageProvider::getImagesForAuction($auction)->getImageCount() > 0)   {
+    if(ImageProvider::getImagesForAuction($auction)->getImageCount() > 0)   {
         $buffer['pic'] = <<<"END"
         <div class="col-md-12 kleine-thumbnail col-xs-12">
                     <a href="#" data-toggle="modal" data-target="#basicModal0">
-                        <img src="inc/image.php?auction=$auction &id=0" alt="geen foto" class="img-thumbnail">
+                        <img src="inc/image.php?auction=$auction&id=0" alt="geen foto" class="img-thumbnail">
                     </a>                </div>
 
                 <div class="modal fade" id="basicModal0" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
@@ -90,7 +91,7 @@ $auction = 4;
                                 <h5 class="modal-title" id="myModalLabel">test titel</h5>
                             </div>
                             <div class="modal-body">
-                                <img src="inc/image.php?auction=$auction &id=0" alt="geen foto" class="img-thumbnail">
+                                <img src="inc/image.php?auction=$auction&id=0" alt="geen foto" class="img-thumbnail">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-warning" data-dismiss="modal">Terug</button>
@@ -100,6 +101,7 @@ $auction = 4;
                 </div>
 END;
         }
+
     else If(ImageProvider::getImagesForAuction($auction)->getImageCount() > 1)   {
         $buffer['pic'] .= <<<"END"
 
@@ -116,7 +118,7 @@ END;
                                 <h5 class="modal-title" id="myModalLabel">test titel</h5>
                             </div>
                             <div class="modal-body">
-                                <img src="inc/image.php?auction=$auction &id=1" alt="geen foto" class="img-thumbnail">
+                                <img src="inc/image.php?auction=$auction&id=1" alt="geen foto" class="img-thumbnail">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-warning" data-dismiss="modal">Terug</button>
@@ -130,7 +132,7 @@ END;
         $buffer['pic'] .= <<<"END"
                     <div class="col-md-4 kleine-thumbnail col-xs-4">
                     <a href="#" data-toggle="modal" data-target="#basicModal2">
-                        <img src="inc/image.php?auction=$auction &id=2" alt="geen foto" class="img-thumbnail">
+                        <img src="inc/image.php?auction=$auction&id=2" alt="geen foto" class="img-thumbnail">
                     </a>                </div>
 
                 <div class="modal fade" id="basicModal2" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
@@ -141,7 +143,7 @@ END;
                                 <h5 class="modal-title" id="myModalLabel">test titel</h5>
                             </div>
                             <div class="modal-body">
-                                <img src="inc/image.php?auction=$auction &id=2" alt="geen foto" class="img-thumbnail">
+                                <img src="inc/image.php?auction=$auction&id=2" alt="geen foto" class="img-thumbnail">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-warning" data-dismiss="modal">Terug</button>
@@ -156,7 +158,7 @@ END;
 
                     <div class="col-md-4 kleine-thumbnail col-xs-4">
                     <a href="#" data-toggle="modal" data-target="#basicModal3">
-                        <img src="inc/image.php?auction=$auction &id=3" alt="geen foto" class="img-thumbnail">
+                        <img src="inc/image.php?auction=$auction&id=3" alt="geen foto" class="img-thumbnail">
                     </a>                </div>
 
                 <div class="modal fade" id="basicModal3" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
@@ -167,7 +169,7 @@ END;
                                 <h5 class="modal-title" id="myModalLabel">test titel</h5>
                             </div>
                             <div class="modal-body">
-                                <img src="inc/image.php?auction=$auction &id=3" alt="geen foto" class="img-thumbnail">
+                                <img src="inc/image.php?auction=$auction&id=3" alt="geen foto" class="img-thumbnail">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-warning" data-dismiss="modal">Terug</button>
