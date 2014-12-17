@@ -107,9 +107,14 @@
                         <div class="form-group">
                             <div class="col-lg-12">
                                 <label for="afbeeldingenUploaden">Afbeeldingen uploaden</label>
-                                <input type="text" class="form-control" id="afbeeldingenUploaden"
-                                       placeholder="Hier komt javascript voor uploaden van afb." autocomplete="off"
-                                       style="cursor:auto;">
+                            <form action="upload.php" method="post" enctype="multipart/form-data">
+                            <br />
+                                Select image to upload:
+                                <input type="file" name="fileToUpload" id="fileToUpload">
+                                <input type="file" name="fileToUpload" id="fileToUpload">
+                                <input type="file" name="fileToUpload" id="fileToUpload">
+                                <input type="file" name="fileToUpload" id="fileToUpload">
+                            </form>
                             </div>
                         </div>
                     </div>
