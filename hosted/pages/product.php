@@ -22,75 +22,40 @@ switch ($_SERVER['REQUEST_METHOD']) {
 function setDefaultBuffer() {
     global $buffer;
     $buffer['pic'] = "";
+    $buffer['history'] = "";
 
 }
 
 function get()
 {
     global $buffer, $DB;
+    $auction = 3;
 
-    $laatsteBod = "SELECT max(bodbedrag) AS bodbedrag FROM Bod WHERE voorwerpnummer = ?";
+    $bidhistory = getBidHistory($auction);
+    $iteminfo = getItemInfo($auction);
 
-    $bodGeschiedenis ="SELECT bodbedrag, gebruikersnaam, datumtijd FROM Bod WHERE voorwerpnummer = ? ORDER BY bodbedrag DESC;";
-
-    $artikelGegevens = "SELECT titel, beschrijving, startprijs, betalingswijze, betalingsinstructie, plaatsnaam, land,
-            verzendinstructies, verkoper, looptijdeindmoment, gesloten FROM Voorwerp WHERE voorwerpnummer = ?";
+    $laatsteBod = isset($bidhistory[0]) ? $bidhistory[0] : $iteminfo['startprijs'];
 
     $params = array(1);
 
-    $stmt = sqlsrv_query($DB, $artikelGegevens, $params);
-    $stmtLaatsteBod = sqlsrv_query($DB, $laatsteBod, $params);
-    $stmtBodGeschiedenis = sqlsrv_query($DB, $bodGeschiedenis, $params);
-
-    $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
-    $rowLaatsteBod = sqlsrv_fetch_array($stmtLaatsteBod, SQLSRV_FETCH_ASSOC);
-    $rowBodGeschiedenis = sqlsrv_fetch_array($stmtBodGeschiedenis, SQLSRV_FETCH_ASSOC);
-
-
-    foreach(getBidHistory(1) as $value) {
-        var_dump($value);
-    }
-
-
-
-    if (!$stmt) {
-        die(print_r(sqlsrv_errors()));
-    }
-
-    if (!sqlsrv_has_rows($stmt)) {
-        $buffer['error'] = "Artikel bestaat niet.";
-        return;
-    }
-
-    if (!sqlsrv_has_rows($stmtBodGeschiedenis)) {
-        $buffer['error'] = "Er is nog niet eerder geboden.";
-        return;
-    }
-
-    if ($stmtLaatsteBod) {
-        if (sqlsrv_has_rows($stmtLaatsteBod)) {
-            $buffer['bedrag'] = $rowLaatsteBod['bodbedrag'];
-        } else {
-            $buffer['bedrag'] = $row['startprijs'];
-        }
+    if (isset($bidhistory[0])) {
+        $buffer['bedrag'] = $bidhistory[0]['bodbedrag'];
     } else {
-        $buffer['bedrag'] = $row['startprijs'];
+        $buffer['bedrag'] = $iteminfo['startprijs'];
     }
 
-    $buffer['titel'] = $row['titel'];
-    $buffer['startprijs'] = $row['startprijs'];
-    $buffer['beschrijving'] = $row['beschrijving'];
-    $buffer['betalingswijze'] = $row['betalingswijze'];
-    $buffer['plaatsnaam'] = $row['plaatsnaam'];
-    $buffer['land'] = $row['land'];
-    $buffer['verkoper'] = $row['verkoper'];
-    $buffer['verzendinstructies'] = $row['verzendinstructies'];
-    $buffer['looptijdeindmoment'] = $row['looptijdeindmoment']->format('Y-m-d H:i:s');
-    $buffer['gesloten'] = $row['gesloten'];
-    $buffer['laatstebod'] = $row['gesloten'];
+    $buffer['titel'] = $iteminfo['titel'];
+    $buffer['startprijs'] = $iteminfo['startprijs'];
+    $buffer['beschrijving'] = $iteminfo['beschrijving'];
+    $buffer['betalingswijze'] = $iteminfo['betalingswijze'];
+    $buffer['plaatsnaam'] = $iteminfo['plaatsnaam'];
+    $buffer['land'] = $iteminfo['land'];
+    $buffer['verkoper'] = $iteminfo['verkoper'];
+    $buffer['verzendinstructies'] = $iteminfo['verzendinstructies'];
+    $buffer['eindmoment'] = $iteminfo['looptijdeindmoment']->format('Y-m-d H:i:s');
+    $buffer['gesloten'] = $iteminfo['gesloten'];
+    $buffer['laatstebod'] = $iteminfo['gesloten'];
 
-    $buffer['geschiedenis'] = $rowBodGeschiedenis['bodbedrag'];
-    $buffer['bieder'] = $rowBodGeschiedenis['gebruikersnaam'];
 $auction = 3;
 
     for($count = 0; $count < ImageProvider::getImagesForAuction($auction)->getImageCount(); $count++) {
@@ -121,10 +86,35 @@ END;
 
     }
 
+    foreach($bidhistory as $key => $value) {
+        $user = $value['gebruikersnaam'];
+        $ammount = $value['bodbedrag'];
+        $datetime = $value['datumtijd']->format('Y-m-d H:i:s');
+        if ($key == 0 ) {
+            $buffer['history'] .= "<b>$user | $datetime | &#8364;$ammount</b><br />";
+        } else {
+            $buffer['history'] .= "$user | $datetime | &#8364;$ammount<br />";
+        }
+    }
+
 }
 
 function post() {
-    global $buffer;
+    global $buffer, $DB;
+
+
+
+}
+
+function bodBevestigen($bod,$gebruiker,$veiling){
+    global $DB;
+    $sql = "INSERT INTO Bod (voorwerpnummer, gebruikersnaam, bodbedrag )
+            VALUES (?, ?, ?)";
+    $params = array ($veiling, $gebruiker, $bod);
+    $stmt = sqlsrv_query($DB, $sql, $params);
+
+
+
 
 }
 
@@ -139,4 +129,13 @@ function getBidHistory($auction) {
         array_push($history, $row);
     }
     return $history;
+}
+
+function getItemInfo($auction) {
+    global $DB;
+    $tsql = "SELECT titel, beschrijving, startprijs, betalingswijze, betalingsinstructie, plaatsnaam, land,
+            verzendinstructies, verkoper, looptijdeindmoment, gesloten FROM Voorwerp WHERE voorwerpnummer = ?;";
+    $params = array($auction);
+    $stmt = sqlsrv_query($DB, $tsql, $params);
+    return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
 }

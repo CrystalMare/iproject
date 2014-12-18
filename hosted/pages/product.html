@@ -58,16 +58,10 @@
                     </ul>
                 </div>
                 <div class="col-md-3 col-xs-3">
-                    <h3>Dagen</h3>
+                    <h3>Resterend</h3>
                 </div>
                 <div class="col-md-9 gegevens gegevens-dag col-xs-9">
-                    <p>test</p>
-                </div>
-                <div class="col-md-3 col-xs-3">
-                    <h3>Uren</h3>
-                </div>
-                <div class="col-md-9 gegevens gegevens-tijd col-xs-9">
-                    <p>test</p>
+                    <p><span id="tijdover">&nbsp;</span></p>
                 </div>
 
             </div>
@@ -80,7 +74,7 @@
                 <h3 class="panel-title">Huidige bod: %bedrag%</h3>
             </div>
             <div class="panel-body">
-                <p> %bieder% %geschiedenis% </p>
+                <p> %history% </p>
             </div>
         </div>
     </div>
@@ -102,7 +96,7 @@
                 <h3 class="panel-title">Bieden </h3>
             </div>
             <div class="panel-body">
-                   <div class="col-md-12 col-xs-12" <label for="naamArtikel">Bod invoeren</label>
+                   <div class="col-md-12 col-xs-12"> <label for="naamArtikel">Bod invoeren</label>
                    </div>
                 <div class="col-md-6 col-xs-4">
                     
@@ -110,7 +104,7 @@
                            style="cursor: auto;">
                 </div>
                 <div class="col-md-6 col-xs-4">
-                    <a href="#" class="btn btn-warning bodplaatsen">Bod plaatsen</a>
+                    <a href="#" class="btn btn-warning bodplaatsen" type="submit" name='submit' >Bod plaatsen</a>
                 </div>
                 <div class="col-md-8 col-xs-4">
                     <div class="col-md-6 col-xs-4">
@@ -152,3 +146,6 @@
     </div>
   </div>
 </div>
+<script language="JavaScript" type="application/javascript">
+    getCount(new Date('%eindmoment%'), 'tijdover');
+</script>
