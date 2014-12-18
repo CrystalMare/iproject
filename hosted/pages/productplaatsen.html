@@ -2,65 +2,64 @@
 <div class="col-md-12 col-xs-12 ea-title">
     <div class="ea-page-title">Artikel veilen</div>
 </div>
-
-<!-- Content -->
-<div class="col-md-12 col-xs-12 content-home">
-    <div class="panel panel-info">
-        <div class="panel-heading">
-            <h3 class="panel-title">Artikel veilen stap 2: Artikel plaatsen</h3>
-        </div>
-        <div class="panel-body">
-            Praesent pretium nibh nibh, in pulvinar sapien ullamcorper non. Phasellus faucibus mi a sem vulputate, nec
-            aliquam erat ultrices. Fusce interdum, orci sit amet facilisis malesuada, quam dui posuere lectus, id
-            porttitor massa purus ac ex. Aenean sit amet est a justo semper porta. Sed fermentum dolor sit amet mauris
-            laoreet vestibulum. Etiam non nisi volutpat, venenatis libero nec, congue sapien. Ut aliquet mi sit amet ex
-            auctor, ac interdum nulla vehicula. Donec id nulla eleifend, sodales nisl quis, facilisis nisl. Nullam
-            eleifend, felis sit amet accumsan pellentesque, quam arcu fringilla massa, et tempus mauris erat dictum
+la. Donec id nulla eleifend, sodales nisl quis, facilisis nisl. Nullam
+            eleifend, felis sit amet accumsan pellentesque, quam arcu fringill
+            <!-- Content -->
+            <div class="col-md-12 col-xs-12 content-home">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Artikel veilen stap 2: Artikel plaatsen</h3>
+                    </div>
+                    <div class="panel-body">
+                        Praesent pretium nibh nibh, in pulvinar sapien ullamcorper non. Phasellus faucibus mi a sem vulputate, nec
+                        aliquam erat ultrices. Fusce interdum, orci sit amet facilisis malesuada, quam dui posuere lectus, id
+                        porttitor massa purus ac ex. Aenean sit amet est a justo semper porta. Sed fermentum dolor sit amet mauris
+                        laoreet vestibulum. Etiam non nisi volutpat, venenatis libero nec, congue sapien. Ut aliquet mi sit amet ex
+                        auctor, ac interdum nulla vehicua massa, et tempus mauris erat dictum
             nisi.
         </div>
     </div>
+    <form action="index.php?page=productnacontrole" method="post" class="form-horizontal" enctype="multipart/form-data">
     <div class="col-md-12 col-xs-12">
-        <legend>Artikel gegevens</legend>
-        <div class="col-md-4 col-xs-4">
-            <form class="form-horizontal">
-                <fieldset>
 
-                    <div class="form-group">
-                        <div class="col-lg-12">
-                            <label for="naamArtikel">Naam artikel</label>
-                            <input type="text" class="form-control" id="naamArtikel" placeholder="Naam artikel"
-                                   autocomplete="off" style="cursor: auto;">
-                            <label for="beschrijving">Beschrijving</label>
-                            <textarea class="form-control ea-beschrijving" id="beschrijving"
-                                   placeholder="Beschrijving artikel" style="cursor: auto; resize: none; height: 200px;">
+            <legend>Artikel gegevens</legend>
+            <div class="col-md-4 col-xs-4">
+                    <fieldset>
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <label for="naamArtikel">Naam artikel</label>
+                                <input type="text" name="artikelnaam" class="form-control" id="naamArtikel" placeholder="Naam artikel"
+                                       autocomplete="off" style="cursor: auto;">
+                                <label for="beschrijving">Beschrijving</label>
+                                <textarea class="form-control ea-beschrijving" id="beschrijving" name="beschrijving"
+                                          placeholder="Beschrijving artikel" style="cursor: auto; resize: none; height: 200px;">
                                 </textarea>
+                            </div>
                         </div>
-                    </div>
-                </fieldset>
-            </form>
+                    </fieldset>
 
-        </div>
-        <div class="col-md-6 col-xs-6">
-            <form class="form-horizontal">
+            </div>
+            <div class="col-md-6 col-xs-6">
+
                 <fieldset>
 
                     <div class="form-group">
                         <div class="col-lg-4">
                             <label for="startPrijs">Startprijs</label>
-                            <input type="text" class="form-control" id="startPrijs" placeholder="&#8364;"
+                            <input type="text" class="form-control" name="startprijs" id="startPrijs" placeholder="&#8364;"
                                    autocomplete="off"
                                    style="cursor:auto;">
                             <label for="looptijd">Looptijd</label>
-                            <select class="form-control" id="looptijd">
+                            <select class="form-control" name="looptijd" id="looptijd">
                                 %looptijden%
                             </select>
                         </div>
                         <div class="form-group">
                             <div class="col-lg-7">
                                 <label for="betalingsMethode">Betalingsmethode</label>
-                                <input placeholder="Bank/Giro" type="text" id="betalingsMethode" class="form-control">
+                                <input placeholder="Bank/Giro" type="text" name="betalingswijze" id="betalingsMethode" class="form-control">
                                 <label for="verkoopland">Land</label>
-                                <select id="verkoopland" class="form-control">
+                                <select id="verkoopland" class="form-control" name="land">
                                     %countries%
                                 </select>
                             </div>
@@ -68,7 +67,7 @@
                         <div class="form-group">
                             <div class="col-lg-12">
                                 <label for="betalingsInstructies">Betalings instructies</label>
-                                <input type="text" class="form-control" id="betalingsInstructies"
+                                <input type="text" class="form-control" id="betalingsInstructies" name="betalingsinstructie"
                                        placeholder="Betalings instructies" autocomplete="off"
                                        style="cursor:auto;">
                             </div>
@@ -77,7 +76,7 @@
                             <div class="col-lg-6">
                                 <label for="voorwerpLocatie">Voorwerp locatie</label>
                                 <input type="text" class="form-control" id="voorwerpLocatie"
-                                       placeholder="Voorwerp locatie" autocomplete="off"
+                                       placeholder="Voorwerp locatie" autocomplete="off" name="locatie"
                                        style="cursor:auto;">
                             </div>
 
@@ -85,30 +84,28 @@
                         <div class="form-group">
                             <div class="col-lg-12">
                                 <label for="verzendInstructies">Verzend instructies</label>
-                                <input type="text" class="form-control ea-verzend-instructies" id="verzendInstructies"
-                                       placeholder="Verzend instructies" autocomplete="off"
-                                       style="cursor:auto;">
+                                <textarea class="form-control ea-verzend-instructies" id="verzendInstructies" placeholder="Verzend instructies" name="verzendinstructies"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-lg-12">
                                 <label for="afbeeldingenUploaden">Afbeeldingen uploaden</label>
-                            <form action="upload.php" method="post" enctype="multipart/form-data">
-                            <br />
-                                Select image to upload:
-                                <input type="file" name="fileToUpload" id="fileToUpload">
-                                <input type="file" name="fileToUpload" id="fileToUpload">
-                                <input type="file" name="fileToUpload" id="fileToUpload">
-                                <input type="file" name="fileToUpload" id="fileToUpload">
-                            </form>
+                                    <br />
+                                    Select image to upload:
+                                    <input type="file" name="fileToUpload1">
+                                    <input type="file" name="fileToUpload2">
+                                    <input type="file" name="fileToUpload3">
+                                    <input type="file" name="fileToUpload4">
                             </div>
                         </div>
                     </div>
                 </fieldset>
-            </form>
-        </div>
+
+            </div>
+
     </div>
     <div class="col-md-1 col-md-offset-2">
-        <a href="#" class="btn btn-warning">Artikel plaatsen</a>
+        <button type="submit" class="btn btn-warning">Artikel plaatsen</button>
     </div>
+    </form>
 </div>
