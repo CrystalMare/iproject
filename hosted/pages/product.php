@@ -55,6 +55,8 @@ function get()
     $buffer['eindmoment'] = $iteminfo['looptijdeindmoment']->format('Y-m-d H:i:s');
     $buffer['gesloten'] = $iteminfo['gesloten'];
     $buffer['laatstebod'] = $iteminfo['gesloten'];
+	$buffer['verzendkosten'] = $iteminfo['verzendkosten'];
+
 
 $auction = 3;
 
@@ -71,7 +73,7 @@ $auction = 3;
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                                <h5 class="modal-title" id="myModalLabel">test titel</h5>
+                                <h5 class="modal-title" id="myModalLabel">$buffer['titel']</h5>
                             </div>
                             <div class="modal-body">
                                 <img src="inc/image.php?auction=$auction&id=$count" alt="geen foto" class="img-thumbnail">
@@ -113,9 +115,6 @@ function bodBevestigen($bod,$gebruiker,$veiling){
     $params = array ($veiling, $gebruiker, $bod);
     $stmt = sqlsrv_query($DB, $sql, $params);
 
-
-
-
 }
 
 
@@ -133,7 +132,7 @@ function getBidHistory($auction) {
 
 function getItemInfo($auction) {
     global $DB;
-    $tsql = "SELECT titel, beschrijving, startprijs, betalingswijze, betalingsinstructie, plaatsnaam, land,
+    $tsql = "SELECT titel, beschrijving, startprijs, betalingswijze, betalingsinstructie, plaatsnaam, land, verzendkosten
             verzendinstructies, verkoper, looptijdeindmoment, gesloten FROM Voorwerp WHERE voorwerpnummer = ?;";
     $params = array($auction);
     $stmt = sqlsrv_query($DB, $tsql, $params);
