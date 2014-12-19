@@ -11,7 +11,7 @@ require inc . 'functions.php';
 require inc . 'Category.php';
 
 if(!isset($_GET['page'])){
-    $page = 'index';
+    $page = index;
 }else{
     $page = $_GET['page'];
 }

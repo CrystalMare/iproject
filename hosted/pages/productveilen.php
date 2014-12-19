@@ -40,25 +40,3 @@ function post() {
     global $buffer;
 
 }
-
-function test() {
-    $URL = "HAHA";
-    $teststring = <<<"END"
-            <div class="col-md-6 col-xs-6">
-                <div class="form-group">
-                    <div class="col-lg-9">
-                        <select name="category1sub2"class="form-control" id="category1sub2">
-                        </select>
-                        <br>
-                        <img src='$URL'>
-                    </div>
-                </div>
-            </div>
-
-END;
-    echo $teststring;
-
-
-
-
-}

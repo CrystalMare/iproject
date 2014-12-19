@@ -1,7 +1,7 @@
 <?php
 class ImageProvider
 {
-    public static $datalocation = "../auctions/";
+    public static $datalocation = "../upload";
     private static $table = "Bestand";
     
     static function getImagesForAuction($auction)
@@ -51,5 +51,3 @@ class ImageSet
         return ImageProvider::$datalocation . $this->auctionid . "/" . $this->images[$i];
     }
 }
-
-
