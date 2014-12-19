@@ -34,10 +34,12 @@ $user = $_SESSION['username'];
 
 function nogTeGevenFeedbackOpGekochteArtikelen(){
     global $DB;
-//    $tsql = "SELECT Voorwerp.voorwerpnummer, Bestand.filenaam, Voorwerp.titel, Voorwerp.beschrijving
-//        FROM Feedback INNER JOIN (Voorwerp INNER JOIN Bestand ON Voorwerp.voorwerpnummer = Bestand.voorwerpnummer)
-//        ON Feedback.voorwerpnummer = Voorwerp.voorwerpnummer
-//        WHERE (((Feedback.gebruikersoort)="koper"))";
+    SELECT Voorwerp.voorwerpnummer
+    FROM Voorwerp
+    WHERE Voorwerp.koper='satan'
+    AND NOT EXISTS (SELECT Voorwerp.voorwerpnummer
+                      FROM Voorwerp INNER JOIN Feedback ON Voorwerp.voorwerpnummer = Feedback.voorwerpnummer
+                      WHERE Voorwerp.koper='satan' AND Feedback.gebruikersoort='verkoper');
     $params = array($_SESSION['username']);
     $stmt = sqlsrv_query($DB, $tsql, $params);
     return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
