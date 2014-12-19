@@ -84,57 +84,49 @@ function get() {
         $search = $_GET['search'];
         $cat = $_GET['category'];
     }
-
-
-    doSearch($search, $cat]);
-}
-
-function post() {
-    global $buffer;
-
+    doSearch($search, $cat);
 }
 
 
 function doSearch($searchvalue, $category) {
     global $buffer;
     global $DB;
-    if ($category == null && $searchvalue == '') {
-        $tsql = <<<"END"
-        declare @zoekterm VARCHAR(MAX)= ?
-
-    SELECT v.voorwerpnummer, V.titel, V.beschrijving,
-    bodbedrag =     (SELECT TOP 1 bodbedrag FROM bod
-                     WHERE bod.voorwerpnummer = V.voorwerpnummer
-                     ORDER BY bodbedrag DESC)
-    FROM Voorwerp V INNER JOIN Voorwerpinrubriek VR
-        ON V.voorwerpnummer = VR.voorwerpnummer
-    WHERE V.Titel LIKE '%'+@zoekterm+'%'
-END;
+    if ($category == null) {
+        $tsql = "SELECT v.voorwerpnummer, V.titel, V.beschrijving, bodbedrag = (
+                  SELECT TOP 1 bodbedrag
+                  FROM bod
+                  WHERE bod.voorwerpnummer = V.voorwerpnummer
+                  ORDER BY bodbedrag DESC
+            )
+            FROM Voorwerp V
+              INNER JOIN Voorwerpinrubriek VR
+                ON V.voorwerpnummer = VR.voorwerpnummer
+            WHERE V.Titel LIKE (?);";
+        $params = array('%' . $searchvalue . '%');
+    } else {
+        $tsql = "SELECT v.voorwerpnummer, V.titel, V.beschrijving, bodbedrag = (
+                SELECT TOP 1 bodbedrag
+                FROM bod
+                WHERE bod.voorwerpnummer = V.voorwerpnummer
+                ORDER BY bodbedrag DESC
+            )
+            FROM Voorwerp V
+              INNER JOIN Voorwerpinrubriek VR
+                ON V.voorwerpnummer = VR.voorwerpnummer
+            WHERE V.Titel LIKE (?)
+            AND dbo.fnWelkeCatIsHoofd(rubrieknummer) = ?;";
+        $params = array('%' . $searchvalue . '%', $category);
     }
-
-    $tsql = <<<"END"
-    declare @zoekterm VARCHAR(MAX)= ?
-
-    SELECT v.voorwerpnummer, V.titel, V.beschrijving,
-    bodbedrag =     (SELECT TOP 1 bodbedrag FROM bod
-                     WHERE bod.voorwerpnummer = V.voorwerpnummer
-                     ORDER BY bodbedrag DESC)
-    FROM Voorwerp V INNER JOIN Voorwerpinrubriek VR
-        ON V.voorwerpnummer = VR.voorwerpnummer
-    WHERE V.Titel LIKE '%'+@zoekterm+'%'
-    AND dbo.fnWelkeCatIsHoofd(rubrieknummer) = ?;
-END;
-
-    $params = array($searchvalue, $category);
     $stmt = sqlsrv_query($DB, $tsql, $params);
     while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         $titel = $row['titel'];
         var_dump($row);
         $beschrijving = $row['beschrijving'];
         $bodbedrag = $row['bodbedrag'];
+        $veiling = $row['voorwerpnummer'];
 
         $template = <<<"END"
-        <div class="col-md-8 panel panel-info panel-body bod-gegevens col-xs-8">
+        <div class="col-md-8 panel panel-info product-overzicht panel-body bod-gegevens col-xs-8">
 
             <div class="col-md-4 col-xs-4">
                 <img src="img/audi.jpg" alt="audi" class="img-rounded img-responsive">
@@ -177,7 +169,7 @@ END;
                 </p>
 
                 <a href="#" class="btn btn-warning btn-lg">Snel bieden</a>
-                <a href="#" class="btn btn-primary btn-lg">Toon veiling</a>
+                <a href="index.php?page=product&veiling=$veiling" class="btn btn-primary btn-lg">Toon veiling</a>
             </div>
         </div>
 END;

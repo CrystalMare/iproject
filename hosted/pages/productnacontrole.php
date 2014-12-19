@@ -87,8 +87,13 @@ function post() {
         $buffer['error'] = $error;
     }
     $auction = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)['voorwerpnummer'];
-
     convertFilesToJPGAndSave(getUploadedFiles(), $auction);
+
+    //Add action to category.
+    $tsql = "INSERT INTO Voorwerpinrubriek (voorwerpnummer, rubrieknummer) VALUES(?, ?);";
+    $params = array($auction, $_SESSION['category1']);
+    sqlsrv_query($DB, $tsql, $params);
+    var_dump(sqlsrv_errors());
 }
 
 function getUploadedFiles()
@@ -97,7 +102,7 @@ function getUploadedFiles()
     foreach ($_FILES as $key => $value) {
         if ($value['size'] > 2000000)
             continue;
-        if ($value['name'] != "" && ($value['type'] == "image/png" || $value['type'] == "image/jpg")) {
+        if ($value['name'] != "" && ($value['type'] == "image/png" || $value['type'] == "image/jpg" || $value['type'] == "image/jpeg")) {
             $validfiles[$key] = $value;
         }
     }
@@ -113,7 +118,7 @@ function convertFilesToJPGAndSave($files, $auction) {
     $ps = sqlsrv_prepare($DB, $tsql, array (&$filename, &$auctionid));
     mkdir(uploads . $auction);
     foreach($files as $key => $value) {
-        if ($value['type'] == "image/jpg") {
+        if ($value['type'] == "image/jpg" || $value['type'] == "image/jpeg") {
             $image = imagecreatefromjpeg($value['tmp_name']);
             imagejpeg($image, uploads . $auction . "/auction_" . $auction . "_$count" . ".jpg");
         } else {

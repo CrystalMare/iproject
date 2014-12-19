@@ -1026,3 +1026,8 @@ label{
 .gegevens-tijd{
     font-size: 200%;
 }
+
+.product-overzicht {
+    float: right;
+    /*margin-right: 0;*/
+}
