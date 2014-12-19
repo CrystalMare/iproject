@@ -1,7 +1,7 @@
 <?php
 class ImageProvider
 {
-    public static $datalocation = "../upload";
+    public static $datalocation = "../upload/";
     private static $table = "Bestand";
     
     static function getImagesForAuction($auction)
