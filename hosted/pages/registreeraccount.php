@@ -73,7 +73,7 @@ function get() {
     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         $country = $row['landnaam'];
         if ($country == "Netherlands") {
-            $buffer['countries'] .= "<option selected='selected' value='$country'>$country</option>";
+                $buffer['countries'] .= "<option selected='selected' value='$country'>$country</option>";
         } else {
             $buffer['countries'] .= "<option value='$country'>$country</option>";
         }

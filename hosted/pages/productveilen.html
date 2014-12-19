@@ -10,7 +10,7 @@
             <h3 class="panel-title">Artikel veilen stap 1: Kies rubriek</h3>
         </div>
         <div class="panel-body">
-            Praesent pretium nibh nibh, in pulvinar sapien ullamcorper non. Phasellus faucibus mi a sem vulputate, nec
+            Praesent pretium nibh nibh, in <pulvi></pulvi>nar sapien ullamcorper non. Phasellus faucibus mi a sem vulputate, nec
             aliquam erat ultrices. Fusce interdum, orci sit amet facilisis malesuada, quam dui posuere lectus, id
             porttitor massa purus ac ex. Aenean sit amet est a justo semper porta. Sed fermentum dolor sit amet mauris
             laoreet vestibulum. Etiam non nisi volutpat, venenatis libero nec, congue sapien. Ut aliquet mi sit amet ex
@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="col-md-12 col-xs-12">
-        <form class="form-horizontal">
+        <form action="index.php?page=productplaatsen" method="post" class="form-horizontal">
             <fieldset>
                 <legend>Aantal categorieen</legend>
                 <div class="form-group">
@@ -35,83 +35,113 @@
                     </div>
                 </div>
             </fieldset>
-        </form>
 
-        <div class="col-md-6 col-xs-6">
-            <legend>Categorie 1</legend>
-            <div class="form-group">
-                <div class="col-lg-9">
-                    <select class="form-control" id="select">
-                        <option><label for="select" class="col-lg-3 control-label">Hoofdcategorie</label></option>
-                        <option>2</option>
-                    </select>
-                    <br>
+            <div class="col-md-6 col-xs-6">
+                <legend>Categorie 1</legend>
+                <div class="form-group">
+                    <div class="col-lg-9">
+                        <select name="category1" class="form-control" id="category1">
+                            %hoofdcategorien%
+                        </select>
+                        <br>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6 col-xs-6">
-            <legend>Categorie 2</legend>
-            <div class="form-group">
-                <div class="col-lg-9">
-                    <select class="form-control" id="select">
-                        <option><label for="select" class="col-lg-3 control-label">Subcategorie</label></option>
-                        <option>2</option>
-                    </select>
-                    <br>
+            <div class="col-md-6 col-xs-6">
+                <legend>Categorie 2</legend>
+                <div class="form-group">
+                    <div class="col-lg-9">
+                        <select name="category2" class="form-control" id="category2" >
+                            %hoofdcategorien%
+                        </select>
+                        <br>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6 col-xs-6">
-            <div class="form-group">
-                <div class="col-lg-9">
-                    <select class="form-control" id="select">
-                        <option><label for="select" class="col-lg-3 control-label">Subcategorie</label></option>
-                        <option>2</option>
-                    </select>
-                    <br>
+            <div class="col-md-6 col-xs-6">
+                <div class="form-group">
+                    <div class="col-lg-9">
+                        <select name="category1sub1" class="form-control" id="category1sub1">
+                        </select>
+                        <br>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6 col-xs-6">
-            <div class="form-group">
-                <div class="col-lg-9">
-                    <select class="form-control" id="select">
-                        <option><label for="select" class="col-lg-3 control-label">Subcategorie</label></option>
-                        <option>2</option>
-                    </select>
-                    <br>
+            <div class="col-md-6 col-xs-6">
+                <div class="form-group">
+                    <div class="col-lg-9">
+                        <select name="category2sub1" class="form-control" id="category2sub1">
+                        </select>
+                        <br>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6 col-xs-6">
-            <div class="form-group">
-                <div class="col-lg-9">
-                    <select class="form-control" id="select">
-                        <option><label for="select" class="col-lg-3 control-label">Subcategorie</label></option>
-                        <option>2</option>
-                    </select>
-                    <br>
+            <div class="col-md-6 col-xs-6">
+                <div class="form-group">
+                    <div class="col-lg-9">
+                        <select name="category1sub2" class="form-control" id="category1sub2">
+                        </select>
+                        <br>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6 col-xs-6">
-            <div class="form-group">
-                <div class="col-lg-9">
-                    <select class="form-control" id="select">
-                        <option><label for="select" class="col-lg-3 control-label">Subcategorie</label></option>
-                        <option>2</option>
-                    </select>
-                    <br>
+
+            <div class="col-md-6 col-xs-6">
+                <div class="form-group">
+                    <div class="col-lg-9">
+                        <select name="category2sub2" class="form-control" id="category2sub2">
+                        </select>
+                        <br>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-lg-5 col-lg-offset-9">
-                <button class="btn btn-primary">Annuleer</button>
-                <button type="submit" class="btn btn-warning">Ga verder</button>
+            <div class="col-md-6 col-xs-6">
+                <div class="form-group">
+                    <div class="col-lg-9">
+                        <select name="category1sub3" class="form-control" id="category1sub3">
+                        </select>
+                        <br>
+                    </div>
+                </div>
             </div>
-        </div>
+
+            <div class="col-md-6 col-xs-6">
+                <div class="form-group">
+                    <div class="col-lg-9">
+                        <select name="category2sub3" class="form-control" id="category2sub3">
+                        </select>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-6">
+                <div class="form-group">
+                    <div class="col-lg-9">
+                        <select name="category1sub4" class="form-control" id="category1sub4">
+                        </select>
+                        <br>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xs-6">
+                <div class="form-group">
+                    <div class="col-lg-9">
+                        <select class="form-control" id="category2sub4">
+                        </select>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-5 col-lg-offset-9">
+                    <button class="btn btn-primary">Annuleer</button>
+                    <button type="submit" class="btn btn-warning">Ga verder</button>
+                </div>
+            </div>
+        </form>
     </div>
 
 
 </div>
+<script src="js/categorychoice.js"></script>

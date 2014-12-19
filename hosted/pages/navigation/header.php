@@ -61,5 +61,19 @@ function getHeader() {
 function postHeader() {
     global $buffer;
 
-}
 
+    if(!isset($_SESSION['username'])|| $_SESSION['username'] == null) {
+        $buffer['menu1'] = "registreren";
+        $buffer['menu11'] = "Registreren";
+        $buffer['menu2'] = "inloggen";
+        $buffer['menu22'] = "Inloggen";
+    } else {
+        $buffer['menu1'] = "mijnaccount";
+        $buffer['menu11'] = "Mijn account";
+        $buffer['menu2'] = "uitloggen";
+        $buffer['menu22'] = "Uitloggen";
+    }
+
+
+
+}

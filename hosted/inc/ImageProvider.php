@@ -1,28 +1,27 @@
 <?php
-
 class ImageProvider
 {
-    public static $datalocation = "auctions/";
-    private static $table = "Files";
+    public static $datalocation = "../upload";
+    private static $table = "Bestand";
     
     static function getImagesForAuction($auction)
     {
         GLOBAL $DB;
         $images = array();
         $table = ImageProvider::$table;
-        $sql =    "SELECT fileid "
+        $sql =    "SELECT filenaam "
                 . "FROM $table "
-                . "WHERE auctionid = ? "
-                . "ORDER BY fileid ASC;";
+                . "WHERE voorwerpnummer = ? "
+                . "ORDER BY filenaam ASC;";
         $stmt = sqlsrv_query($DB, $sql, array($auction));
         if (!$stmt)
         {
-            echo "exit1";
+            var_dump(sqlsrv_errors());
             return null;
         }
         $i = 0;
         while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-            $images[$i] = $row['fileid'];
+            $images[$i] = $row['filenaam'];
             $i++;
         }
         return new ImageSet($images, $auction);
@@ -52,33 +51,3 @@ class ImageSet
         return ImageProvider::$datalocation . $this->auctionid . "/" . $this->images[$i];
     }
 }
-if (!isset($_GET['auction']) || !isset($_GET['id']))
-{
-    header("HTTP/1.1 404 Not Found", 404);
-    echo 'Image not found';
-    exit();
-}
-$auctionid = $_GET['auction'];
-$imageid = $_GET['id'];
-
-$provider = new ImageProvider();
-
-$images = ImageProvider::getImagesForAuction($auctionid);
-if ($images == null)
-{
-    header("HTTP/1.1 404 Not Found", 404);
-    echo 'Image not found';   
-    exit();
-}
-
-$image = $images->getImage($imageid);
-if ($image == null)
-{
-    header("HTTP/1.1 404 Not Found", 404);
-    echo 'Image not found';
-    exit();
-}
-
-header('Content-Type: image/jpg');
-readfile($image);
-

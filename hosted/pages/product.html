@@ -12,9 +12,7 @@
                 <h3 class="panel-title">%titel%</h3>
             </div>
             <div class="panel-body">
-                <a href="#" class="thumbnail">
-                    <img src="img/audi.jpg" alt="...">
-                </a>
+                %pic%
             </div>
         </div>
     </div>
@@ -22,27 +20,44 @@
     <div class="col-md-8 col-xs-8">
         <div class="panel panel-info">
             <div class="panel-heading-product">
-                <h3 class="panel-title">Bieden vanaf: </h3>
+                <h3 class="panel-title">Bieden vanaf: %bedrag% </h3>
             </div>
+
             <div class="panel-body bod-gegevens">
-                <h2>Uw gegevens</h2>
+                <h2>Veilinggegevens</h2>
 
                 <div class="col-md-3 col-xs-3">
-                    %titel%
+                    <ul class ="artikel-gegevens">
+                        <li>Titel:</li>
+                        <li>Betalingswijze:</li>
+                        <li>Plaatsnaam:</li>
+                        <li>Land:</li>
+                        <li>Verzendkosten:</li>
+                        <li>Verzendinstructies:</li>
+                        <li>Verkoper:</li>
+                        <li>Sluiting:</li>
+                    </ul>
 
                 </div>
                 <div class="col-md-9 gegevens col-xs-9">
                     <ul class="lijst-gegevens">
-                        <li>lijst-item1</li>
-                        <li>lijst-item2</li>
-                        <li>lijst-item3</li>
-                        <li>lijst-item4</li>
-                        <li>lijst-item5</li>
+                        <li>%titel%</li>
+                        <li>%betalingswijze%</li>
+                        <li>%plaatsnaam%</li>
+                        <li>%land%</li>
+                        <li>%verzendkosten%</li>
+                        <li>%verzendinstructies%</li>
+                        <li>%verkoper%</li>
+                        <li>%eindmoment%</li>
+
                     </ul>
                 </div>
-                <h3>Dagen</h3>
-
-                <h3>Uren</h3>
+                <div class="col-md-3 col-xs-3">
+                    <h4>Resterende tijd:</h4>
+                </div>
+                <div class="col-md-9 gegevens gegevens-dag col-xs-9">
+                    <h4><span id="tijdover">&nbsp;</span></h4>
+                </div>
             </div>
         </div>
     </div>
@@ -50,10 +65,10 @@
     <div class="col-md-4 col-xs-4">
         <div class="panel panel-info">
             <div class="panel-heading-product-afbeelding">
-                <h3 class="panel-title">Huidige bod:</h3>
+                <h3 class="panel-title">Huidige bod: %bedrag%</h3>
             </div>
             <div class="panel-body">
-                <p> Bied geschiedenis</p>
+                <p> %history% </p>
             </div>
         </div>
     </div>
@@ -63,12 +78,8 @@
                 <h3 class="panel-title">Product beschrijving </h3>
             </div>
             <div class="panel-body">
-                <p>Sed tempus semper ante et dapibus. Pellentesque habitant morbi tristique senectus et netus et
-                    malesuada fames ac turpis egestas. Nunc sagittis mauris convallis dolor pulvinar sodales. Sed
-                    iaculis nibh leo, et commodo quam feugiat et. Aliquam ligula nibh, hendrerit in sem sit amet,
-                    placerat finibus nisi. Morbi sit amet velit maximus massa semper vehicula. Cras at magna at diam
-                    pretium sodales. Proin commodo ante nec risus iaculis malesuada. Proin eget porta erat, non
-                    tristique arcu.
+                <p>
+                    %beschrijving%
                 </p>
             </div>
         </div>
@@ -79,15 +90,16 @@
                 <h3 class="panel-title">Bieden </h3>
             </div>
             <div class="panel-body">
-                   <div class="col-md-12 col-xs-12" <label for="naamArtikel">Bod invoeren</label>
+                <form action="" method="post">
+                   <div class="col-md-12 col-xs-12"> <label for="naamArtikel">Bod invoeren %error%</label>
                    </div>
                 <div class="col-md-6 col-xs-4">
-                    
+                    <input type="hidden" name="veiling" value=%voorwerpnummer% >
                     <input type="text" class="form-control" id="bodInvoer" placeholder="Voer bod in" autocomplete="off"
-                           style="cursor: auto;">
+                           style="cursor: auto;" name="bodInvoer">
                 </div>
                 <div class="col-md-6 col-xs-4">
-                    <a href="#" class="btn btn-warning bodplaatsen">Bod plaatsen</a>
+                    <button class="btn btn-warning bodplaatsen" type="submit" name='submit' >Bod plaatsen</button>
                 </div>
                 <div class="col-md-8 col-xs-4">
                     <div class="col-md-6 col-xs-4">
@@ -96,6 +108,7 @@
                         <a href="#" class="btn btn-primary bodplaatsen">Naar productoverzicht</a>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>
@@ -129,3 +142,6 @@
     </div>
   </div>
 </div>
+<script language="JavaScript" type="application/javascript">
+    getCount(new Date('%eindmoment%'), 'tijdover');
+</script>
