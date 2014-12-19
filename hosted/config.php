@@ -6,14 +6,15 @@ DEFINE('img', 'images/auction');
 DEFINE('inc', 'inc/');
 DEFINE('pages', 'pages/');
 DEFINE('index', 'index');
+DEFINE('uploads', 'upload/');
 
-    $CONFIG['sql'] = array(
-        'host'              => 'mssql.iproject.icasites.nl',
-        'connectioninfo'    => array(
-        'Database'          => 'iproject5',
-        'UID'               => 'iproject5',
-        'PWD'               => '7ruchEbE'
-        ));
+$CONFIG['sql'] = array(
+    'host'              => 'mssql.iproject.icasites.nl',
+    'connectioninfo'    => array(
+    'Database'          => 'iproject5',
+    'UID'               => 'iproject5',
+    'PWD'               => '7ruchEbE'
+    ));
 
 $CONFIG['site'] = array(
     'host'              => 'localhost:8080'
