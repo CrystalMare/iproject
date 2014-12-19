@@ -12,73 +12,75 @@
 	<div class="col-md-6 col-xs-6">
 	<h2>Persoonsgegevens</h2>
 	</div>
+    <form action="" method="POST">
 	<div class="col-md-6 col-xs-6">
 		<label for="wachtwoord">Wachtwoord</label>
-		<input type="text" class="form-control" id="wachtwoord" placeholder="Wachtwoord"
+		<input type="text" class="form-control" id="wachtwoord" name="wachtwoord" placeholder="Wachtwoord"
 		autocomplete="off" style="cursor: auto;">
 	</div>
 	<div class="col-md-6 col-xs-6">
 		<label for="voornaam">Voornaam:</label>
-		<input type="text" class="form-control" id="voornaam" placeholder="Voornaam"
+		<input type="text" class="form-control" id="voornaam" name="voornaam" placeholder="%voornaam%"
 		autocomplete="off" style="cursor: auto;">
 	</div>
 	<div class="col-md-6 col-xs-6">
 		<label for="herhaalWachtwoord">Herhaal wachtwoord</label>
-		<input type="text" class="form-control" id="herhaalWachtwoord" placeholder="Herhaal wachtwoord"
+		<input type="text" class="form-control" id="herhaalWachtwoord" name="herhaalWachtwoord" placeholder="Herhaal wachtwoord"
 		autocomplete="off" style="cursor: auto;">
 	</div>
 	<div class="col-md-6 col-xs-6">
 		<label for="achternaam">Achternaam:</label>
-		<input type="text" class="form-control" id="achternaam" placeholder="Achternaam"
+		<input type="text" class="form-control" id="achternaam" name="achternaam" placeholder="%achternaam%"
 		autocomplete="off" style="cursor: auto;">
 	</div>
 	<div class="col-md-6 col-md-offset-6 col-xs-6">
 		<label for="adres">Adres:</label>
-		<input type="text" class="form-control" id="adres" placeholder="Anders"
+		<input type="text" class="form-control" id="adres" name="adresregel1" placeholder="%adresregel1%"
 		autocomplete="off" style="cursor: auto;">
 	</div>
 	<div class="col-md-6 col-md-offset-6 col-xs-6">
 		<label for="adresOptioneel">Adres (optioneel):</label>
-		<input type="text" class="form-control" id="adresOptioneel" placeholder="Adres(optioneel)"
+		<input type="text" class="form-control" id="adresOptioneel" name="adresregel2" placeholder="%adresregel2%"
 		autocomplete="off" style="cursor: auto;">
 	</div>
 	<div class="col-md-6 col-md-offset-6 col-xs-6">
 		<label for="postcode">Postcode:</label>
-		<input type="text" class="form-control" id="postcode" placeholder="postcode"
+		<input type="text" class="form-control" id="postcode" name="postcode" placeholder="%postcode%"
 		autocomplete="off" style="cursor: auto;">
 	</div>
+    <div class="col-md-6 col-md-offset-6 col-xs-6">
+        <label for="postcode">Plaatsnaam:</label>
+        <input type="text" class="form-control" id="plaatsnaam" name="plaatsnaam" placeholder="%plaatsnaam%"
+               autocomplete="off" style="cursor: auto;">
+    </div>
 	<div class="col-md-6 col-md-offset-6 col-xs-6">
 		<label for="telefoonNummerEen">Telefoon nummer 1:</label>
-		<input type="text" class="form-control" id="telefoonNummerEen" placeholder="Telefoonnummer 1"
+		<input type="text" class="form-control" id="telefoonNummerEen" name="telefoon1" placeholder="%telefoon1%"
 		autocomplete="off" style="cursor: auto;">
 	</div>
 	<div class="col-md-6 col-md-offset-6 col-xs-6">
 		<label for="telefoonNummerEen">Telefoon nummer 2:</label>
-		<input type="text" class="form-control" id="telefoonNummerEen" placeholder="Telefoonnummer 1"
+		<input type="text" class="form-control" id="telefoonNummerEen" name="telefoon2" placeholder="%telefoon2%"
 		autocomplete="off" style="cursor: auto;">
 	</div>
 	<div class="col-md-6 col-md-offset-6 col-xs-6">
 	<label for="dag">Geboorte datum:</label>
 	</div>
 	<div class="col-md-1 col-md-offset-6 col-xs-1">
-		<input type="text" class="form-control" id="dag" placeholder="D"
+		<input type="text" class="form-control" id="dag" name="dag" placeholder="%dag%"
 		autocomplete="off" style="cursor: auto;">
 	</div>
 	<div class="col-md-1 col-xs-1">
-		<input type="text" class="form-control" id="maand" placeholder="M"
+		<input type="text" class="form-control" id="maand" name="maand" placeholder="%maand%"
 		autocomplete="off" style="cursor: auto;">
 	</div>
 	<div class="col-md-1 col-xs-1">
-                            <select class="form-control" id="select">
-                                <option>Jaar</option>
-                                <option>1</option>
-                                <option>3</option>
-                                <option>5</option>
-                                <option>7</option>
-                                <option>10</option>
-                            </select>
+        <input type="text" class="form-control" id="jaar" name="jaar" placeholder="%jaar%"
+               autocomplete="off" style="cursor: auto;">
+
 	</div>
 	<div class="col-md-6 col-md-offset-6 col-xs-6">
-	<a href="#" class="btn btn-warning knop-wijziging">Wijziging opslaan</a>
+	<button type="submit" class="btn btn-warning knop-wijziging">Wijziging opslaan</button>
 	</div>
+    </form>
 </div>
