@@ -24,6 +24,7 @@ function setDefaultBuffer() {
     $buffer['pic'] = "";
     $buffer['history'] = "";
     $buffer['error'] = 0;
+    $buffer['verzendkosten'] = "geen";
 
 }
 
@@ -49,7 +50,11 @@ function get() {
     $buffer['bedrag'] = hoogsteBod($iteminfo, $bidhistory);
     $buffer['voorwerpnummer'] = $iteminfo['voorwerpnummer'];
 
-
+    if($iteminfo['verzendkosten']== null){
+        $buffer['verzendkosten'] = $iteminfo['verzendkosten'];
+    } else {
+        $buffer['verzendkosten'] = "geen";
+    }
 
     for($count = 0; $count < ImageProvider::getImagesForAuction($iteminfo['voorwerpnummer'])->getImageCount(); $count++) {
         $col = $count==0 ? 12 : 4;
