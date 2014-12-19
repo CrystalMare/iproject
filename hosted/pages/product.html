@@ -24,7 +24,7 @@
             </div>
 
             <div class="panel-body bod-gegevens">
-                <h2>Uw gegevens</h2>
+                <h2>Veilinggegevens</h2>
 
                 <div class="col-md-3 col-xs-3">
                     <ul class ="artikel-gegevens">
@@ -41,22 +41,22 @@
                 </div>
                 <div class="col-md-9 gegevens col-xs-9">
                     <ul class="lijst-gegevens">
-                        <li>%titel%</li>
-                        <li>%betalingswijze%</li>
-                        <li>%plaatsnaam%</li>
-                        <li>%land%</li>
-                        <li>%verzendkosten%</li>
-                        <li>%verzendinstructies%</li>
-                        <li>%verkoper%</li>
-                        <li>%eindmoment%</li>
+                        <li>%titel%&nbsp</li>
+                        <li>%betalingswijze%&nbsp</li>
+                        <li>%plaatsnaam%&nbsp</li>
+                        <li>%land%&nbsp</li>
+                        <li>%verzendkosten%&nbsp</li>
+                        <li>%verzendinstructies%&nbsp</li>
+                        <li>%verkoper%&nbsp</li>
+                        <li>%eindmoment%&nbsp</li>
 
                     </ul>
                 </div>
                 <div class="col-md-3 col-xs-3">
-                    <h3>Resterend</h3>
+                    <h4>Resterende tijd:</h4>
                 </div>
                 <div class="col-md-9 gegevens gegevens-dag col-xs-9">
-                    <p><span id="tijdover">&nbsp;</span></p>
+                    <h4><span id="tijdover">&nbsp;</span></h4>
                 </div>
             </div>
         </div>
@@ -90,15 +90,16 @@
                 <h3 class="panel-title">Bieden </h3>
             </div>
             <div class="panel-body">
-                   <div class="col-md-12 col-xs-12"> <label for="naamArtikel">Bod invoeren</label>
+                <form action="" method="post">
+                   <div class="col-md-12 col-xs-12"> <label for="naamArtikel">Bod invoeren %error%</label>
                    </div>
                 <div class="col-md-6 col-xs-4">
-                    
+                    <input type="hidden" name="veiling" value=%voorwerpnummer% >
                     <input type="text" class="form-control" id="bodInvoer" placeholder="Voer bod in" autocomplete="off"
-                           style="cursor: auto;">
+                           style="cursor: auto;" name="bodInvoer">
                 </div>
                 <div class="col-md-6 col-xs-4">
-                    <a href="#" class="btn btn-warning bodplaatsen" type="submit" name='submit' >Bod plaatsen</a>
+                    <button class="btn btn-warning bodplaatsen" type="submit" name='submit' >Bod plaatsen</button>
                 </div>
                 <div class="col-md-8 col-xs-4">
                     <div class="col-md-6 col-xs-4">
@@ -107,6 +108,7 @@
                         <a href="#" class="btn btn-primary bodplaatsen">Naar productoverzicht</a>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>

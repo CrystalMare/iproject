@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Sven
+ * User: KOEEEENNOS & PINO de koning
  * Date: 11-12-2014
  * Time: 13:27
  */
@@ -23,27 +23,18 @@ function setDefaultBuffer() {
     global $buffer;
     $buffer['pic'] = "";
     $buffer['history'] = "";
+    $buffer['error'] = 0;
+    $buffer['verzendkosten'] = "geen";
 
 }
 
-function get()
-{
-    global $buffer, $DB;
-    $auction = 3;
 
+
+function get() {
+    global $buffer;
+    $auction = $_GET['veiling'];
     $bidhistory = getBidHistory($auction);
     $iteminfo = getItemInfo($auction);
-
-    $laatsteBod = isset($bidhistory[0]) ? $bidhistory[0] : $iteminfo['startprijs'];
-
-    $params = array(1);
-
-    if (isset($bidhistory[0])) {
-        $buffer['bedrag'] = $bidhistory[0]['bodbedrag'];
-    } else {
-        $buffer['bedrag'] = $iteminfo['startprijs'];
-    }
-
     $buffer['titel'] = $iteminfo['titel'];
     $buffer['startprijs'] = $iteminfo['startprijs'];
     $buffer['beschrijving'] = $iteminfo['beschrijving'];
@@ -55,12 +46,17 @@ function get()
     $buffer['eindmoment'] = $iteminfo['looptijdeindmoment']->format('Y-m-d H:i:s');
     $buffer['gesloten'] = $iteminfo['gesloten'];
     $buffer['laatstebod'] = $iteminfo['gesloten'];
-	$buffer['verzendkosten'] = $iteminfo['verzendkosten'];
+    $buffer['verzendkosten'] = $iteminfo['verzendkosten'];
+    $buffer['bedrag'] = hoogsteBod($iteminfo, $bidhistory);
+    $buffer['voorwerpnummer'] = $iteminfo['voorwerpnummer'];
 
+    if($iteminfo['verzendkosten']== null){
+        $buffer['verzendkosten'] = $iteminfo['verzendkosten'];
+    } else {
+        $buffer['verzendkosten'] = "geen";
+    }
 
-$auction = 3;
-
-    for($count = 0; $count < ImageProvider::getImagesForAuction($auction)->getImageCount(); $count++) {
+    for($count = 0; $count < ImageProvider::getImagesForAuction($iteminfo['voorwerpnummer'])->getImageCount(); $count++) {
         $col = $count==0 ? 12 : 4;
         $buffer['pic'] .= <<<"END"
     <div class="col-md-$col kleine-thumbnail col-xs-$col">
@@ -73,7 +69,7 @@ $auction = 3;
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-                                <h5 class="modal-title" id="myModalLabel">$buffer['titel']</h5>
+                                <h5 class="modal-title" id="myModalLabel">$iteminfo[titel]</h5>
                             </div>
                             <div class="modal-body">
                                 <img src="inc/image.php?auction=$auction&id=$count" alt="geen foto" class="img-thumbnail">
@@ -98,29 +94,79 @@ END;
             $buffer['history'] .= "$user | $datetime | &#8364;$ammount<br />";
         }
     }
-
 }
 
 function post() {
-    global $buffer, $DB;
+    global $buffer;
+
+    $auction = $_POST['veiling'];
+    //var_dump($_POST);
+    $iteminfo = getItemInfo($auction);
+    $bidhistory = getBidHistory($auction);
 
 
+    if ($_SESSION['username'] == null || $_SESSION['username'] == "" || $_SESSION['username'] == $iteminfo['verkoper']) {
+        //TODO: naar login pagina
+        return;
+    }
+    if (bodControle($iteminfo, $bidhistory, $_POST['bodInvoer'])) {
+        //var_dump($_POST);
+        bodPlaatsen($_POST['bodInvoer'], $_SESSION['username'], $iteminfo['voorwerpnummer']);
+    }
+
+    get();
+    var_dump($buffer['error']);
 
 }
 
-function bodBevestigen($bod,$gebruiker,$veiling){
+function bodPlaatsen($bod,$gebruiker,$veiling){
     global $DB;
     $sql = "INSERT INTO Bod (voorwerpnummer, gebruikersnaam, bodbedrag )
             VALUES (?, ?, ?)";
     $params = array ($veiling, $gebruiker, $bod);
-    $stmt = sqlsrv_query($DB, $sql, $params);
+    sqlsrv_query($DB, $sql, $params);
+    var_dump(sqlsrv_errors());
+
 
 }
 
+function hoogsteBod($iteminfo, $bidhistory){
+
+    return isset($bidhistory[0]) ? $bidhistory[0]['bodbedrag'] : $iteminfo['startprijs'];
+}
+
+function getMinimumVerhoging($huidigeprijs)
+{
+
+    if ($huidigeprijs >= 5000) {
+        return 50.00;
+    } else if ($huidigeprijs >= 1000) {
+        return 10.00;
+    } else if ($huidigeprijs >= 500) {
+        return 5.00;
+    } else if ($huidigeprijs >= 50) {
+        return 1.00;
+    } else if ($huidigeprijs >= 1) {
+        return 0.50;
+    }
+}
+
+function bodControle($itemInfo,$bidhistory, $bod)
+{
+    $hoogstebod = hoogsteBod($itemInfo, $bidhistory);
+
+    if ($bod >= $hoogstebod + getMinimumVerhoging($hoogstebod)) {
+        return true;
+    }
+
+    else {
+    return  $buffer['error']=1;
+}
+}
 
 function getBidHistory($auction) {
     global $DB;
-    $tsql = "SELECT bodbedrag, gebruikersnaam, datumtijd FROM Bod WHERE voorwerpnummer = 1 ORDER BY bodbedrag DESC;";
+    $tsql = "SELECT bodbedrag, gebruikersnaam, datumtijd FROM Bod WHERE voorwerpnummer = ? ORDER BY bodbedrag DESC;";
     $params = array($auction);
     $stmt = sqlsrv_query($DB, $tsql, $params);
     $history = array();
@@ -132,8 +178,8 @@ function getBidHistory($auction) {
 
 function getItemInfo($auction) {
     global $DB;
-    $tsql = "SELECT titel, beschrijving, startprijs, betalingswijze, betalingsinstructie, plaatsnaam, land, verzendkosten
-            verzendinstructies, verkoper, looptijdeindmoment, gesloten FROM Voorwerp WHERE voorwerpnummer = ?;";
+    $tsql = "SELECT voorwerpnummer, titel, beschrijving, startprijs, betalingswijze, betalingsinstructie, plaatsnaam, land,
+            verzendinstructies, verkoper, looptijdeindmoment, gesloten, verzendkosten FROM Voorwerp WHERE voorwerpnummer = ?;";
     $params = array($auction);
     $stmt = sqlsrv_query($DB, $tsql, $params);
     return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);

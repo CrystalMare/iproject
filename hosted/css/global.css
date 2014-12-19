@@ -729,7 +729,7 @@ background: #ffffff; /* Old browsers */
 }
 
 .bod-gegevens{
-    min-height: 345px;
+    min-height: 400px;
 }
 
 .filter{
@@ -1025,4 +1025,9 @@ label{
 
 .gegevens-tijd{
     font-size: 200%;
+}
+
+.product-overzicht {
+    float: right;
+    /*margin-right: 0;*/
 }
