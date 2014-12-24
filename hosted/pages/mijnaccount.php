@@ -85,7 +85,7 @@ function nogTeGevenFeedbackOpGekochteArtikelen($user){
 }
 
 
-function()
+
 
 
 function getGegevens($user)

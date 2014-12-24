@@ -21,16 +21,17 @@ function setDefaultBuffer() {
 function get() {
     global $buffer;
 
+
 }
 function post()
 {
     global $buffer;
-    var_dump($_POST);
-    if (!isset($_POST['passwordrecovery']) || $_POST['passwordrecovery'] == "") {
+    var_dump($_POST['email']);
+    if (!isset($_POST['email']) || $_POST['email'] == "") {
         $buffer['emailerror'] = "Voer een geldig emailadres in";
         return;
     }
-    if (!filter_var($_POST['passwordrecovery'], FILTER_VALIDATE_EMAIL)) {
+    if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
         $buffer['emailerror'] = "Dit is geen geldig emailadres";
         return;
     }
@@ -39,9 +40,9 @@ function post()
 
     require(inc . 'mail.php');
 
-    if (sendCode($_POST['passwordrecovery']) == 1)
+    if (sendCode($_POST['email']) == 1)
     {
-        $buffer['emailerror'] = "Er is een email verstuurd naar " . $_POST['passwordrecovery'];
+        $buffer['emailerror'] = "Er is een email verstuurd naar " . $_POST['email'];
         header("Location: index.php?page=wachtwoordcode");
     } else {
         $buffer['emailerror'] = "Er is iets mis gegaan. Probeer het nog een keer.";
