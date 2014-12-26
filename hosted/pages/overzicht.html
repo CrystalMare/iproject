@@ -8,37 +8,37 @@
 <div class="col-md-12 col-xs-12 content-home">
 
     <!--Filter-->
+    <form action="" method="get" id="filterform">
     <div class="col-md-2 col-md-offset-4 col-xs-2">
+        <input type="hidden" value="%category%" name="category">
+        <input type="hidden" value="%action%" name="action">
+        <input type="hidden" value="%search%" name="search">
+        <input type="hidden" value="overzicht" name="page">
         <div class="form-group">
-            <select class="form-control" id="select">
-                <option>prijs</option>
-                <option>0-50</option>
-                <option>50-100</option>
-                <option>100-500</option>
-                <option>500-1000</option>
+            <select class="form-control" onchange="$('#filterform').submit()" id="prijsvolgorde" name="sorteerPrijs" form="filterform">
+                <option selected="selected" value="asc">Laag naar hoog</option>
+                <option value="desc">Hoog naar laag</option>
             </select>
         </div>
     </div>
     <div class="col-md-3 col-xs-3">
         <div class="form-group">
-            <select class="form-control" id="select">
-                <option>Looptijd</option>
-                <option>1</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+
+            <select class="form-control" id="looptijdsorteer" name="looptijd" form="filterform">
+                <option selected="selected" value="asc">Laag naar hoog</option>
+                <option value="desc">Hoog naar laag</option>
             </select>
         </div>
     </div>
     <div class="col-md-3 col-xs-2">
         <div class="form-group">
-            <select class="form-control" id="select">
-                <option>Beoordeling</option>
-                <option>1-3</option>
-                <option>3-5</option>
+            <select class="form-control" id="beoordelingvolgorde" name="sorteerBeoordeling" form="filterform">
+                <option selected="selected" value="asc">Laag naar hoog</option>
+                <option value="desc">Hoog naar laag</option>
             </select>
         </div>
     </div>
+    </form>
 </div>
 
 <div class="col-md-4 col-xs-4">

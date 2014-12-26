@@ -17,6 +17,9 @@ function setDefaultBuffer() {
     global $buffer;
 
     $buffer['veilingen'] = "";
+    $buffer['category'] = "";
+    $buffer['action'] = "search";
+    $buffer['search'] = "";
    
 }
 
@@ -61,6 +64,7 @@ function getCategory($id) {
             "volgnummer" => $row['volgnummer']
         );
     }
+    //Latu
     return $category;
 }
 
@@ -84,7 +88,13 @@ function get() {
         $search = $_GET['search'];
         $cat = $_GET['category'];
     }
+    if (isset($_GET['']))
     doSearch($search, $cat);
+
+    $buffer['search'] = isset($_GET['search']) ? $_GET['search'] : "";
+    $buffer['action'] = isset($_GET['action']) ? $_GET['action'] : "search";
+    $buffer['category'] = isset($_GET['category']) ? $_GET['category'] : "";
+
 }
 
 
@@ -118,6 +128,7 @@ function doSearch($searchvalue, $category) {
         $params = array('%' . $searchvalue . '%', $category);
     }
     $stmt = sqlsrv_query($DB, $tsql, $params);
+    $buffer['tsqlstatement'] = $tsql;
     while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         $titel = $row['titel'];
         var_dump($row);
@@ -176,4 +187,10 @@ END;
 
     $buffer['veilingen'] .= $template;
     }
+}
+
+function doSort($searchcmd) {
+    global $buffer;
+
+
 }
