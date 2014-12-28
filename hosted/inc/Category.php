@@ -61,20 +61,21 @@ END;
         global $DB;
         $list = array();
         $tsql = "SELECT rubrieknaam, rubrieknummer, ouderrubriek, volgnummer FROM Rubriek WHERE rubrieknummer = ? ORDER BY volgnummer, rubrieknaam;";
-        $nottop = true;
         $cat = $category;
         while(true) {
-            if ($cat['ouderrubriek'] == null)
-                break;
+
             $stmt = sqlsrv_query($DB, $tsql, array($cat));
-            if (!$stmt)
+            if (!$stmt) {
                 break;
+            }
             else {
                 array_push($list, sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC));
-                $cat = $list[count($list)-1];
+                var_dump($list);
+                $cat = $list[count($list)-1]['ouderrubriek'];
             }
+            if ($cat == null) break;
         }
-        return $list;
+        return array_reverse($list);
     }
 }
 

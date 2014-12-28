@@ -13,6 +13,6 @@ if (!isset($_GET['cat'])) {
 }
 
 header("Content-Type: application/json");
-echo json_encode(Category::getCatList($cat));
+echo json_encode(Category::getCategory($cat));
 closeDB();
 exit();

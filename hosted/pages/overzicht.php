@@ -20,25 +20,13 @@ function setDefaultBuffer() {
     $buffer['category'] = "";
     $buffer['action'] = "search";
     $buffer['search'] = "";
+    $buffer['acdn'] = "";
    
 }
 
 function post() {
     global $buffer;
 
-}
-
-function getAllCategories() {
-    global $DB;
-    $content = "";
-    //Eerste categorie
-    var_dump(getCategory(-1));
-    foreach (getCategory(-1) as $key => $value) {
-        $content .= "<li class='level-one'>" . $value['rubrieknaam'];
-        //Eerste Sub
-
-    }
-    return $content;
 }
 
 function getCategory($id) {
@@ -94,7 +82,7 @@ function get() {
     $buffer['search'] = isset($_GET['search']) ? $_GET['search'] : "";
     $buffer['action'] = isset($_GET['action']) ? $_GET['action'] : "search";
     $buffer['category'] = isset($_GET['category']) ? $_GET['category'] : "";
-
+    setCategories(!isset($_GET['category']) ? -1 : $_GET['category']);
 }
 
 
@@ -194,10 +182,59 @@ function doSort($searchcmd) {
 }
 
 function setCategories($active) {
-    global $DB;
-    $fieldlist = $fieldlist = Category::getCategory(-1);
-    $category = Category::getCategoryMain($active);
-    if ($category['ouderrubriek'] != null) {
+    global $DB, $buffer;
+    $list = Category::getCatList($active);
+    var_dump($active);
+    var_dump($list);
+    $buffer['acdn'] .= getHTMLForSub(-1, $list, 0);
+    //$buffer['acdn'] .= getHTMLForSub($list[0]['rubrieknummer']);
+}
 
+function getHTMLForSub($cat, $list, $count) {
+    //global $DB;
+    $category = Category::getCategory($cat);
+    $output = "<ul>";
+    foreach($category as $value) {
+        $level = getLevel($count);
+        $link = "?page=overzicht&category=" . $value['rubrieknummer'];
+        $output .= "<li class='$level'>" . "<a href='$link'>" . $value['rubrieknaam'] . "</a>";
+
+        if (isset($list[$count]) && $value['rubrieknummer'] == $list[$count]['rubrieknummer']) {
+            $output .= getHTMLForSub($value['rubrieknummer'], $list, $count + 1);
+        } else {
+            $output .= "<ul></ul>";
+        }
+        $output .= "</li>";
+        //$output .= "<li class='level-one'>" . $value['rubrieknaam'] . "<ul></ul></li>";
+    }
+
+    $output .= "</ul>";
+    return $output;
+
+}
+//<ul>
+//    <li class="level-one">AUTO'S
+//    <ul></ul></li>
+//    <li class="level-one">SPEELGOED
+//        <ul></ul></li>
+//    <li class="level-one">KLEDING</li>
+//    <li class="level-one">BINNENHUIS</li>
+//    <li class="level-one">BUITENHUIS</li>
+//</ul>
+
+function getLevel($int) {
+    switch($int) {
+        case 0:
+            return "level-one";
+        case 1:
+            return "level-two";
+        case 2:
+            return "level-three";
+        case 3:
+            return "level-four";
+        case 4:
+            return "level-five";
+        default:
+            return "";
     }
 }
