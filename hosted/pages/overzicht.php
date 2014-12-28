@@ -191,6 +191,13 @@ END;
 
 function doSort($searchcmd) {
     global $buffer;
+}
 
+function setCategories($active) {
+    global $DB;
+    $fieldlist = $fieldlist = Category::getCategory(-1);
+    $category = Category::getCategoryMain($active);
+    if ($category['ouderrubriek'] != null) {
 
+    }
 }

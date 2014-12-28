@@ -28,6 +28,18 @@ class Category {
         return $category;
     }
 
+    static function getCategoryMain($category) {
+        global $DB;
+        $category = array();
+        if ($category == -1) {
+            return null;
+        } else {
+            $sql  ="SELECT TOP 1 rubrieknaam, rubrieknummer, ouderrubriek, volgnummer FROM Rubriek WHERE rubrieknummer = ? ORDER BY volgnummer, rubrieknaam;";
+            $stmt = sqlsrv_query($DB, $sql, array($category));
+            return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+        }
+    }
+
     //http://stackoverflow.com/questions/1401317/remove-non-utf8-characters-from-string
     static function fixUTF($string) {
         $regex = <<<'END'
@@ -43,6 +55,26 @@ class Category {
         /x
 END;
         return preg_replace($regex, '$1', $string);
+    }
+
+    static function getCatList($category) {
+        global $DB;
+        $list = array();
+        $tsql = "SELECT rubrieknaam, rubrieknummer, ouderrubriek, volgnummer FROM Rubriek WHERE rubrieknummer = ? ORDER BY volgnummer, rubrieknaam;";
+        $nottop = true;
+        $cat = $category;
+        while(true) {
+            if ($cat['ouderrubriek'] == null)
+                break;
+            $stmt = sqlsrv_query($DB, $tsql, array($cat));
+            if (!$stmt)
+                break;
+            else {
+                array_push($list, sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC));
+                $cat = $list[count($list)-1];
+            }
+        }
+        return $list;
     }
 }
 
