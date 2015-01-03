@@ -75,7 +75,6 @@ function get() {
         $search = $_GET['search'];
         $cat = $_GET['category'];
     }
-    if (isset($_GET['']))
     doSearch($search, $cat);
 
     $buffer['search'] = isset($_GET['search']) ? $_GET['search'] : "";
@@ -171,12 +170,7 @@ function doSearch($searchvalue, $category) {
 END;
 
     $buffer['veilingen'] .= $template;
-    var_dump($buffer['veilingen']);
     }
-}
-
-function doSort($searchcmd) {
-    global $buffer;
 }
 
 function setCategories($active) {

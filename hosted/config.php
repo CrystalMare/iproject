@@ -30,7 +30,6 @@ $CONFIG['mail'] = array(
     'fullname'          => 'Eenmaal Andermaal'
 );
 
-
 function closeDB() {
     GLOBAL $DB;
     sqlsrv_close($DB);
