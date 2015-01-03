@@ -15,7 +15,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
 function setDefaultBuffer() {
     global $buffer;
-
     $buffer['veilingen'] = "";
     $buffer['category'] = "";
     $buffer['action'] = "search";
@@ -116,10 +115,8 @@ function doSearch($searchvalue, $category) {
         $params = array('%' . $searchvalue . '%', $category);
     }
     $stmt = sqlsrv_query($DB, $tsql, $params);
-    $buffer['tsqlstatement'] = $tsql;
     while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         $titel = $row['titel'];
-        var_dump($row);
         $beschrijving = $row['beschrijving'];
         $bodbedrag = $row['bodbedrag'];
         $veiling = $row['voorwerpnummer'];
@@ -174,6 +171,7 @@ function doSearch($searchvalue, $category) {
 END;
 
     $buffer['veilingen'] .= $template;
+    var_dump($buffer['veilingen']);
     }
 }
 
@@ -184,14 +182,10 @@ function doSort($searchcmd) {
 function setCategories($active) {
     global $DB, $buffer;
     $list = Category::getCatList($active);
-    var_dump($active);
-    var_dump($list);
     $buffer['acdn'] .= getHTMLForSub(-1, $list, 0);
-    //$buffer['acdn'] .= getHTMLForSub($list[0]['rubrieknummer']);
 }
 
 function getHTMLForSub($cat, $list, $count) {
-    //global $DB;
     $category = Category::getCategory($cat);
     $output = "<ul>";
     foreach($category as $value) {
@@ -205,22 +199,12 @@ function getHTMLForSub($cat, $list, $count) {
             $output .= "<ul></ul>";
         }
         $output .= "</li>";
-        //$output .= "<li class='level-one'>" . $value['rubrieknaam'] . "<ul></ul></li>";
     }
 
     $output .= "</ul>";
     return $output;
 
 }
-//<ul>
-//    <li class="level-one">AUTO'S
-//    <ul></ul></li>
-//    <li class="level-one">SPEELGOED
-//        <ul></ul></li>
-//    <li class="level-one">KLEDING</li>
-//    <li class="level-one">BINNENHUIS</li>
-//    <li class="level-one">BUITENHUIS</li>
-//</ul>
 
 function getLevel($int) {
     switch($int) {

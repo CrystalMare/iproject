@@ -17,7 +17,6 @@ class Category {
             die(print_r(sqlsrv_errors()));
         }
         while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-            //if ($row['rubrieknummer'] == 1508 ) continue;
             $category[$row['rubrieknummer']] = array(
                 "rubrieknaam" => Category::fixUTF($row['rubrieknaam']),
                 "rubrieknummer" => $row['rubrieknummer'],
@@ -70,7 +69,6 @@ END;
             }
             else {
                 array_push($list, sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC));
-                var_dump($list);
                 $cat = $list[count($list)-1]['ouderrubriek'];
             }
             if ($cat == null) break;
