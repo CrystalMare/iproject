@@ -187,7 +187,7 @@ function getHTMLForSub($cat, $list, $count) {
         $link = "?page=overzicht&category=" . $value['rubrieknummer'];
         $output .= "<li class='$level'>" . "<a href='$link'>" . $value['rubrieknaam'] . "</a>";
 
-        if (isset($list[$count]) && $value['rubrieknummer'] == $list[$count]['rubrieknummer']) {
+        if (isset($list[$count]) &&     $value['rubrieknummer'] == $list[$count]['rubrieknummer']) {
             $output .= getHTMLForSub($value['rubrieknummer'], $list, $count + 1);
         } else {
             $output .= "<ul></ul>";
