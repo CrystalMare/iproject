@@ -2,3 +2,6 @@
 Dick
 /hosted/nbproject/private/
 .idea/
+database/CountryConversion/CountryConversion/obj/
+database/iproject/iproject/iproject.dbmdl
+*.iml
