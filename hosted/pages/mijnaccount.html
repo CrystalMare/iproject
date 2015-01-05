@@ -45,6 +45,7 @@
     </div>
     <div class ="col-md-3 col-md-offset-4 col-xs-7">
         <a href="#" class="btn btn-primary bodplaatsen ">Mijn veilingen</a>
+        %verkoperAccountAanvragenKnop%
         <a href="#" class="btn btn-primary bodplaatsen ">Mijn verkoopaccount</a>
         <a href="#" class="btn btn-primary bodplaatsen ">Bekijk feedback</a>
         <a href="#" class="btn btn-primary bodplaatsen ">Invoer <br>bevestigingscode</a>
@@ -53,31 +54,41 @@
     <div class ="col-md-12 col-xs-12">
         <div class="panel panel-info">
             <div class="panel-heading-product">
-                <h3 class="panel-title">Nog te geven feedback </h3>
+                <h3 class="panel-title">Nog te geven feedback: Koper</h3>
             </div>
 
         </div>
-    </div>
+
     <div class="panel-body">
     %artikel%
         </div>
+
+            <div class="panel panel-info">
+                <div class="panel-heading-product">
+                    <h3 class="panel-title">Nog te geven feedback: Verkoper</h3>
+                </div>
+
+            </div>
+
+    <div class="panel-body">
+        %artikel2%
+        </div>
+    </div>
 </div>
 
 <div class="modal" id="feedback-modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
+          <input type="hidden" id="veilingid">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title">Feedback geven voor Curtis</h4>
+        <h4 id="modaltitel" class="modal-title">Feedback geven</h4>
       </div>
       <div class="modal-body">
         <div class="form-group">
+
             <div class="col-lg-6 col-md-6 col-xs-6">
-                <label for="naamArtikel">Van:</label>
-                <input type="text" class="form-control" id="naamArtikel" placeholder="TEST" autocomplete="off" style="cursor: auto;">
-            </div>
-            <div class="col-lg-6 col-md-6 col-xs-6">
-                <label for="naamArtikel">Tevredenheid:</label>
+                <label for="commentaar">Tevredenheid:</label>
                 
                  <select class="form-control" id="select">
                     <option>Goed</option>
@@ -86,15 +97,15 @@
                 </select>
             </div>
             <div class="col-lg-12 col-md-12 col-xs-12">
-                <label for="naamArtikel">Toelichting:</label>
-                <input type="text" class="form-control ea-beschrijving" id="naamArtikel" placeholder="TEST" autocomplete="off" style="cursor: auto;">
+                <label for="commentaar">Toelichting:</label>
+                <input type="text" class="form-control ea-beschrijving" id="commentaar" placeholder="TEST" autocomplete="off" style="cursor: auto;">
             </div>
         </div>
     </div>
       <div class="modal-footer">
         <div class="col-lg-12">
             <div class="button-center-placeholder">
-            <button type="button" class="btn btn-warning middle" data-dismiss="modal">Geef feedback</button>
+            <button type="button" class="btn btn-warning middle" id="%buttonid%" data-dismiss="modal">Geef feedback</button>
             </div>
         </div>
       </div>

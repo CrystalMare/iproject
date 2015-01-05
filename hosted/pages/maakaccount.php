@@ -42,6 +42,35 @@ function post() {
         header("Location: ?page=registreeraccount&key=$key&err=$state");
         exit();
     }
+
+    for($count = 0; $count < ImageProvider::getImagesForAuction($iteminfo['voorwerpnummer'])->getImageCount(); $count++) {
+        $col = $count==0 ? 12 : 4;
+        $buffer['pic'] .= <<<"END"
+    <div class="col-md-$col kleine-thumbnail col-xs-$col">
+                    <a href="#" data-toggle="modal" data-target="#basicModal$count">
+                        <img src="inc/image.php?auction=$auction&id=$count" alt="geen foto" class="img-thumbnail">
+                    </a>                </div>
+
+                <div class="modal fade" id="basicModal$count" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+                                <h5 class="modal-title" id="myModalLabel">$iteminfo[titel]</h5>
+                            </div>
+                            <div class="modal-body">
+                                <img src="inc/image.php?auction=$auction&id=$count" alt="geen foto" class="img-thumbnail">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-warning" data-dismiss="modal">Terug</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+END;
+
+    }
+
 }
 function verifyRegistration() {
     global $DB;

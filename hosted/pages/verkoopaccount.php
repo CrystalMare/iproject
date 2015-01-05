@@ -1,7 +1,30 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Sven
- * Date: 11-12-2014
- * Time: 14:17
- */ 
+
+setDefaultBuffer();
+
+switch ($_SERVER['REQUEST_METHOD']) {
+    case 'GET':
+        get();
+        break;
+    case 'POST':
+        post();
+        break;
+    default:
+        get();
+}
+
+function setDefaultBuffer() {
+    global $buffer;
+
+}
+
+function get() {
+    global $buffer;
+
+
+}
+
+function post() {
+    global $buffer;
+
+}

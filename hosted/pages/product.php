@@ -21,7 +21,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
 function setDefaultBuffer() {
     global $buffer;
-    $buffer['pic'] = "";
+    $buffer['pic'] = <<<"END"
+ <img src="img/logo_header.png" alt="geen foto" class="img-thumbnail">
+END;
     $buffer['history'] = "";
     $buffer['error'] = 0;
     $buffer['verzendkosten'] = "geen";
@@ -57,8 +59,13 @@ function get() {
     }
 
     for($count = 0; $count < ImageProvider::getImagesForAuction($iteminfo['voorwerpnummer'])->getImageCount(); $count++) {
-        $col = $count==0 ? 12 : 4;
-        $buffer['pic'] .= <<<"END"
+        if($count == 0){
+        $col = 12;
+            } else {
+            $col = 4;
+
+        }
+            $buffer['pic'] .= <<<"END"
     <div class="col-md-$col kleine-thumbnail col-xs-$col">
                     <a href="#" data-toggle="modal" data-target="#basicModal$count">
                         <img src="inc/image.php?auction=$auction&id=$count" alt="geen foto" class="img-thumbnail">
@@ -81,6 +88,7 @@ function get() {
                     </div>
                 </div>
 END;
+
 
     }
 

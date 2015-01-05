@@ -16,15 +16,17 @@ switch ($_SERVER['REQUEST_METHOD']) {
 function setDefaultBuffer() {
     global $buffer;
     $buffer['artikel']="";
-
+    $buffer['artikel2']="";
+$buffer['verkoperAccountAanvragenKnop'] = "";
 }
 
 function get() {
     global $buffer;
-    $user = 'satan';
+    $user = 'crystalmare';
 
 
     $getGegevens = getGegevens($user);
+
 
         $buffer['voornaam'] = $getGegevens['voornaam'];
         $buffer['achternaam'] = $getGegevens['achternaam'];
@@ -42,15 +44,19 @@ function get() {
 
     foreach (nogTeGevenFeedbackOpGekochteArtikelen($user) as $veiling) {
 
-        var_dump(artikelGegevens($veiling));
+        $Gegevens = artikelGegevens($veiling[voorwerpnummer]);
+
+
 
         $buffer['artikel'] .= <<<"END"
                 <div class ="col-md-12 col-xs-12">
                     <div class ="col-md-2 col-xs-2">
                         <img src="inc/image.php?auction=$veiling[voorwerpnummer]&id=0" alt="geen foto" class="img-thumbnail" >
+
                     </div>
                     <div class ="col-md-7 nog-te-geven-feedback col-xs-7">
-                        $test
+                        <h5>$Gegevens[titel]</h5>
+                        $Gegevens[beschrijving]
                     </div>
                     <div class ="col-md-3 col-xs-3">
                         <a href="#" class="btn btn-warning bodplaatsen" data-toggle="modal" data-target="#feedback-modal">Geef feedback</a>
@@ -59,12 +65,52 @@ function get() {
 END;
 
     }
+
+    if($buffer['verkoper'] != 1){
+        $buffer['verkoperAccountAanvragenKnop'] .= <<<"END"
+        <a href="#" class="btn btn-primary bodplaatsen ">Verkoopaccount <br>aanmaken</a>
+END;
+
+    }
+
+
+
+
+    foreach (nogTeGevenFeedbackAanKoper($user) as $veiling) {
+
+
+        $Gegevens = artikelGegevens($veiling[voorwerpnummer]);
+
+        $buffer['artikel2'] .= <<<"END"
+                <div class ="col-md-12 col-xs-12">
+                    <div class ="col-md-2 col-xs-2">
+                        <img src="inc/image.php?auction=$veiling[voorwerpnummer]&id=0" alt="geen foto" class="img-thumbnail" >
+                    </div>
+                    <div class ="col-md-7 nog-te-geven-feedback col-xs-7">
+                        <h5>$Gegevens[titel]</h5>
+                        $Gegevens[beschrijving];
+                    </div>
+                    <div class ="col-md-3 col-xs-3">
+                        <a href="#" class="btn btn-warning bodplaatsen" id="$veiling[voorwerpnummer]" data-id=$veiling[voorwerpnummer] data-toggle="modal" data-target="#feedback-modal">Geef feedback</a>
+                    </div>
+                </div>
+END;
+
+
+    }
 }
 
 function post() {
     global $buffer;
+    setFeedback();
+}
 
-
+function setFeedback(){
+    global $DB;
+    $tsql = "INSERT INTO Feedback (commentaar, feedbacktype, gebruikersoort, voorwerpnummer)
+              VALUES ('?','?','?','?')";
+    $params = array();
+    sqlsrv_query($DB,$tsql,$params);
 }
 
 function nogTeGevenFeedbackOpGekochteArtikelen($user){
@@ -84,9 +130,22 @@ function nogTeGevenFeedbackOpGekochteArtikelen($user){
     return $feedback;
 }
 
-
-function()
-
+function nogTeGevenFeedbackAanKoper($user){
+    global $DB;
+    $tsql = "SELECT Voorwerp.voorwerpnummer
+    FROM Voorwerp
+    WHERE Voorwerp.verkoper=?
+    AND NOT EXISTS (SELECT Voorwerp.voorwerpnummer
+                      FROM Voorwerp INNER JOIN Feedback ON Voorwerp.voorwerpnummer = Feedback.voorwerpnummer
+                      WHERE Voorwerp.verkoper=? AND Feedback.gebruikersoort='koper')";
+    $params = array($user, $user);
+    $stmt = sqlsrv_query($DB, $tsql, $params);
+    $feedback = array();
+    while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+        array_push($feedback, $row);
+    }
+    return $feedback;
+}
 
 function getGegevens($user)
 {
@@ -114,3 +173,4 @@ function artikelGegevens($voorwerpnummer){
     $stmt = sqlsrv_query($DB, $tsql, $params);
     return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
 }
+
