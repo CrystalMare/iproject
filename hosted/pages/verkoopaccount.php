@@ -27,4 +27,11 @@ function get() {
 function post() {
     global $buffer;
 
+    if(isset($_POST['identificatiemethode'])) {
+        if ($_POST['identificatiemethode'] == 'Creditcard') {
+
+        } else if ($_POST['identificatiemethode'] == 'Post') {
+            if(isset($_POST['']))
+        }
+    }
 }

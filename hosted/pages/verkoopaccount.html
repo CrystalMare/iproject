@@ -21,21 +21,25 @@
         </div>
     </div>
 
-	
+
 	<div class="col-md-12 col-xs-12">
-		
+
 		<div class="col-md-4 col-xs-4">
-		<label for="betalingsMethode">Selecteer indentificatiemethode</label>
-            <select class="form-control" id="select">
-                <option>Indentificatiemethode</option>
+            <form action="" method="POST">
+		<label for="identificatiemethode">Selecteer identificatiemethode</label>
+            <select class="form-control" id="identificatiemethode" name="identificatiemethode">
                 <option>Post</option>
                 <option>Creditcard</option>
             </select>
+
             <label for="creditcard nummer">Voer creditcard nummer in</label>
             <input type="text" class="form-control" id="creditcard" placeholder="Creditcard nummer" autocomplete="off" style="cursor:auto;">
-		</div>
+
+
+        </div>
 
 	</div>
+
 	<div class="col-md-12 col-xs-12">
 		
 		<div class="col-md-4 col-xs-4">
@@ -61,11 +65,17 @@
             <input type="text" class="form-control" id="creditcard" placeholder="Bankrekeningnummer" autocomplete="off" style="cursor:auto;">
 		</div>
 
-	</div><div class="col-md-12 col-xs-12">
-		
+	</div>
+    <div class="col-md-12 col-xs-12">
+
 		<div class="col-md-4 col-xs-4">
-		<a href="#" class="btn btn-warning knop-wijziging">Bevestig</a>
+
+		<button class="btn btn-warning knop-wijziging" name="submit" type="submit">Bevestig</button>
+            </form>
 		</div>
 
 	</div>
+
+
+
 </div>
