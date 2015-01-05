@@ -147,6 +147,9 @@ function nogTeGevenFeedbackAanKoper($user){
     return $feedback;
 }
 
+
+
+
 function getGegevens($user)
 {
     global $DB;

@@ -267,6 +267,14 @@ background: #ffffff; /* Old browsers */
     margin-top: 50px;
     
 }
+.content-homelog
+{
+    margin-top: 50px;
+    padding-bottom: 5%;
+    border: 2px solid #033c73;
+    border-radius: 25px;
+}
+
 .content-home-twee{
     margin-top: 30px;
    margin-bottom: 100px; 
@@ -307,6 +315,7 @@ background: #ffffff; /* Old browsers */
     width: 50%;
     margin: 0 auto;
 }
+
 
 #registerFormHolder form div
 {
@@ -1032,3 +1041,73 @@ label{
     float: right;
     /*margin-right: 0;*/
 }
+.logon
+{
+    margin: 1px auto;
+    width: 40%;
+    text-align: center;
+    margin-top: 6%;
+}
+#logon
+{
+    /*text-align: center;*/
+    /*margin: 0px auto;*/
+    width:40%;
+    margin: 0px auto;
+    text-align: center;
+}
+#logonButton
+{
+    margin-top: 10%;
+    width: 70%;
+    margin: 1px auto;
+
+}
+
+.col-lg-12 #registerForm
+{
+    width: 70%;
+    margin: 0px auto;
+}
+.col-lg-12 #registerForm label
+{
+    color: rgb(34, 144, 202);
+}
+#logon-container
+{
+    border: 2px solid rgb(250, 255, 100);
+    height: 100%;
+    width: 90%;
+    margin: 1px auto;
+}
+.logonplaceholder
+{}
+
+#labelleft
+{
+    text-align: left;
+    color: rgb(34, 144, 202);
+
+}
+#forgotpassword
+{
+    margin-top: 10%;
+    width: 70%;
+    margin: 1px auto;
+}
+#passwordrecovery
+{
+    width: 40%;
+
+}
+.bold
+{
+    font-weight: bold;
+
+}
+.btn-warning #white
+{
+    background-color: white;
+}
+
+

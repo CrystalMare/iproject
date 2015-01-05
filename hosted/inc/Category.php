@@ -17,7 +17,6 @@ class Category {
             die(print_r(sqlsrv_errors()));
         }
         while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-            //if ($row['rubrieknummer'] == 1508 ) continue;
             $category[$row['rubrieknummer']] = array(
                 "rubrieknaam" => Category::fixUTF($row['rubrieknaam']),
                 "rubrieknummer" => $row['rubrieknummer'],
@@ -26,6 +25,18 @@ class Category {
             );
         }
         return $category;
+    }
+
+    static function getCategoryMain($category) {
+        global $DB;
+        $category = array();
+        if ($category == -1) {
+            return null;
+        } else {
+            $sql  ="SELECT TOP 1 rubrieknaam, rubrieknummer, ouderrubriek, volgnummer FROM Rubriek WHERE rubrieknummer = ? ORDER BY volgnummer, rubrieknaam;";
+            $stmt = sqlsrv_query($DB, $sql, array($category));
+            return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+        }
     }
 
     //http://stackoverflow.com/questions/1401317/remove-non-utf8-characters-from-string
@@ -43,6 +54,26 @@ class Category {
         /x
 END;
         return preg_replace($regex, '$1', $string);
+    }
+
+    static function getCatList($category) {
+        global $DB;
+        $list = array();
+        $tsql = "SELECT rubrieknaam, rubrieknummer, ouderrubriek, volgnummer FROM Rubriek WHERE rubrieknummer = ? ORDER BY volgnummer, rubrieknaam;";
+        $cat = $category;
+        while(true) {
+
+            $stmt = sqlsrv_query($DB, $tsql, array($cat));
+            if (!$stmt) {
+                break;
+            }
+            else {
+                array_push($list, sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC));
+                $cat = $list[count($list)-1]['ouderrubriek'];
+            }
+            if ($cat == null) break;
+        }
+        return array_reverse($list);
     }
 }
 

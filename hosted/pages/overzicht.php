@@ -15,27 +15,17 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
 function setDefaultBuffer() {
     global $buffer;
-
     $buffer['veilingen'] = "";
+    $buffer['category'] = "";
+    $buffer['action'] = "search";
+    $buffer['search'] = "";
+    $buffer['acdn'] = "";
    
 }
 
 function post() {
     global $buffer;
 
-}
-
-function getAllCategories() {
-    global $DB;
-    $content = "";
-    //Eerste categorie
-    var_dump(getCategory(-1));
-    foreach (getCategory(-1) as $key => $value) {
-        $content .= "<li class='level-one'>" . $value['rubrieknaam'];
-        //Eerste Sub
-
-    }
-    return $content;
 }
 
 function getCategory($id) {
@@ -61,6 +51,7 @@ function getCategory($id) {
             "volgnummer" => $row['volgnummer']
         );
     }
+    //Latu
     return $category;
 }
 
@@ -85,6 +76,11 @@ function get() {
         $cat = $_GET['category'];
     }
     doSearch($search, $cat);
+
+    $buffer['search'] = isset($_GET['search']) ? $_GET['search'] : "";
+    $buffer['action'] = isset($_GET['action']) ? $_GET['action'] : "search";
+    $buffer['category'] = isset($_GET['category']) ? $_GET['category'] : "";
+    setCategories(!isset($_GET['category']) ? -1 : $_GET['category']);
 }
 
 
@@ -120,7 +116,6 @@ function doSearch($searchvalue, $category) {
     $stmt = sqlsrv_query($DB, $tsql, $params);
     while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         $titel = $row['titel'];
-        var_dump($row);
         $beschrijving = $row['beschrijving'];
         $bodbedrag = $row['bodbedrag'];
         $veiling = $row['voorwerpnummer'];
@@ -175,5 +170,49 @@ function doSearch($searchvalue, $category) {
 END;
 
     $buffer['veilingen'] .= $template;
+    }
+}
+
+function setCategories($active) {
+    global $DB, $buffer;
+    $list = Category::getCatList($active);
+    $buffer['acdn'] .= getHTMLForSub(-1, $list, 0);
+}
+
+function getHTMLForSub($cat, $list, $count) {
+    $category = Category::getCategory($cat);
+    $output = "<ul>";
+    foreach($category as $value) {
+        $level = getLevel($count);
+        $link = "?page=overzicht&category=" . $value['rubrieknummer'];
+        $output .= "<li class='$level'>" . "<a href='$link'>" . $value['rubrieknaam'] . "</a>";
+
+        if (isset($list[$count]) && $value['rubrieknummer'] == $list[$count]['rubrieknummer']) {
+            $output .= getHTMLForSub($value['rubrieknummer'], $list, $count + 1);
+        } else {
+            $output .= "<ul></ul>";
+        }
+        $output .= "</li>";
+    }
+
+    $output .= "</ul>";
+    return $output;
+
+}
+
+function getLevel($int) {
+    switch($int) {
+        case 0:
+            return "level-one";
+        case 1:
+            return "level-two";
+        case 2:
+            return "level-three";
+        case 3:
+            return "level-four";
+        case 4:
+            return "level-five";
+        default:
+            return "";
     }
 }

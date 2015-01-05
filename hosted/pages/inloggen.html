@@ -1,4 +1,5 @@
-<div class="row">
+<!--
+<div class="row" xmlns="http://www.w3.org/1999/html">
     <div class="col-md-12 col-xs-12">
         <div class="content-bar">
             <p class="content-header">INLOGGEN</p>
@@ -8,24 +9,56 @@
         </div>
     </div>
 </div>
+-->
 
-<!-- Content -->
+
+<div class="col-md-12 col-xs-12 ea-title">
+    <div class="ea-page-title">
+        Inloggen
+    </div>
+</div>
 <div class="col-md-12 col-xs-12 content-home">
-    %error%
-    <div class="content-login">
-        <div class="gegevens-login">
-            <form action="" method="POST" id="registerForm" name="registerForm">
-                <label for="username">Username:</label>
-                <input name="username" placeholder="Voer uw gebruikersnaam in" type="text">
-                <br />
-                <label for="password">Password:</label>
-                <input name="password" placeholder="Voer uw wachtwoord in" type="password">
-                <div class="buttonHolder">
-                    <button type="submit" name='submit' class="buttonLogin">Login</button>
-                </div>
-            </form>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">Inloggen uitleg</h3>
+        </div>
+        <div class="panel-body">
+            BLABLABLABLA
         </div>
     </div>
-    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-    <h1>HELLO WORLD!</h1>
 </div>
+
+
+<!-- Content -->
+<div id="logon-container">
+
+<div class="col-md-12 col-xs-12 content-homelog">
+
+    <div class="logon">
+    <fieldset>
+        <div class="form-group">
+            <div class="col-lg-12">
+                <form action="" method="post" id="registerForm" name="registerForm">
+                    <label id="labelleft" class="form-control" for="username">Gebruikersnaam</label>
+                    <input class="form-control" name="username" placeholder="Voer uw gebruikersnaam in" type="text">
+                    <br />
+                    <label id="labelleft" class="form-control" for="password">Wachtwoord</label>
+                    <input class="form-control" name="password" placeholder="Voer uw wachtwoord in" type="password">
+                    <br />
+            </div>
+        </div>
+    </fieldset>
+        </div>
+        <div id="logon">
+        <div class="col-lg-12">
+            <button type="submit" name="submit" id="logonButton" class="btn btn-warning bold">Inloggen</button>
+            <button type="submit" name="passwordrecovery" formaction="index.php?page=wachtwoordherstel" id="logonButton" class="btn btn-warning bold">Wachtwoord vergeten</button>
+        </div>
+        </div>
+
+    </form>
+
+
+
+</div>
+    </div>
