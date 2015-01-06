@@ -21,61 +21,34 @@
         </div>
     </div>
 
-
+    <form id="invoerform" action="" method="POST">
 	<div class="col-md-12 col-xs-12">
 
 		<div class="col-md-4 col-xs-4">
-            <form action="" method="POST">
+
 		<label for="identificatiemethode">Selecteer identificatiemethode</label>
-            <select class="form-control" id="identificatiemethode" name="identificatiemethode">
-                <option>Post</option>
-                <option>Creditcard</option>
+            <select class="form-control" id="identificatiemethode" onchange="$('#submitbutton').trigger('click');" name="identificatiemethode">
+                <option value="none" selected = %selected% ></option>
+                <option value="creditcard" selected = %selected1% >Creditcard</option>
+                <option value="post" selected = %selected2% >Post</option>
             </select>
 
-            <label for="creditcard nummer">Voer creditcard nummer in</label>
-            <input type="text" class="form-control" id="creditcard" placeholder="Creditcard nummer" autocomplete="off" style="cursor:auto;">
-
+        %creditcardnummer%
 
         </div>
 
 	</div>
 
-	<div class="col-md-12 col-xs-12">
-		
-		<div class="col-md-4 col-xs-4">
-		<label for="betalingsMethode">Voer betalingsmethode in</label>
-            <select class="form-control" id="select">
-                <option>Betalingsmethode</option>
-                <option>Post</option>
-                <option>Creditcard</option>
-            </select>
-		</div>
 
-	</div>
-
-	<div class="col-md-12 col-xs-12">
-		
-		<div class="col-md-4 col-xs-4">
-            <label for="Bank">Bank:</label>
-            <input type="text" class="form-control" id="bank" placeholder="Bank" autocomplete="off" style="cursor:auto;">
-
-        </div>
-		<div class="col-md-4 col-xs-4">
-			<label for="Bankrekeningnummer">Bankrekeningnummer:</label>
-            <input type="text" class="form-control" id="creditcard" placeholder="Bankrekeningnummer" autocomplete="off" style="cursor:auto;">
-		</div>
-
-	</div>
     <div class="col-md-12 col-xs-12">
 
 		<div class="col-md-4 col-xs-4">
 
-		<button class="btn btn-warning knop-wijziging" name="submit" type="submit">Bevestig</button>
-            </form>
+		<button class="btn btn-warning knop-wijziging" value="bevestig" name="submit" id="submitbutton" type="submit">Bevestig</button>
+
 		</div>
 
 	</div>
-
-
+    </form>
 
 </div>

@@ -22,7 +22,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
 function setDefaultBuffer() {
     global $buffer;
     $buffer['pic'] = <<<"END"
- <img src="img/logo_header.png" alt="geen foto" class="img-thumbnail">
 END;
     $buffer['history'] = "";
     $buffer['error'] = 0;
@@ -32,7 +31,8 @@ END;
 
 
 
-function get() {
+function get()
+{
     global $buffer;
     $auction = $_GET['veiling'];
     $bidhistory = getBidHistory($auction);
@@ -52,19 +52,25 @@ function get() {
     $buffer['bedrag'] = hoogsteBod($iteminfo, $bidhistory);
     $buffer['voorwerpnummer'] = $iteminfo['voorwerpnummer'];
 
-    if($iteminfo['verzendkosten']== null){
+    if ($iteminfo['verzendkosten'] == null) {
         $buffer['verzendkosten'] = $iteminfo['verzendkosten'];
     } else {
         $buffer['verzendkosten'] = "geen";
     }
 
-    for($count = 0; $count < ImageProvider::getImagesForAuction($iteminfo['voorwerpnummer'])->getImageCount(); $count++) {
-        if($count == 0){
-        $col = 12;
-            } else {
-            $col = 4;
 
-        }
+    if (ImageProvider::getImagesForAuction($iteminfo['voorwerpnummer'])->getImageCount() == 0) {
+        $buffer['pic'] .= <<<"END"
+        <img src="img/logo_header.png" alt="geen foto" class="img-thumbnail">
+END;
+    } else {
+        for ($count = 0; $count < ImageProvider::getImagesForAuction($iteminfo['voorwerpnummer'])->getImageCount(); $count++) {
+            if ($count == 0) {
+                $col = 12;
+            } else {
+                $col = 4;
+
+            }
             $buffer['pic'] .= <<<"END"
     <div class="col-md-$col kleine-thumbnail col-xs-$col">
                     <a href="#" data-toggle="modal" data-target="#basicModal$count">
@@ -90,7 +96,9 @@ function get() {
 END;
 
 
+        }
     }
+
 
     foreach($bidhistory as $key => $value) {
         $user = $value['gebruikersnaam'];

@@ -17,15 +17,16 @@ function setDefaultBuffer() {
     global $buffer;
     $buffer['artikel']="";
     $buffer['artikel2']="";
-$buffer['verkoperAccountAanvragenKnop'] = "";
+    $buffer['verkoperAccountAanvragenKnop'] = "";
+    $buffer['bevestigingsCodeKnop'] ="";
+    $buffer['verkoperAccountAanvragenKnop'] ="";
 }
 
 function get() {
     global $buffer;
-    $user = 'crystalmare';
 
 
-    $getGegevens = getGegevens($user);
+    $getGegevens = getGegevens($_SESSION['username']);
 
 
         $buffer['voornaam'] = $getGegevens['voornaam'];
@@ -42,7 +43,7 @@ function get() {
         $buffer['geboortedatum'] = $getGegevens['geboortedag']->format('Y-m-d');
         $buffer['verkoper'] = $getGegevens['verkoper'];
 
-    foreach (nogTeGevenFeedbackOpGekochteArtikelen($user) as $veiling) {
+    foreach (nogTeGevenFeedbackOpGekochteArtikelen($_SESSION['username']) as $veiling) {
 
         $Gegevens = artikelGegevens($veiling[voorwerpnummer]);
 
@@ -66,20 +67,28 @@ END;
 
     }
 
-    if($buffer['verkoper'] != 1){
+    if(verkoopAccountAanvraagKnop($_SESSION['username'])){
         $buffer['verkoperAccountAanvragenKnop'] .= <<<"END"
-        <a href="#" class="btn btn-primary bodplaatsen ">Verkoopaccount <br>aanmaken</a>
+        <a href="?page=verkoopaccount" class="btn btn-primary bodplaatsen ">Verkoopaccount <br>aanmaken</a>
 END;
+    }
 
+    if(bevestigingsCodeKnop($_SESSION['username']) == $_SESSION['username']){
+        $buffer['bevestigingsCodeKnop'] .= <<<"END"
+        <a href="?page=bevestigCode" class="btn btn-primary bodplaatsen ">Invoer <br>bevestigingscode</a>
+END;
     }
 
 
 
 
-    foreach (nogTeGevenFeedbackAanKoper($user) as $veiling) {
 
 
-        $Gegevens = artikelGegevens($veiling[voorwerpnummer]);
+
+    foreach (nogTeGevenFeedbackAanKoper($_SESSION['username']) as $veiling) {
+
+
+        $Gegevens = artikelGegevens($veiling['voorwerpnummer']);
 
         $buffer['artikel2'] .= <<<"END"
                 <div class ="col-md-12 col-xs-12">
@@ -98,6 +107,8 @@ END;
 
 
     }
+
+
 }
 
 function post() {
@@ -177,3 +188,24 @@ function artikelGegevens($voorwerpnummer){
     return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
 }
 
+function bevestigingsCodeKnop($user){
+    global $DB;
+    $tsql = "SELECT gebruikersnaam FROM Verkoperverificatie WHERE gebruikersnaam = ?;";
+    $params = array($user);
+    $stmt = sqlsrv_query($DB, $tsql, $params);
+    return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+}
+
+function verkoopAccountAanvraagKnop($user){
+    global $DB;
+    $tsql = "SELECT gebruikersnaam
+    FROM Gebruiker
+    WHERE Gebruikersnaam=? and verkoper = 1
+    union all
+    SELECT Gebruikersnaam
+        FROM Verkoperverificatie
+        WHERE gebruikersnaam=?";
+    $params = array($user, $user);
+    $stmt = sqlsrv_query($DB, $tsql, $params);
+    return !sqlsrv_has_rows($stmt);
+}
