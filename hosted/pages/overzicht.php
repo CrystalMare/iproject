@@ -88,7 +88,7 @@ function doSearch($searchvalue, $category) {
     global $buffer;
     global $DB;
     if ($category == null) {
-        $tsql = "SELECT v.voorwerpnummer, V.titel, V.beschrijving, bodbedrag = (
+        $tsql = "SELECT DISTINCT v.voorwerpnummer, V.titel, V.beschrijving, bodbedrag = (
                   SELECT TOP 1 bodbedrag
                   FROM bod
                   WHERE bod.voorwerpnummer = V.voorwerpnummer
@@ -100,7 +100,7 @@ function doSearch($searchvalue, $category) {
             WHERE V.Titel LIKE (?);";
         $params = array('%' . $searchvalue . '%');
     } else {
-        $tsql = "SELECT v.voorwerpnummer, V.titel, V.beschrijving, bodbedrag = (
+        $tsql = "SELECT DISTINCT v.voorwerpnummer, V.titel, V.beschrijving, bodbedrag = (
                 SELECT TOP 1 bodbedrag
                 FROM bod
                 WHERE bod.voorwerpnummer = V.voorwerpnummer

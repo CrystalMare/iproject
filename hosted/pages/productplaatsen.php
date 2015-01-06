@@ -49,6 +49,11 @@ function post() {
         header('Location: index.php?page=productveilen');
         exit();
     }
+    if ($_POST["categorieaantal"] == 2) {
+        $_SESSION['category2'] = getHigh2();
+    }
+
+
     $_SESSION['category1'] = $high1;
     header('Location: index.php?page=productplaatsen');
     exit();

@@ -1117,4 +1117,6 @@ label{
     max-height: 400px;
 }
 
-
+.cat2 {
+    visibility: hidden;
+}

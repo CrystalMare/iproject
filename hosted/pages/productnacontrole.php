@@ -23,7 +23,8 @@ function get() {
 
 }
 
-function post() {
+function post()
+{
     global $buffer, $DB;
     var_dump($_POST);
     var_dump($_FILES);
@@ -93,7 +94,14 @@ function post() {
     $tsql = "INSERT INTO Voorwerpinrubriek (voorwerpnummer, rubrieknummer) VALUES(?, ?);";
     $params = array($auction, $_SESSION['category1']);
     sqlsrv_query($DB, $tsql, $params);
-    var_dump(sqlsrv_errors());
+
+    if (isset($_SESSION['category2']))
+    {
+        $tsql ="INSERT INTO Voorwerpinrubriek (voorwerpnummer, rubrieknummer) VALUES(?, ?)";
+        $params = array($auction, $_SESSION['category2']);
+        sqlsrv_query($DB, $tsql, $params);
+    }
+
 }
 
 function getUploadedFiles()
