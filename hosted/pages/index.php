@@ -37,7 +37,7 @@ function get() {
     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         $titel = $row['titel'];
         $veilingid = $row['voorwerpnummer'];
-        $picurl = "inc/image.php?auction=$row[voorwerpnummer]&id=0";
+        $picurl = ImageProvider::getImagesForAuction($row['voorwerpnummer'])->getImage(0);
         $prijs = $row['hoogstebod'] == null ? $row['startprijs'] : $row['hoogstebod'];
 
 

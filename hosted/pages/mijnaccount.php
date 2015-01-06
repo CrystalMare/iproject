@@ -48,11 +48,11 @@ function get() {
         $Gegevens = artikelGegevens($veiling[voorwerpnummer]);
 
 
-
+        $image = ImageProvider::getImagesForAuction($veiling['voorwerpnummer'])->getImage(0);
         $buffer['artikel'] .= <<<"END"
                 <div class ="col-md-12 col-xs-12">
                     <div class ="col-md-2 col-xs-2">
-                        <img src="inc/image.php?auction=$veiling[voorwerpnummer]&id=0" alt="geen foto" class="img-thumbnail" >
+                        <img src="$image" alt="geen foto" class="img-thumbnail" >
 
                     </div>
                     <div class ="col-md-7 nog-te-geven-feedback col-xs-7">
@@ -90,10 +90,11 @@ END;
 
         $Gegevens = artikelGegevens($veiling['voorwerpnummer']);
 
+        $image = ImageProvider::getImagesForAuction($veiling['voorwerpnummer'])->getImage(0);
         $buffer['artikel2'] .= <<<"END"
                 <div class ="col-md-12 col-xs-12">
                     <div class ="col-md-2 col-xs-2">
-                        <img src="inc/image.php?auction=$veiling[voorwerpnummer]&id=0" alt="geen foto" class="img-thumbnail" >
+                        <img src="$image" alt="geen foto" class="img-thumbnail" >
                     </div>
                     <div class ="col-md-7 nog-te-geven-feedback col-xs-7">
                         <h5>$Gegevens[titel]</h5>

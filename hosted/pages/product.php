@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: KOEEEENNOS & PINO de koning
- * Date: 11-12-2014
- * Time: 13:27
- */
 
 setDefaultBuffer();
 
@@ -26,6 +20,7 @@ END;
     $buffer['history'] = "";
     $buffer['error'] = 0;
     $buffer['verzendkosten'] = "geen";
+    $buffer['beoordeling'] = "";
 
 }
 
@@ -51,6 +46,7 @@ function get()
     $buffer['verzendkosten'] = $iteminfo['verzendkosten'];
     $buffer['bedrag'] = hoogsteBod($iteminfo, $bidhistory);
     $buffer['voorwerpnummer'] = $iteminfo['voorwerpnummer'];
+    $buffer['beoordeling'] = DatabaseTools::getBeoordelingStars($iteminfo['verkoper']);
 
     if ($iteminfo['verzendkosten'] == null) {
         $buffer['verzendkosten'] = $iteminfo['verzendkosten'];
@@ -71,10 +67,11 @@ END;
                 $col = 4;
 
             }
+            $image = ImageProvider::getImagesForAuction($auction)->getImage($count);
             $buffer['pic'] .= <<<"END"
     <div class="col-md-$col kleine-thumbnail col-xs-$col">
                     <a href="#" data-toggle="modal" data-target="#basicModal$count">
-                        <img src="inc/image.php?auction=$auction&id=$count" alt="geen foto" class="img-thumbnail">
+                        <img src="$image" alt="geen foto" class="img-thumbnail">
                     </a>                </div>
 
                 <div class="modal fade" id="basicModal$count" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
@@ -85,7 +82,7 @@ END;
                                 <h5 class="modal-title" id="myModalLabel">$iteminfo[titel]</h5>
                             </div>
                             <div class="modal-body">
-                                <img src="inc/image.php?auction=$auction&id=$count" alt="geen foto" class="img-thumbnail">
+                                <img src="$image" alt="geen foto" class="img-thumbnail">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-warning" data-dismiss="modal">Terug</button>

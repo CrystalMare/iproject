@@ -7,7 +7,8 @@ $('#feedback-modal').on('show.bs.modal', function (e) {
     $.ajax({
         url: ajaxurl, success: function (result) {
             $('#modaltitel').html(result['titel']);
-            $('#veilingid').attr('value', result['veilingnummer']);
+            $('#veilingid').attr('value', result['voorwerpnummer']);
+            console.log("DONE");
         },
         complete: function () {
         }
