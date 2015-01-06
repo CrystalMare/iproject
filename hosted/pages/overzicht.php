@@ -71,11 +71,21 @@ function get() {
     global $buffer;
     $search = '';
     $cat = null;
+    $sorteer = array();
+
+    if (isset($_GET['sorteerPrijs']) && isset($_GET['looptijd'])) {
+        $sorteer['bodbedrag'] = $_GET['sorteerPrijs'];
+        $sorteer['looptijd'] = $_GET['looptijd'];
+    }
+    else {
+        $sorteer['bodbedrag'] = 'asc';
+        $sorteer['looptijd'] = '';
+    }
     if (isset($_GET['search']) && isset($_GET['category'])) {
         $search = $_GET['search'];
         $cat = $_GET['category'];
     }
-    doSearch($search, $cat);
+    doSearch($search, $cat, $sorteer);
 
     $buffer['search'] = isset($_GET['search']) ? $_GET['search'] : "";
     $buffer['action'] = isset($_GET['action']) ? $_GET['action'] : "search";
@@ -84,11 +94,25 @@ function get() {
 }
 
 
-function doSearch($searchvalue, $category) {
+function doSearch($searchvalue, $category, $sortvalue)
+{
     global $buffer;
     global $DB;
-    if ($category == null) {
-        $tsql = "SELECT v.voorwerpnummer, V.titel, V.beschrijving, bodbedrag = (
+    $wayofsorting = array();
+    $wayofsorting = $sortvalue;
+    if (isset($wayofsorting)) {
+        if (strlen($wayofsorting['bodbedrag']) > 0) {
+            $wayofsorting['way'] = 'bodbedrag';
+            $wayofsorting['how'] = $wayofsorting['bodbedrag'];
+        } else if (strlen($wayofsorting['looptijd']) > 0) {
+            $wayofsorting['way'] = 'looptijd';
+            $wayofsorting['how'] = $wayofsorting['looptijd'];
+        }
+    }
+        if ($category == null) {
+            var_dump('test1');
+            $tsql = <<<END
+            SELECT top 10 v.voorwerpnummer, V.titel, V.beschrijving, bodbedrag = (
                   SELECT TOP 1 bodbedrag
                   FROM bod
                   WHERE bod.voorwerpnummer = V.voorwerpnummer
@@ -97,30 +121,44 @@ function doSearch($searchvalue, $category) {
             FROM Voorwerp V
               INNER JOIN Voorwerpinrubriek VR
                 ON V.voorwerpnummer = VR.voorwerpnummer
-            WHERE V.Titel LIKE (?);";
-        $params = array('%' . $searchvalue . '%');
-    } else {
-        $tsql = "SELECT v.voorwerpnummer, V.titel, V.beschrijving, bodbedrag = (
-                SELECT TOP 1 bodbedrag
-                FROM bod
-                WHERE bod.voorwerpnummer = V.voorwerpnummer
-                ORDER BY bodbedrag DESC
+            WHERE V.Titel LIKE (?)
+            ORDER BY
+END;
+             $tsql .= " bodbedrag DESC";
+            //$wayofsorting['way'] == "bodbedrag" ? "bodbedrag" : "looptijd" . $wayofsorting['how'] == "asc" ? "ASC;" : "DESC;";
+            $params = array('%' . $searchvalue . '%');
+            var_dump($tsql);
+        } else {
+            var_dump('test2');
+            $tsql = <<<END
+            SELECT v.voorwerpnummer, V.titel, V.beschrijving, bodbedrag = (
+                  SELECT TOP 1 bodbedrag
+                  FROM bod
+                  WHERE bod.voorwerpnummer = V.voorwerpnummer
+                  ORDER BY bodbedrag DESC
             )
             FROM Voorwerp V
               INNER JOIN Voorwerpinrubriek VR
                 ON V.voorwerpnummer = VR.voorwerpnummer
             WHERE V.Titel LIKE (?)
-            AND dbo.fnWelkeCatIsHoofd(rubrieknummer) = ?;";
-        $params = array('%' . $searchvalue . '%', $category);
-    }
-    $stmt = sqlsrv_query($DB, $tsql, $params);
-    while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-        $titel = $row['titel'];
-        $beschrijving = $row['beschrijving'];
-        $bodbedrag = $row['bodbedrag'];
-        $veiling = $row['voorwerpnummer'];
+            AND dbo.fnWelkeCatIsHoofd(rubrieknummer) = ?
+            ORDER BY
+END;
+            $tsql .= " bodbedrag DESC";
+            $params = array('%' . $searchvalue . '%', $category);
+        }
+    var_dump(sqlsrv_errors($tsql));
+        $stmt = sqlsrv_query($DB, $tsql, $params);
+    var_dump(sqlsrv_errors($stmt));
+        //if ($stmt) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $titel = $row['titel'];
+                //$beschrijving = $row['beschrijving'];
+                $bodbedrag = $row['bodbedrag'];
+                $veiling = $row['voorwerpnummer'];
+                //$beoordeling = DatabaseTools::getBeoordelingStars($row['gebruikersnaam']);
 
-        $template = <<<"END"
+                $template = <<<"END"
         <div class="col-md-8 panel panel-info product-overzicht panel-body bod-gegevens col-xs-8">
 
             <div class="col-md-4 col-xs-4">
@@ -139,7 +177,7 @@ function doSearch($searchvalue, $category) {
                 </div>
                 <div class="col-md-12 gegevens-product col-xs-12">
                     <div class="col-md-12 col-xs-12">
-                        <p>Beoordeling verkoper</p>
+                        <p>beoordeling</p>
                     </div>
                     <div class="col-md-12 col-xs-12">
 
@@ -160,7 +198,7 @@ function doSearch($searchvalue, $category) {
                 <h3>Product informatie</h3>
 
                 <p>
-                    $beschrijving
+                    Klik op veiling voor meer info.
                 </p>
 
                 <a href="#" class="btn btn-warning btn-lg">Snel bieden</a>
@@ -169,50 +207,55 @@ function doSearch($searchvalue, $category) {
         </div>
 END;
 
-    $buffer['veilingen'] .= $template;
+                $buffer['veilingen'] .= $template;
+            }
+       // }
     }
-}
 
-function setCategories($active) {
-    global $DB, $buffer;
-    $list = Category::getCatList($active);
-    $buffer['acdn'] .= getHTMLForSub(-1, $list, 0);
-}
+    function setCategories($active)
+    {
+        global $DB, $buffer;
+        $list = Category::getCatList($active);
+        $buffer['acdn'] .= getHTMLForSub(-1, $list, 0);
+    }
 
-function getHTMLForSub($cat, $list, $count) {
-    $category = Category::getCategory($cat);
-    $output = "<ul>";
-    foreach($category as $value) {
-        $level = getLevel($count);
-        $link = "?page=overzicht&category=" . $value['rubrieknummer'];
-        $output .= "<li class='$level'>" . "<a href='$link'>" . $value['rubrieknaam'] . "</a>";
+    function getHTMLForSub($cat, $list, $count)
+    {
+        $category = Category::getCategory($cat);
+        $output = "<ul>";
+        foreach ($category as $value) {
+            $level = getLevel($count);
+            $link = "?page=overzicht&category=" . $value['rubrieknummer'];
+            $output .= "<li class='$level'>" . "<a href='$link'>" . $value['rubrieknaam'] . "</a>";
 
-        if (isset($list[$count]) &&     $value['rubrieknummer'] == $list[$count]['rubrieknummer']) {
-            $output .= getHTMLForSub($value['rubrieknummer'], $list, $count + 1);
-        } else {
-            $output .= "<ul></ul>";
+            if (isset($list[$count]) && $value['rubrieknummer'] == $list[$count]['rubrieknummer']) {
+                $output .= getHTMLForSub($value['rubrieknummer'], $list, $count + 1);
+            } else {
+                $output .= "<ul></ul>";
+            }
+            $output .= "</li>";
         }
-        $output .= "</li>";
+
+        $output .= "</ul>";
+        return $output;
+
     }
 
-    $output .= "</ul>";
-    return $output;
+    function getLevel($int)
+    {
+        switch ($int) {
+            case 0:
+                return "level-one";
+            case 1:
+                return "level-two";
+            case 2:
+                return "level-three";
+            case 3:
+                return "level-four";
+            case 4:
+                return "level-five";
+            default:
+                return "";
+        }
 
-}
-
-function getLevel($int) {
-    switch($int) {
-        case 0:
-            return "level-one";
-        case 1:
-            return "level-two";
-        case 2:
-            return "level-three";
-        case 3:
-            return "level-four";
-        case 4:
-            return "level-five";
-        default:
-            return "";
-    }
 }

@@ -15,26 +15,21 @@
         <input type="hidden" value="%search%" name="search">
         <input type="hidden" value="overzicht" name="page">
         <div class="form-group">
+            Prijsvolgorde
             <select class="form-control" onchange="$('#filterform').submit()" id="prijsvolgorde" name="sorteerPrijs" form="filterform">
-                <option selected="selected" value="asc">Laag naar hoog</option>
+                <option value="asc">Laag naar hoog</option>
                 <option value="desc">Hoog naar laag</option>
+                <option selected="selected" value="">Niet sorteren</option>
             </select>
         </div>
     </div>
     <div class="col-md-3 col-xs-3">
         <div class="form-group">
-
-            <select class="form-control" id="looptijdsorteer" name="looptijd" form="filterform">
-                <option selected="selected" value="asc">Laag naar hoog</option>
+            Looptijd
+            <select onchange="$('#filterform').submit()" class="form-control" id="looptijdsorteer" name="looptijd" form="filterform">
+                <option value="asc">Laag naar hoog</option>
                 <option value="desc">Hoog naar laag</option>
-            </select>
-        </div>
-    </div>
-    <div class="col-md-3 col-xs-2">
-        <div class="form-group">
-            <select class="form-control" id="beoordelingvolgorde" name="sorteerBeoordeling" form="filterform">
-                <option selected="selected" value="asc">Laag naar hoog</option>
-                <option value="desc">Hoog naar laag</option>
+                <option selected="selected" value="">Niet sorteren</option>
             </select>
         </div>
     </div>
