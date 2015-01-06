@@ -12,6 +12,7 @@ setDefaultHeaderBuffer();
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
         getHeader();
+        getHeaderCategories();
         break;
     case 'POST':
         postHeader();
@@ -23,7 +24,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
 function setDefaultHeaderBuffer() {
     global $buffer;
     $buffer['headercategorie'] = "";
-
+    $buffer['categorieenbalk'] = "";
 }
 
 function getHeader() {
@@ -51,11 +52,6 @@ function getHeader() {
         $buffer['headercategorie']  .= "<li class='hdclick' id='hd$number'><a>$title</a></li>";
     }
 
-
-
-
-
-
 }
 
 function postHeader() {
@@ -76,4 +72,25 @@ function postHeader() {
 
 
 
+}
+
+function getHeaderCategories() {
+    global $DB;
+    global $buffer;
+    $tsql = "SELECT TOP 5 rubrieknaam, volgnummer, rubrieknummer
+            FROM Rubriek
+            WHERE Ouderrubriek is null
+            ORDER BY Volgnummer ASC, rubrieknaam ASC";
+    $stmt = sqlsrv_query($DB, $tsql);
+    while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+        $rubrieknaam = $row['rubrieknaam'];
+
+        $idcount = 'c' . $row['rubrieknummer'];
+        $template = <<<"END"
+        <li id="$idcount" class="cat"><a href="#">$rubrieknaam</a></li>
+
+END;
+        $buffer['categorieenbalk'] .= $template;
+
+    }
 }

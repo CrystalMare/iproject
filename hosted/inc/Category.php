@@ -27,6 +27,8 @@ class Category {
         return $category;
     }
 
+
+
     static function getCategoryMain($category) {
         global $DB;
         $category = array();
