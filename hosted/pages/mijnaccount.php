@@ -114,7 +114,6 @@ END;
 
 function post() {
     global $buffer;
-    setFeedback();
 }
 
 function setFeedback(){
