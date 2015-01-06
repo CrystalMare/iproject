@@ -1,7 +1,7 @@
 <?php
 class ImageProvider
 {
-    public static $datalocation = "../upload/";
+    public static $datalocation = "http://iproject5.icasites.nl/";
     private static $table = "Bestand";
     
     static function getImagesForAuction($auction)
@@ -48,6 +48,6 @@ class ImageSet
     public function getImage($i)
     {
         if ($i + 1 > $this->getImageCount()) return null;
-        return ImageProvider::$datalocation . $this->auctionid . "/" . $this->images[$i];
+        return ImageProvider::$datalocation . $this->images[$i];
     }
 }
