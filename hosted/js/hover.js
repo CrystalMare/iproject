@@ -6,7 +6,10 @@ function menufixer() {
 $(document).ready(function( ) {
     $(".cat").hover(
         //Hovering button
+
         function() {
+            if ($(this).attr("id") != "hover")
+                updateHover($(this).attr("id").substring(1));
 
             $("#hover").css("display", "inline");
             if ($(this).attr("id") != "hover") {
@@ -20,10 +23,7 @@ $(document).ready(function( ) {
             //console.log(menubutton);
             //color: #1aa9f1;
             //background-color: #fff;
-            if ($(this).attr("id") == "hover")
-                return;
 
-           // updateHover(menubutton.attr("id").substring(1));
         },
         //No longer hovering button
         function() {
@@ -36,13 +36,19 @@ $(document).ready(function( ) {
 
 
 function updateHover(menuid) {
-    
-    if (menuid == "1")
-    {
-        $("#hover").html('<div class="col-md-3"><img src="img/hover_image.png" alt="Auto\'s" class="img-responsive" /></div><div class="col-md-9">Eerste MENU</div>');
-    } else if (menuid == "2")
-    {
-        $("#hover").html('<div class="col-md-3"><img src="img/hover_image.png" alt="Auto\'s" class="img-responsive" /></div><div class="col-md-9">Tweede MENU</div>');
-    }
-    
+    var url = "inc/categories.php?cat=" + menuid;
+    $.ajax({
+        url:url, success: function(result) {
+
+            var html = "";
+            for (var value in result) {
+                html += "<li><a href='?page=overzicht&category=" + value +  "'>" + result[value]['rubrieknaam'] + "</a></li>";
+                console.log(result[value]['rubrieknaam']);
+            }
+            $("#lijst").html(html);
+        },
+        complete: function() {
+
+        }
+    })
 }
