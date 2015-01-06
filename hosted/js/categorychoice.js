@@ -203,4 +203,18 @@ $(document).ready(function() {
         });
     });
 
+    $('#categorieaantal').change(function() {
+        if ($(this).val() == 2) {
+            $('.kanonzichtbaar').each(function() {
+                $(this).removeClass('cat2');
+                console.log(this);
+            });
+        }
+        else {
+            $('.kanonzichtbaar').each(function() {
+                $(this).addClass('cat2');
+            });
+        }
+    });
 });
+

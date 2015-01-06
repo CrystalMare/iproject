@@ -1109,4 +1109,6 @@ label{
     background-color: white;
 }
 
-
+.cat2 {
+    visibility: hidden;
+}
