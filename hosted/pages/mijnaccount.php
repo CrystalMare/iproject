@@ -72,8 +72,7 @@ END;
         <a href="?page=verkoopaccount" class="btn btn-primary bodplaatsen ">Verkoopaccount <br>aanmaken</a>
 END;
     }
-
-    if(bevestigingsCodeKnop($_SESSION['username']) == $_SESSION['username']){
+    if((bevestigingsCodeKnop($_SESSION['username'])) != null){
         $buffer['bevestigingsCodeKnop'] .= <<<"END"
         <a href="?page=bevestigCode" class="btn btn-primary bodplaatsen ">Invoer <br>bevestigingscode</a>
 END;

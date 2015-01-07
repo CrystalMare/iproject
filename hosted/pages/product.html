@@ -117,35 +117,36 @@
         </div>
     </div>
 </div>
-
-<div class="modal" id="vraag-modal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title">Stel de verkoper een vraag</h4>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-            <div class="col-lg-12">
-                <label for="naamArtikel">Uw email-adres:</label>
-                <input type="text" class="form-control" id="naamArtike" placeholder="Vul uw email-adres in..."
-                       autocomplete="off" style="cursor: auto;">
-                <label for="naamArtikel">Vraag</label>
-                <input type="text" class="form-control ea-beschrijving" id="naamArtikel"
-                       placeholder="Vul hier uw vraag in" autocomplete="off" style="cursor: auto;">
+<form method="POST" id="vraagstellen" name="vraagstellen">
+    <div class="modal" id="vraag-modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title">Stel de verkoper een vraag</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+                <div class="col-lg-12">
+                    <label for="naamArtikel">Uw email-adres:</label>
+                    <input type="text" class="form-control" id="naamArtike" placeholder="Vul uw email-adres in..."
+                           autocomplete="off" style="cursor: auto;" name="mailadres">
+                    <label for="naamArtikel">Vraag</label>
+                    <input type="text" class="form-control ea-beschrijving" id="naamArtikel"
+                           placeholder="Vul hier uw vraag in" autocomplete="off" style="cursor: auto;" name="gesteldevraag">
+                </div>
             </div>
         </div>
-    </div>
-      <div class="modal-footer">
-        <div class="col-lg-12">
-            <button type="button" class="btn btn-warning left" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-warning left">Stel vraag</button>
+          <div class="modal-footer">
+            <div class="col-lg-12">
+                <button type="button" class="btn btn-warning left" data-dismiss="modal" name="sluiten">Close</button>
+                <button type="submit" class="btn btn-warning left" name="stelvraag" value="stelvraag">Stel vraag</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+</form>
 <script language="JavaScript" type="application/javascript">
     getCount(new Date('%eindmoment%'), 'tijdover');
 </script>

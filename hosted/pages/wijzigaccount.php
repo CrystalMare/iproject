@@ -16,6 +16,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
 function setDefaultBuffer() {
     global $buffer, $DB;
 
+    $buffer['status'] = "";
+
 
 
 }
@@ -44,12 +46,38 @@ function get() {
 
 
 }
+function changePassword($new, $user)
+{
+    global $DB;
+    $tsql = "SELECT salt FROM Gebruiker WHERE gebruikersnaam = ?;";
+    $stmt = sqlsrv_query($DB, $tsql, array($user));
+    $salt = sqlsrv_fetch_array($stmt)['salt'];
+    $hash = hash('sha256', $new . $salt);
+    $tsql = "UPDATE Gebruiker SET wachtwoord = ? WHERE gebruikersnaam =?;";
+    $stmt = sqlsrv_query($DB, $tsql, array($hash, $user));
+    return sqlsrv_errors() == NULL;
+}
+
 
 function post()
 {
     global $buffer;
 
     $array = getGegevens($_SESSION['username']);
+    print_r("WACHTWOORD" . $array['salt'] . "\n");
+
+    if($_POST['wachtwoord'] != "" && $_POST['herhaalWachtwoord'] != "" && $_POST['wachtwoord'] == $_POST['herhaalWachtwoord'] && strlen($_POST['wachtwoord']) > 6)
+    {
+        $newPassword = $_POST['herhaalWachtwoord'];
+        $value = changePassword($newPassword, $_SESSION['username']);
+        $buffer['status'] = $value ? "Je wachtwoord is aangepast homo" : " er is iets misgegaan stop met internetten!";
+
+    }
+    else
+    {
+        //maak dit mooier!!!
+        $buffer['status'] = "CONTROLEER INPUT";
+    }
 
     if($_POST['voornaam'] != $array['voornaam'] && $_POST['voornaam'] != "")
     {
@@ -132,7 +160,7 @@ function getGegevens($user)
 {
     global $DB;
 
-    $tsql = "SELECT voornaam, achternaam, adresregel1, adresregel2, postcode, plaatsnaam, geboortedag, gebruikersnaam
+    $tsql = "SELECT voornaam, achternaam, adresregel1, adresregel2, postcode, plaatsnaam, geboortedag, gebruikersnaam, salt
 from gebruiker
 WHERE gebruikersnaam = ?";
 
