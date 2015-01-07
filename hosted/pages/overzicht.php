@@ -20,7 +20,7 @@ function setDefaultBuffer() {
     $buffer['action'] = "search";
     $buffer['search'] = "";
     $buffer['acdn'] = "";
-   
+    $buffer['counters'] = "";
 }
 
 function post() {
@@ -88,7 +88,7 @@ function doSearch($searchvalue, $category) {
     global $buffer;
     global $DB;
     if ($category == null) {
-        $tsql = "SELECT DISTINCT v.voorwerpnummer, V.titel, V.beschrijving, bodbedrag = (
+        $tsql = "SELECT DISTINCT TOP 10 v.voorwerpnummer, V.looptijdeindmoment, V.verkoper, V.titel, V.startprijs, V.beschrijving, bodbedrag = (
                   SELECT TOP 1 bodbedrag
                   FROM bod
                   WHERE bod.voorwerpnummer = V.voorwerpnummer
@@ -100,7 +100,7 @@ function doSearch($searchvalue, $category) {
             WHERE V.Titel LIKE (?);";
         $params = array('%' . $searchvalue . '%');
     } else {
-        $tsql = "SELECT DISTINCT v.voorwerpnummer, V.titel, V.beschrijving, bodbedrag = (
+        $tsql = "SELECT DISTINCT TOP 10 v.voorwerpnummer, V.looptijdeindmoment, V.verkoper, V.titel, V.startprijs, V.beschrijving, bodbedrag = (
                 SELECT TOP 1 bodbedrag
                 FROM bod
                 WHERE bod.voorwerpnummer = V.voorwerpnummer
@@ -114,32 +114,35 @@ function doSearch($searchvalue, $category) {
         $params = array('%' . $searchvalue . '%', $category);
     }
     $stmt = sqlsrv_query($DB, $tsql, $params);
+    $count = 0;
     while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         $titel = $row['titel'];
         $beschrijving = $row['beschrijving'];
-        $bodbedrag = $row['bodbedrag'];
+        $bodbedrag = "&#8364;" . (($row['bodbedrag'] == null) ? $row['startprijs'] : $row['bodbedrag']);
         $veiling = $row['voorwerpnummer'];
+        $img = ImageProvider::getImagesForAuction($row['voorwerpnummer'])->getImage(0);
+        $buffer['beoordeling'] = DatabaseTools::getBeoordelingStars($row['verkoper']);
 
         $template = <<<"END"
         <div class="col-md-8 panel panel-info product-overzicht panel-body bod-gegevens col-xs-8">
 
             <div class="col-md-4 col-xs-4">
-                <img src="img/audi.jpg" alt="audi" class="img-rounded img-responsive">
+                <img src="$img" alt="audi" class="img-rounded img-responsive">
 
                 <div class="col-md-12 gegevens-product col-xs-12">
                     <div class="col-md-3 col-xs-3">
                         <img src="img/klok.png" alt="audi">
                     </div>
                     <div class="col-md-9 timer col-xs-9">
-                        Dagen:
+                        Tijd tot einde veiling:
                     </div>
                     <div class="col-md-9 timer col-xs-9">
-                        Tijd:
+                        <span id="tijdover$count"></span>
                     </div>
                 </div>
                 <div class="col-md-12 gegevens-product col-xs-12">
                     <div class="col-md-12 col-xs-12">
-                        <p>Beoordeling verkoper</p>
+                        <p>Beoordeling Verkoper: %beoordeling%</p>
                     </div>
                     <div class="col-md-12 col-xs-12">
 
@@ -157,20 +160,21 @@ function doSearch($searchvalue, $category) {
 
                     <h3 class="panel-title">Laatste bod: $bodbedrag</h3>
                 </div>
-                <h3>Product informatie</h3>
 
-                <p>
-                    $beschrijving
-                </p>
 
                 <a href="#" class="btn btn-warning btn-lg">Snel bieden</a>
                 <a href="index.php?page=product&veiling=$veiling" class="btn btn-primary btn-lg">Toon veiling</a>
             </div>
         </div>
+
 END;
 
-    $buffer['veilingen'] .= $template;
+        $buffer['veilingen'] .= $template;
+        $timeend = str_replace(" ", "T", $row['looptijdeindmoment']->format('Y-m-d H:i:s'));
+        $buffer['counters'] .= "getCount(new Date('$timeend'), 'tijdover$count');";
+        $count++;
     }
+
 }
 
 function setCategories($active) {
