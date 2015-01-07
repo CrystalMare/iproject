@@ -26,7 +26,7 @@ function get() {
 function post()
 {
     global $buffer;
-    var_dump($_POST['email']);
+    //var_dump($_POST['email']);
     if (!isset($_POST['email']) || $_POST['email'] == "") {
         $buffer['emailerror'] = "Voer een geldig emailadres in";
         return;
@@ -40,7 +40,7 @@ function post()
 
     require(inc . 'mail.php');
 
-    if (sendCode($_POST['email']) == 1)
+    if (sendMail($_POST['email'], "Wachtwoord vergeten - Eenmaal Andermaal", getBody($_POST['email'])))
     {
         $buffer['emailerror'] = "Er is een email verstuurd naar " . $_POST['email'];
         header("Location: index.php?page=wachtwoordcode");
@@ -48,3 +48,8 @@ function post()
         $buffer['emailerror'] = "Er is iets mis gegaan. Probeer het nog een keer.";
     }
     return;
+
+function getBody($email)
+{
+
+}

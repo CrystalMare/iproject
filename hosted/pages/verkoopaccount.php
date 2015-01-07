@@ -50,13 +50,11 @@ END;
 
     if($_POST['submit'] == 'accepteer') {
         if ($_POST['identificatiemethode'] == 'creditcard') {
-            if($_POST['creditcard']>0) {
-                if (checkLuhn($_POST['creditcard'])) {
+            if (checkLuhn($_POST['creditcard'])) {
                 verkoperRegistratieCreditcard($_SESSION['username'], $_POST['creditcard']);
-                    header('Location: index.php');
-                } else {
-                    $buffer['foutcreditcardnummer'] = "Het creditcardnummer is verkeerd.";
-                }
+                header('Location: index.php');
+            } else {
+                $buffer['foutcreditcardnummer'] = "Het creditcardnummer is verkeerd.";
             }
         } else if ($_POST['identificatiemethode'] == 'post') {
             verkoperRegistratiebrief($_SESSION['username']);

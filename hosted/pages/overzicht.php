@@ -127,7 +127,7 @@ function doSearch($searchvalue, $category) {
         <div class="col-md-8 panel panel-info product-overzicht panel-body bod-gegevens col-xs-8">
 
             <div class="col-md-4 col-xs-4">
-                <img src="$img" alt="audi" class="img-rounded img-responsive">
+                <img src="$img" alt="audi" class="img-rounded img-responsive img-productoverzicht">
 
                 <div class="col-md-12 gegevens-product col-xs-12">
                     <div class="col-md-3 col-xs-3">
@@ -160,10 +160,11 @@ function doSearch($searchvalue, $category) {
 
                     <h3 class="panel-title">Laatste bod: $bodbedrag</h3>
                 </div>
-
+                <div class="col-md-12 knoppen-snelentoon col-xs-12">
 
                 <a href="#" class="btn btn-warning btn-lg">Snel bieden</a>
                 <a href="index.php?page=product&veiling=$veiling" class="btn btn-primary btn-lg">Toon veiling</a>
+                </div>
             </div>
         </div>
 

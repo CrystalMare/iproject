@@ -224,6 +224,16 @@ h4{
     margin-bottom: 20px;
 }
 
+#aanpassen{
+    font-weight: normal;
+    height: 50px;
+    max-height: 50px;
+    overflow: hidden;
+    visibility: visible;
+
+
+}
+
 .ea-artikel-title{
 background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(top,  #ffffff 0%, #f2f2f2 100%); /* FF3.6+ */
@@ -233,9 +243,11 @@ background: #ffffff; /* Old browsers */
     background: -ms-linear-gradient(top,  #ffffff 0%,#f2f2f2 100%); /* IE10+ */
     background: linear-gradient(to bottom,  #ffffff 0%,#f2f2f2 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f2f2f2',GradientType=0 ); /* IE6-9 */
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     box-shadow: 0px 2px 2px #bab9b9;
     border: none;
+    max-height: 380px;
+
 }
 
 .ea-artikel-footer{
@@ -247,8 +259,8 @@ background: #ffffff; /* Old browsers */
     background: -ms-linear-gradient(top,  #ffffff 0%,#f2f2f2 100%); /* IE10+ */
     background: linear-gradient(to bottom,  #ffffff 0%,#f2f2f2 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f2f2f2',GradientType=0 ); /* IE6-9 */
-    margin-bottom: 5px;
     border: none;
+    height: 40px;
 }
 
 .panel-default > .panel-heading {
@@ -261,7 +273,10 @@ background: #ffffff; /* Old browsers */
     border-width: 2px;
     border-color: #0c5071;
     padding: 5px;
+    height: 250px;
+    max-height: 250px;
     background-color: #FFF;
+    position: relative;
 }
 
 .content-home{
@@ -647,8 +662,8 @@ background: #ffffff; /* Old browsers */
 
     position: absolute;
     width: calc(100% - 30px);
-    height: 250px;
-    display:none;
+    max-height: 250px;
+    display: none;
     z-index: 20;
 }
 
@@ -716,7 +731,9 @@ background: #ffffff; /* Old browsers */
     background: -ms-linear-gradient(top,  #ffffff 0%,#f2f2f2 100%); /* IE10+ */
     background: linear-gradient(to bottom,  #ffffff 0%,#f2f2f2 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f2f2f2',GradientType=0 ); /* IE6-9 */
-
+    height: 450px;
+    max-height: 450px;
+    overflow: hidden;
 }
 
 .panel-info{
@@ -739,7 +756,7 @@ background: #ffffff; /* Old browsers */
 }
 
 .bod-gegevens{
-    min-height: 400px;
+    min-height: 450px;
 }
 
 .filter{
@@ -1001,6 +1018,10 @@ margin-right: 20px;
 .bekijk-artikel{
     width: 100%;
     border-radius: 0px;
+    padding-bottom: 0px;
+    position: absolute;
+    bottom: 0px;
+    margin-left: -5px;
 }
 
 
@@ -1018,7 +1039,7 @@ label{
 }
 
 .btn-primary{
-    margin-top: 10px;
+    /*margin-top: 10px;*/
 }
 
 .kleine-thumbnail{
@@ -1116,8 +1137,68 @@ label{
     border: none;
     overflow: scroll;
     max-height: 400px;
+    min-height: 400px;
 }
 
 .cat2 {
     visibility: hidden;
+}
+
+.hover-lijst{
+overflow: scroll;
+}
+
+
+.hover-lijst ul {
+    padding: 10px;
+    margin-left:5px;
+    width:100%;
+    height:250px;
+    max-height: 250px;
+    -webkit-column-count:3;
+    -khtml-column-count:3;
+    -moz-column-count:3;
+    -ms-column-count:3;
+    -o-column-count:3;
+    column-count:3;
+}
+.hover-lijst ul li {
+    list-style:disc inside;
+}
+
+.home-artikelen{
+   height: 250px;
+    max-height: 250px;
+}
+
+.home-body-artikelen {
+    height: auto;
+    max-height: 200px;
+    max-width: 200px;
+    margin: auto;
+    vertical-align: middle;
+}
+
+.nieuw{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+
+.img-productoverzicht{
+    max-height: 200px;
+    margin: auto;
+    margin-bottom: 20px;
+}
+/* productpagina */
+.knoppen-snelentoon{
+    margin-top: 225px;
+}
+
+.bod-plaatsen-panel{
+    height: 250px;
+    max-height: 250px;
 }
