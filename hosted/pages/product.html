@@ -89,11 +89,14 @@
         </div>
     </div>
     <div class="col-md-8 col-md-offset-4 col-xs-8">
-        <div class="panel panel-info">
+
+        <div class="panel panel-info bod-plaatsen-panel">
             <div class="panel-heading-product">
                 <h3 class="panel-title">Bieden </h3>
             </div>
-            <div class="panel-body">
+
+            <div class="panel-body bod-plaatsen-panel">
+
                 <form action="?page=product&veiling=%voorwerpnummer%" method="post">
                    <div class="col-md-12 col-xs-12"> <label for="naamArtikel">Bod invoeren %error%</label>
                    </div>
@@ -117,6 +120,7 @@
         </div>
     </div>
 </div>
+
 <form action="?page=product&veiling=%voorwerpnummer%" method="post" id="vraagstellen" name="vraagstellen">
     <div class="modal" id="vraag-modal">
       <div class="modal-dialog">
@@ -140,6 +144,7 @@
           <div class="modal-footer">
             <div class="col-lg-12">
                 <button type="button" class="btn btn-warning left" data-dismiss="modal" name="sluiten">Close</button>
+
                 <button type="submit" class="btn btn-warning left" name="submit" value="stelvraag">Stel vraag</button>
             </div>
           </div>

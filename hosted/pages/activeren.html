@@ -22,11 +22,13 @@
     </div>
 
     <div class="col-md-3 col-xs-3">
-    <label for="codeInvoer">Voer uw code in:</label>
-    <input type="text" class="form-control" id="codeInvoer" placeholder="Voer uw code in">
-    </div>
-    <div class="col-md-12 col-xs-12">
-    <a href="#" class="btn btn-warning knop-wijziging">Registreer</a>
+        <form action="index.php?page=activeren" method="post">
+            <label for="codeInvoer">Voer uw code in:</label>
+            <input type="text" class="form-control" id="codeInvoer" name="code" placeholder="Voer uw code in">
+            <div class="col-md-12 col-xs-12">
+                <button type="submit" class="btn btn-warning knop-wijziging">Activeer</button>
+            </div>
+        </form>
     </div>
 </div>
 

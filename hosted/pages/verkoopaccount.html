@@ -25,15 +25,12 @@
 	<div class="col-md-12 col-xs-12">
 
 		<div class="col-md-4 col-xs-4">
-
-		<label for="identificatiemethode">Selecteer identificatiemethode</label>
+            <label for="identificatiemethode">Selecteer identificatiemethode</label>
             <select class="form-control" id="identificatiemethode" onchange="$('#submitbutton').trigger('click');" name="identificatiemethode">
-                <option value="none" selected = %selected% ></option>
-                <option value="creditcard" selected = %selected1% >Creditcard</option>
-                <option value="post" selected = %selected2% >Post</option>
+                %select%
             </select>
-
-        %creditcardnummer%
+            %foutcreditcardnummer%
+            %creditcardnummer%
 
         </div>
 
@@ -44,7 +41,8 @@
 
 		<div class="col-md-4 col-xs-4">
 
-		<button class="btn btn-warning knop-wijziging" value="bevestig" name="submit" id="submitbutton" type="submit">Bevestig</button>
+		    <button class="btn btn-warning knop-wijziging" style="display: none;" value="bevestig" name="submit" id="submitbutton" type="submit">Bevestig</button>
+            <button class="btn btn-warning knop-wijziging" value="accepteer" name="submit" id="confirmbutton" type="submit">Bevestig</button>
 
 		</div>
 

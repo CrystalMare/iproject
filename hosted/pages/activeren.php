@@ -62,14 +62,12 @@ function get() {
 
 function post() {
     global $buffer;
-    global $config;
-    if (!isset($_POST['registreer-code'])) {
+    if (!isset($_POST['code'])) {
         $buffer['stats'] = "Voer een geldige code in.";
         return;
     }
-    $code = explode(str_replace('$', '@',$_POST['registreer-code']), ':');
+    $code = explode('&', str_replace('$', '@', $_POST['code']));
     //Order: hash, email, date
-
     if (intval($code[2]) > (time() + (60*60*4))) {
         $buffer['status'] = "Deze code is verlopen en niet meer geldig.";
         return;
@@ -80,7 +78,7 @@ function post() {
             $_SESSION['register']['date'] = $code[2];
             $_SESSION['register']['key'] = $code[0];
             $buffer['status'] = "Deze code is geldig!";
-            header("Location: index.php?page=registreeraccount&key=$code");
+            header("Location: index.php?page=registreeraccount&key=$code[0]");
             return;
         } else {
             $buffer['status'] = "Dit is geen geldige code";

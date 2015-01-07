@@ -4,19 +4,22 @@
 		</div>
 		<div class="panel-body">
 			Beste gebruiker,<br>
-			Uitleg afronden verkoopaccount.
+			<br>
+			Hier kan de code uit de brief worden ingevoerd om u te registreren als verkoper.
 		</div>
 </div>
+
+<form id="bevestigform" action="" method="POST">
 <div class="col-md-12">
 	<div class="col-md-3 col-xs-3">
-		 <label for="bevestigingscode-verkoper">Voer bevestigingscode in</label>
-	     <input type="text" class="form-control" id="bevestigingscode-verkoper" placeholder="Bevestigingscode" autocomplete="off" style="cursor: auto;">
+		%meldingbevestigingscode%
+		<label for="bevestigingscode-verkoper">Voer bevestigingscode in</label>
+	    <input type="text" class="form-control" name="bevestigingscodeverkoper" id="bevestigingscode-verkoper" placeholder="Bevestigingscode" autocomplete="off" style="cursor: auto;">
+		<label for="bevestigingscode-verkoper">Voer bank in</label>
+		<input type="text" class="form-control" name="bank" id="bank" placeholder="Bevestigingscode" autocomplete="off" style="cursor: auto;">
+		<label for="bevestigingscode-verkoper">Voer rekeningnummer in</label>
+		<input type="text" class="form-control" name="rekeningnummer" id="rekeningnummer" placeholder="Bevestigingscode" autocomplete="off" style="cursor: auto;">
+		<button class="btn btn-warning knop-wijziging" value="bevestig" name="submit" id="bevestig" type="submit">bevestig</button>
 	</div>
 </div>
-<div class="col-md-12 col-xs-12">
-	<div class="col-md-3 col-xs-3">
-			<a href="#" class="btn btn-warning left">Bevestig</a>
-			<a href="?page=mijnaccount" class="btn btn-warning right">Mijn account</a>
-	</div>
-</div>
-
+</form>

@@ -43,10 +43,10 @@ function get() {
 
         $buffer['veilingen'] .= <<<END
             <div class="col-md-3 col-xs-3">
-        <div class="panel panel-default ea-artikel-title">
-            <div class="panel-heading ea-artikel-title">$titel</div>
-            <div class="panel-body ea-home-body">
-                <img src="$picurl" alt="$titel" class="img-responsive">
+        <div class="panel panel-default">
+            <div class="panel-heading ea-artikel-title " id="aanpassen">$titel</div>
+            <div class="panel-body home-artikelen ea-home-body">
+                <img src="$picurl" alt="$titel" class="img-responsive home-body-artikelen nieuw">
                 <a href="?page=product&veiling=$veilingid" class="btn btn-info bekijk-artikel">Bekijk artikel</a>
             </div>
             <div class="panel-heading ea-artikel-footer">&#8364;$prijs &#124; <span id="timer$count"></span></div>

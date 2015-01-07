@@ -16,34 +16,50 @@ switch ($_SERVER['REQUEST_METHOD']) {
 function setDefaultBuffer() {
     global $buffer;
     $buffer['creditcardnummer']="";
-    $buffer['selected']="";
-    $buffer['selected1'] ="";
-    $buffer['selected2'] ="";
+    $buffer['foutcreditcardnummer']="";
+    $buffer['select'] = <<<"END"
+            <option value="none" selected ></option>
+            <option value="creditcard">Creditcard</option>
+            <option value="post" >Post</option>
+END;
 }
 
 function get() {
     global $buffer;
+    if(!isset($_SESSION['username'])){
+        header('Location: index.php');
+    }
 }
 
 function post() {
     global $buffer;
-    var_dump($_POST);
+    $buffer['foutcreditcardnummer']="";
 
-    if($_POST['identificatiemethode'] == "Creditcard"){
-        $buffer['selected1'] = "creditcard";
-    } else if($_POST['identificatiemethode'] == "Post"){
-        $buffer['selected2'] = "Post";
+    if($_POST['identificatiemethode'] == "creditcard"){
+        invoerveldCreditcard();
+        $buffer['select'] = <<<"END"
+		<option value="creditcard" selected>Creditcard</option>
+        <option value="post" >Post</option>
+END;
+    } else if($_POST['identificatiemethode'] == "post"){
+        $buffer['select'] = <<<"END"
+		<option value="creditcard" >Creditcard</option>
+        <option value="post" selected>Post</option>
+END;
     }
 
-    if(!isset($_POST['identificatiemethode']))
-        return;
-
-    if ($_POST['identificatiemethode'] == 'Creditcard') {
-        if(checkLuhn($_POST['creditcard'])){
-            verkoperRegistratieCreditcard($_SESSION['username'], $_POST['creditcard']);
+    if($_POST['submit'] == 'accepteer') {
+        if ($_POST['identificatiemethode'] == 'creditcard') {
+            if (checkLuhn($_POST['creditcard'])) {
+                verkoperRegistratieCreditcard($_SESSION['username'], $_POST['creditcard']);
+                header('Location: index.php');
+            } else {
+                $buffer['foutcreditcardnummer'] = "Het creditcardnummer is verkeerd.";
+            }
+        } else if ($_POST['identificatiemethode'] == 'post') {
+            verkoperRegistratiebrief($_SESSION['username']);
+            header('Location: index.php');
         }
-    } else if ($_POST['identificatiemethode'] == 'Post') {
-        verkoperRegistratiebrief($_SESSION['username']);
     }
 }
 
@@ -53,7 +69,6 @@ function verkoperRegistratieBrief($gebruiker){
             VALUES (?)";
     $params = array ($gebruiker);
     sqlsrv_query($DB, $sql, $params);
-    var_dump(sqlsrv_errors());
 }
 
 function verkoperRegistratieCreditcard($gebruiker, $creditcardnummer){
@@ -62,13 +77,12 @@ function verkoperRegistratieCreditcard($gebruiker, $creditcardnummer){
             VALUES (?, 'creditcard', ?)";
     $params = array ($gebruiker, $creditcardnummer);
     sqlsrv_query($DB, $sql, $params);
-    var_dump(sqlsrv_errors());
 }
 
 function invoerveldCreditcard(){
     global $buffer;
     $buffer['creditcardnummer'] .= <<<"END"
       <label for="creditcard nummer">Voer creditcard nummer in</label>
-      <input type="text" class="form-control" id="creditcard" placeholder="Creditcard nummer" autocomplete="off" style="cursor:auto;">
+      <input type="text" class="form-control" name="creditcard" id="creditcard" placeholder="Creditcard nummer" autocomplete="off" style="cursor:auto;">
 END;
 }

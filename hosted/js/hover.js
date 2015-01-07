@@ -46,6 +46,7 @@ function updateHover(menuid) {
                 console.log(result[value]['rubrieknaam']);
             }
             $("#lijst").html(html);
+            $("#lijst").append("");
         },
         complete: function() {
 
