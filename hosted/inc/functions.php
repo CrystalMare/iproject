@@ -15,6 +15,8 @@ function isSeller($username)
 }
 
 function checkLuhn($number) {
+    if ($number == null || strlen($number) < 1)
+        return false;
     settype($number, 'string');
     $number = preg_replace("/[^0-9]/", "", $number);
     $sumTable = array(
