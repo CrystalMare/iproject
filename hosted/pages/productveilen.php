@@ -26,7 +26,7 @@ function get() {
         exit();
     }
     if (!isSeller($_SESSION['username'])) {
-        header('Location: index.php');
+        header('Location: ?page=mijnaccount');
     }
 
     $categories = Category::getCategory(-1);
