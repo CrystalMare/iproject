@@ -728,9 +728,7 @@ background: #ffffff; /* Old browsers */
     background: -ms-linear-gradient(top,  #ffffff 0%,#f2f2f2 100%); /* IE10+ */
     background: linear-gradient(to bottom,  #ffffff 0%,#f2f2f2 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f2f2f2',GradientType=0 ); /* IE6-9 */
-    height: 450px;
-    max-height: 450px;
-    overflow: scroll;
+
 }
 
 .panel-info{
