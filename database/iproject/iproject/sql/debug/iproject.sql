@@ -182,8 +182,8 @@ PRINT N'Creating [dbo].[Bestand]...';
 
 GO
 CREATE TABLE [dbo].[Bestand] (
-    [filenaam]       VARCHAR (24) NOT NULL,
-    [voorwerpnummer] INT          NOT NULL,
+    [filenaam]       VARCHAR (100) NOT NULL,
+    [voorwerpnummer] INT           NOT NULL,
     CONSTRAINT [pk_filenaam] PRIMARY KEY CLUSTERED ([filenaam] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF)
 );
 
@@ -517,7 +517,6 @@ CREATE TABLE [dbo].[Gebruiker] (
     [registratie]    DATE          NOT NULL,
     [verwijderd]     BIT           NOT NULL,
     CONSTRAINT [pk_gebruikersnaam] PRIMARY KEY CLUSTERED ([gebruikersnaam] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF),
-    CONSTRAINT [un_email_bestaat] UNIQUE NONCLUSTERED ([mailbox] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF),
     CONSTRAINT [un_salt] UNIQUE NONCLUSTERED ([salt] ASC) WITH (ALLOW_PAGE_LOCKS = ON, ALLOW_ROW_LOCKS = ON, PAD_INDEX = OFF, IGNORE_DUP_KEY = OFF, STATISTICS_NORECOMPUTE = OFF)
 );
 
@@ -748,6 +747,15 @@ PRINT N'Creating fk_bestand_van_voorwerp...';
 GO
 ALTER TABLE [dbo].[Bestand] WITH NOCHECK
     ADD CONSTRAINT [fk_bestand_van_voorwerp] FOREIGN KEY ([voorwerpnummer]) REFERENCES [dbo].[Voorwerp] ([voorwerpnummer]) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+
+GO
+PRINT N'Creating fk_file_van_voorwerp...';
+
+
+GO
+ALTER TABLE [dbo].[Bestand] WITH NOCHECK
+    ADD CONSTRAINT [fk_file_van_voorwerp] FOREIGN KEY ([voorwerpnummer]) REFERENCES [dbo].[Voorwerp] ([voorwerpnummer]) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 
 GO
@@ -1160,6 +1168,8 @@ ALTER TABLE [dbo].[Verkoperverificatie] WITH CHECK CHECK CONSTRAINT [fk_verifica
 ALTER TABLE [dbo].[Gebruiker] WITH CHECK CHECK CONSTRAINT [chk_mailbox];
 
 ALTER TABLE [dbo].[Bestand] WITH CHECK CHECK CONSTRAINT [fk_bestand_van_voorwerp];
+
+ALTER TABLE [dbo].[Bestand] WITH CHECK CHECK CONSTRAINT [fk_file_van_voorwerp];
 
 ALTER TABLE [dbo].[Bod] WITH CHECK CHECK CONSTRAINT [fk_bod_van_voorwerp];
 
