@@ -14,7 +14,7 @@ function sendCode($email) {
     $date = time();
     $hash = hash("sha256", $email . $date);
     $code = "email=$email&date=$date&key=$hash";
-    $shortcode = $hash . ':' . $email . ':' . $date;
+    $shortcode = $hash . '&' . str_replace("@", "$", $email) . '&' . $date;
 
     $mail = new PHPMailer;
     $mail->isSMTP();
