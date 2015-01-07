@@ -47,6 +47,7 @@ function get()
     $buffer['bedrag'] = hoogsteBod($iteminfo, $bidhistory);
     $buffer['voorwerpnummer'] = $iteminfo['voorwerpnummer'];
     $buffer['beoordeling'] = DatabaseTools::getBeoordelingStars($iteminfo['verkoper']);
+    $buffer['beschrijvingsrc'] = "inc/body.php?veiling=" . $iteminfo['voorwerpnummer'];
 
     if ($iteminfo['verzendkosten'] == null) {
         $buffer['verzendkosten'] = $iteminfo['verzendkosten'];
@@ -65,7 +66,6 @@ END;
                 $col = 12;
             } else {
                 $col = 4;
-
             }
             $image = ImageProvider::getImagesForAuction($auction)->getImage($count);
             $buffer['pic'] .= <<<"END"
