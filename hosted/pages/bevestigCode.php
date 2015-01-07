@@ -15,6 +15,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
 function setDefaultBuffer() {
     global $buffer;
+    $buffer['meldingbevestigingscode']="";
 
 }
 
@@ -25,5 +26,8 @@ function get() {
 
 function post() {
     global $buffer;
-
+    var_dump($_POST);
+    if(isset($_POST['bevestigingscodeverkoper'])){
+        $buffer['meldingbevestigingscode']="Voer alle velden in";
+    }
 }
