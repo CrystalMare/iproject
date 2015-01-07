@@ -15,8 +15,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
 function setDefaultBuffer() {
     global $buffer;
-    $buffer['pic'] = <<<"END"
-END;
+    $buffer['pic'] = "";
     $buffer['history'] = "";
     $buffer['error'] = 0;
     $buffer['verzendkosten'] = "geen";
@@ -57,9 +56,7 @@ function get()
 
 
     if (ImageProvider::getImagesForAuction($iteminfo['voorwerpnummer'])->getImageCount() == 0) {
-        $buffer['pic'] .= <<<"END"
-        <img src="img/logo_header.png" alt="geen foto" class="img-thumbnail">
-END;
+        $buffer['pic'] .= '<img src="img/logo_header.png" alt="geen foto" class="img-thumbnail">';
     } else {
         for ($count = 0; $count < ImageProvider::getImagesForAuction($iteminfo['voorwerpnummer'])->getImageCount(); $count++) {
             if ($count == 0) {
@@ -111,28 +108,49 @@ END;
 
 function post() {
     global $buffer;
-if(isset($_POST['veiling'])) {
-    $auction = $_POST['veiling'];
-    //var_dump($_POST);
-    $iteminfo = getItemInfo($auction);
-    $bidhistory = getBidHistory($auction);
-
-
-    if ($_SESSION['username'] == null || $_SESSION['username'] == "" || $_SESSION['username'] == $iteminfo['verkoper']) {
-        //TODO: naar login pagina
-        return;
+    global $DB;
+    if (!isset($_POST['submit'])) {
+        header("Location: index.php?page=product&veiling=$_GET[veilingnummer]");
+        exit();
     }
-    if (bodControle($iteminfo, $bidhistory, $_POST['bodInvoer'])) {
+    if ($_POST['submit'] == "bodplaatsen") {
+        $auction = $_POST['veiling'];
         //var_dump($_POST);
-        bodPlaatsen($_POST['bodInvoer'], $_SESSION['username'], $iteminfo['voorwerpnummer']);
-    }
-}
-    if ($_GET['stelvraag'] == "stelvraag") {
-        sendMail($_GET['mailadres'], "Eenmaal Andermaal gebruiker stelt u een vraag", $_GET['gesteldevraag']);
+        $iteminfo = getItemInfo($auction);
+        $bidhistory = getBidHistory($auction);
+
+
+        if ($_SESSION['username'] == null || $_SESSION['username'] == "" || $_SESSION['username'] == $iteminfo['verkoper']) {
+            //TODO: naar login pagina
+            return;
+        }
+        if (bodControle($iteminfo, $bidhistory, $_POST['bodInvoer'])) {
+            //var_dump($_POST);
+            bodPlaatsen($_POST['bodInvoer'], $_SESSION['username'], $iteminfo['voorwerpnummer']);
+        }
+        header("Location: index.php?page=product&veiling=$auction");
+        exit;
+    } else if ($_POST['submit'] == "stelvraag") {
+        //mail
+        $body = "Een gebruiker heeft u een vraag gesteld: <br/>" . $_POST['gesteldevraag'] . "<br/> Deze vraag werd gesteld door: " . $_POST['mailadres'] ;
+        $subject = "Eenmaal Andermaal: $_POST[mailadres] stelt u een vraag";
+        //selecteer mailadres van de verkoper van deze veiling
+        $tsql = "SELECT mailbox
+                      FROM Voorwerp JOIN gebruiker
+                      ON gebruiker.gebruikersnaam = voorwerp.verkoper
+                      WHERE voorwerpnummer = ?" ;
+        $params = array($_GET['veiling']);
+        $stmt = sqlsrv_query($DB, $tsql, $params);
+        $mailadress = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)['mailbox'];
+        var_dump($mailadress);
+
+        require inc . 'mail.php';
+        sendMail($mailadress, $subject, $body);
+
 
     }
-    get();
-    var_dump($buffer['error']);
+    header("Location: index.php?page=product&veiling=$_GET[veiling]");
+    exit();
 
 }
 

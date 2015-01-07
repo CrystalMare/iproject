@@ -94,7 +94,7 @@
                 <h3 class="panel-title">Bieden </h3>
             </div>
             <div class="panel-body">
-                <form action="" method="post">
+                <form action="?page=product&veiling=%voorwerpnummer%" method="post">
                    <div class="col-md-12 col-xs-12"> <label for="naamArtikel">Bod invoeren %error%</label>
                    </div>
                 <div class="col-md-6 col-xs-4">
@@ -103,7 +103,7 @@
                            style="cursor: auto;" name="bodInvoer">
                 </div>
                 <div class="col-md-6 col-xs-4">
-                    <button class="btn btn-warning bodplaatsen" type="submit" name='submit' >Bod plaatsen</button>
+                    <button class="btn btn-warning bodplaatsen" type="submit" name='submit' value="bodplaatsen" >Bod plaatsen</button>
                 </div>
                 <div class="col-md-8 col-xs-4">
                     <div class="col-md-6 col-xs-4">
@@ -117,7 +117,7 @@
         </div>
     </div>
 </div>
-<form method="POST" id="vraagstellen" name="vraagstellen">
+<form action="?page=product&veiling=%voorwerpnummer%" method="post" id="vraagstellen" name="vraagstellen">
     <div class="modal" id="vraag-modal">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -140,7 +140,7 @@
           <div class="modal-footer">
             <div class="col-lg-12">
                 <button type="button" class="btn btn-warning left" data-dismiss="modal" name="sluiten">Close</button>
-                <button type="submit" class="btn btn-warning left" name="stelvraag" value="stelvraag">Stel vraag</button>
+                <button type="submit" class="btn btn-warning left" name="submit" value="stelvraag">Stel vraag</button>
             </div>
           </div>
         </div>
