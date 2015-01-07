@@ -64,5 +64,5 @@ function sendMail($email, $subject, $body) {
     $mail->Subject = $subject;
     $mail->Body = $body;
     $mail->isHTML();
-    $mail->send();
+    return $mail->send();
 }
