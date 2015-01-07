@@ -111,7 +111,7 @@ END;
 
 function post() {
     global $buffer;
-
+if(isset($_POST['veiling'])) {
     $auction = $_POST['veiling'];
     //var_dump($_POST);
     $iteminfo = getItemInfo($auction);
@@ -126,7 +126,11 @@ function post() {
         //var_dump($_POST);
         bodPlaatsen($_POST['bodInvoer'], $_SESSION['username'], $iteminfo['voorwerpnummer']);
     }
+}
+    if ($_GET['stelvraag'] == "stelvraag") {
+        sendMail($_GET['mailadres'], "Eenmaal Andermaal gebruiker stelt u een vraag", $_GET['gesteldevraag']);
 
+    }
     get();
     var_dump($buffer['error']);
 
