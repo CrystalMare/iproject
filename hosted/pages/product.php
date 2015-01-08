@@ -59,7 +59,6 @@ function get()
         $buffer['pic'] .= '<img src="img/logo_header.png" alt="geen foto" class="img-thumbnail">';
     } else {
         for ($count = 0; $count < ImageProvider::getImagesForAuction($iteminfo['voorwerpnummer'])->getImageCount(); $count++) {
-            if($count > 3){break;}
             if ($count == 0) {
                 $col = 12;
             } else {

@@ -23,7 +23,7 @@ function get() {
 
     global $buffer, $DB;
 
-    $email = 'jklaassenprivate@live.co.uk';
+    $email = 'justinklaassenbusiness@gmail.com';
     $sql = "select vraag
     from vraag where vraagnummer in (select vraag from gebruiker where mailbox = '$email')";
 
