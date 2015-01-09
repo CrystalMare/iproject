@@ -46,11 +46,11 @@ function post()
     }
     $verzendkosten = $_POST['verzendkosten'] == "" ? 0.00 : $_POST['verzendkosten'];
     if (!settype($verzendkosten, "float")) {
-        $error = "Voor een geldige verzend prijs in.";
+        $error = "Voer een geldige verzend prijs in.";
     }
     $betalingsmethode = "";
     if ($_POST['betalingswijze'] == "")
-        $betalingsmethode == "Bank/Giro";
+        $betalingsmethode = "Bank/Giro";
 
     //Files
     if (count(getUploadedFiles()) < 1) {
@@ -110,6 +110,7 @@ function post()
 function getUploadedFiles()
 {
     $validfiles = array();
+    var_dump($_FILES);
     foreach ($_FILES as $key => $value) {
         if ($value['size'] > 2000000)
             continue;

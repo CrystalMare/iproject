@@ -52,7 +52,6 @@ function getCategory($id) {
             "volgnummer" => $row['volgnummer']
         );
     }
-    //Latu
     return $category;
 }
 
@@ -70,13 +69,26 @@ function hasSubs($id) {
 
 function get() {
     global $buffer;
-    $search = '';
-    $cat = null;
-    if (isset($_GET['search']) && isset($_GET['category'])) {
-        $search = $_GET['search'];
-        $cat = $_GET['category'];
+    $search = isset($_GET['search']) ? $_GET['search'] : "";
+    $cat = isset($_GET['category']) ? $_GET['category'] : null;
+    $cat = $cat == "" ? null : $cat;
+
+    $sorteerprijs = isset($_GET['sorteerPrijs']) ? $_GET['sorteerPrijs'] : "asc";
+    $looptijd = isset($_GET['looptijd']) ? $_GET['looptijd'] : "asc";
+
+    if ($sorteerprijs != "asc") {
+        $sort = "startprijs DESC";
+    } else {
+        $sort = "startprijs ASC";
     }
-    doSearch($search, $cat);
+
+    if ($sorteerprijs == "asc" && $looptijd != "asc") {
+        $sort = "looptijdeindmoment DESC";
+    } else {
+        $sort = "Voorwerp.voorwerpnummer DESC";
+    }
+
+    doSearch($search, $cat, $sort);
 
     $buffer['search'] = isset($_GET['search']) ? $_GET['search'] : "";
     $buffer['action'] = isset($_GET['action']) ? $_GET['action'] : "search";
@@ -85,37 +97,30 @@ function get() {
 }
 
 
-function doSearch($searchvalue, $category) {
-    global $buffer;
-    global $DB;
-    if ($category == null) {
-        $tsql = "SELECT DISTINCT TOP 10 v.voorwerpnummer, V.looptijdeindmoment, V.verkoper, V.titel, V.startprijs, V.beschrijving, bodbedrag = (
-                  SELECT TOP 1 bodbedrag
-                  FROM bod
-                  WHERE bod.voorwerpnummer = V.voorwerpnummer
-                  ORDER BY bodbedrag DESC
-            )
-            FROM Voorwerp V
-              INNER JOIN Voorwerpinrubriek VR
-                ON V.voorwerpnummer = VR.voorwerpnummer
-            WHERE V.Titel LIKE (?);";
-        $params = array('%' . $searchvalue . '%');
-    } else {
-        $tsql = "SELECT DISTINCT TOP 10 v.voorwerpnummer, V.looptijdeindmoment, V.verkoper, V.titel, V.startprijs, V.beschrijving, bodbedrag = (
-                SELECT TOP 1 bodbedrag
-                FROM bod
-                WHERE bod.voorwerpnummer = V.voorwerpnummer
-                ORDER BY bodbedrag DESC
-            )
-            FROM Voorwerp V
-              INNER JOIN Voorwerpinrubriek VR
-                ON V.voorwerpnummer = VR.voorwerpnummer
-            WHERE V.Titel LIKE (?)
-            AND dbo.fnWelkeCatIsHoofd(rubrieknummer) = ?;";
-        $params = array('%' . $searchvalue . '%', $category);
-    }
+function doSearch($searchvalue, $category, $order) {
+    global $buffer, $DB;
+
+    $categoryfilter = is_null($category) ? "" : "AND dbo.fnIsSub(Voorwerpinrubriek.rubrieknummer, ?, 0) = 1";
+
+    $tsql = "
+        SELECT DISTINCT TOP 10 Voorwerp.voorwerpnummer, Voorwerp.looptijdeindmoment, Voorwerp.verkoper, Voorwerp.titel,
+          Voorwerp.startprijs, Voorwerp.beschrijving, bodbedrag = (
+          SELECT TOP 1                                bodbedrag
+          FROM Bod
+          WHERE Bod.voorwerpnummer = Voorwerp.voorwerpnummer
+          ORDER BY bodbedrag DESC
+        )
+        FROM Voorwerp
+          JOIN Voorwerpinrubriek
+            ON Voorwerp.voorwerpnummer = Voorwerpinrubriek.voorwerpnummer
+        WHERE titel LIKE (?) AND gesloten = 0 $categoryfilter
+        ORDER BY $order;";
+
+    $params = is_null($category) ? array("%$searchvalue%") : array("%$searchvalue%", $category);
+
     $stmt = sqlsrv_query($DB, $tsql, $params);
     $count = 0;
+
     while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         $titel = $row['titel'];
         $voorwerpnummer=$row['voorwerpnummer'];

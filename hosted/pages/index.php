@@ -31,9 +31,9 @@ function get() {
                   )
               FROM Voorwerp;";
     $stmt = sqlsrv_query($DB, $tsql);
-    var_dump(sqlsrv_errors());
+//    var_dump(sqlsrv_errors());
     $count = 0;
-    var_dump(sqlsrv_num_rows($stmt));
+//    var_dump(sqlsrv_num_rows($stmt));
     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         $titel = $row['titel'];
         $veilingid = $row['voorwerpnummer'];

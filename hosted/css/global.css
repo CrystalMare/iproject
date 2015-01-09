@@ -1200,3 +1200,21 @@ overflow: scroll;
     height: 250px;
     max-height: 250px;
 }
+
+.logo-hover{
+    margin: auto;
+    margin-top: 50px;
+}
+
+.btn-warning{
+    margin-top: 10px;
+    
+}
+
+.btn-primary{
+    margin-top: 10px;
+}
+
+#bodInvoer{
+    margin-top: 10px;
+}

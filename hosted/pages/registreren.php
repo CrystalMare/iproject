@@ -32,6 +32,12 @@ function post() {
         $buffer['emailerror'] = "Dit is geen geldig emailadres";
         return;
     }
+    if (checkExistingEmail($_POST['email']))
+    {
+        $buffer['emailerror'] = "Dit emailadres bestaat al!";
+        return;
+    }
+
 
     require(inc . 'mail.php');
 
@@ -43,4 +49,24 @@ function post() {
         $buffer['emailerror'] = "Er is iets mis gegaan. Probeer het nog een keer.";
     }
     return;
+}
+
+function checkExistingEmail($email)
+{
+    global $DB;
+    $tsql = "SELECT * FROM gebruiker WHERE mailbox = ?;";
+    $params = array($email);
+    $stmt = sqlsrv_query($DB, $tsql, $params);
+    $result = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+
+    if ($email == $result['mailbox']) {
+        return true;
+    }
+    else {
+        return false;
+    }
+
+
+
+
 }
