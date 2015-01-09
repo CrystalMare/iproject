@@ -9,11 +9,14 @@
 
     <!--Filter-->
     <form action="" method="get" id="filterform">
+
     <div class="col-md-2 col-md-offset-4 col-xs-2">
+        Prijs
         <input type="hidden" value="%category%" name="category">
         <input type="hidden" value="%action%" name="action">
         <input type="hidden" value="%search%" name="search">
         <input type="hidden" value="overzicht" name="page">
+
         <div class="form-group">
             <select class="form-control" onchange="$('#filterform').submit()" id="prijsvolgorde" name="sorteerPrijs" form="filterform">
                 <option selected="selected" value="asc">Laag naar hoog</option>
@@ -21,16 +24,19 @@
             </select>
         </div>
     </div>
-    <div class="col-md-3 col-xs-3">
-        <div class="form-group">
 
+    <div class="col-md-2 col-xs-2">
+        Looptijd
+        <div class="form-group">
             <select class="form-control" id="looptijdsorteer" name="looptijd" form="filterform">
                 <option selected="selected" value="asc">Laag naar hoog</option>
                 <option value="desc">Hoog naar laag</option>
             </select>
         </div>
     </div>
-    <div class="col-md-3 col-xs-2">
+
+    <div class="col-md-2 col-xs-2">
+        Beoordeling
         <div class="form-group">
             <select class="form-control" id="beoordelingvolgorde" name="sorteerBeoordeling" form="filterform">
                 <option selected="selected" value="asc">Laag naar hoog</option>
@@ -38,6 +44,7 @@
             </select>
         </div>
     </div>
+
     </form>
 </div>
 
@@ -49,7 +56,9 @@
 </div>
 </div>
 
-%veilingen%
+<form action="" method="post">
+    %veilingen%
+</form>
 
 <script language="JavaScript" type="application/javascript">
     %counters%

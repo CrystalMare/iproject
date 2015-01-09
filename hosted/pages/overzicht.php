@@ -21,6 +21,7 @@ function setDefaultBuffer() {
     $buffer['search'] = "";
     $buffer['acdn'] = "";
     $buffer['counters'] = "";
+
 }
 
 function post() {
@@ -117,11 +118,12 @@ function doSearch($searchvalue, $category) {
     $count = 0;
     while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         $titel = $row['titel'];
-        $beschrijving = $row['beschrijving'];
+        $voorwerpnummer=$row['voorwerpnummer'];
         $bodbedrag = "&#8364;" . (($row['bodbedrag'] == null) ? $row['startprijs'] : $row['bodbedrag']);
         $veiling = $row['voorwerpnummer'];
         $img = ImageProvider::getImagesForAuction($row['voorwerpnummer'])->getImage(0);
         $buffer['beoordeling'] = DatabaseTools::getBeoordelingStars($row['verkoper']);
+        $beschrijving = "inc/body.php?veiling=" . $row['voorwerpnummer'];
 
         $template = <<<"END"
         <div class="col-md-8 panel panel-info product-overzicht panel-body bod-gegevens col-xs-8">
@@ -153,22 +155,27 @@ function doSearch($searchvalue, $category) {
 
                 <div class="panel-heading-product">
                     <h3 class="panel-title">$titel</h3>
-
                 </div>
 
                 <div class="panel-heading-product-afbeelding laatstebod">
-
                     <h3 class="panel-title">Laatste bod: $bodbedrag</h3>
                 </div>
+                    <h3> Product informatie </h>
+                <p>
+                    <iframe src="$beschrijving" class="iFrame">
+                    Geen beschrijving gevonden.
+                    </iframe>
+                </p>
                 <div class="col-md-12 knoppen-snelentoon col-xs-12">
 
-                <a href="#" class="btn btn-warning btn-lg">Snel bieden</a>
+                <a href="?page=product&veiling=$veiling&action=bied" class="btn btn-warning btn-lg">Snel bieden</a>
                 <a href="index.php?page=product&veiling=$veiling" class="btn btn-primary btn-lg">Toon veiling</a>
                 </div>
             </div>
         </div>
 
 END;
+
 
         $buffer['veilingen'] .= $template;
         $timeend = str_replace(" ", "T", $row['looptijdeindmoment']->format('Y-m-d H:i:s'));
