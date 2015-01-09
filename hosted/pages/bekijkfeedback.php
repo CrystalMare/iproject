@@ -32,13 +32,12 @@ function get() {
     foreach (getFeedbackinfoGekochteVeiling($_SESSION['username']) as $feedback) {
 
         $buffer['feedback1'] .= <<<"END"
-                    <div class ="col-md-7 nog-te-geven-feedback col-xs-7">
-                        <h5>$feedback[feedbacktype]</h5>
-                        <p>van:<p> $feedback[verkoper]
-                        <br><br>
-                        $feedback[commentaar]
+                    <div class ="col-md-12 nog-te-geven-feedback col-xs-12">
+                        <h5>Tevredenheid:</h5></p>$feedback[feedbacktype]</p>
+                        <h5>van:</h5><p>$feedback[verkoper] </p>
+                        <h5>Toelichting:</h5><p>$feedback[commentaar]</p>
                     </div>
-                </div>
+
 END;
 
     }
@@ -47,12 +46,12 @@ END;
 
         $buffer['feedback2'] .= <<<"END"
                     <div class ="col-md-7 nog-te-geven-feedback col-xs-7">
-                        <h5>$feedback[feedbacktype]</h5>
-                        <p>van:<p>$feedback[verkoper]
-                        <br><br>
-                        $feedback[commentaar]
+                        <h5>Tevredenheid:</h5><p>$feedback[feedbacktype]<p>
+                        <h5>van:</h5><p> $feedback[verkoper]</p>
+                        <h5>Toelichting:</h5><p> $feedback[commentaar]</p>
+
                     </div>
-                </div>
+
 END;
 
     }
