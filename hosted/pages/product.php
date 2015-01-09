@@ -20,6 +20,7 @@ function setDefaultBuffer() {
     $buffer['error'] = 0;
     $buffer['verzendkosten'] = "geen";
     $buffer['beoordeling'] = "";
+    $buffer['foutmelding'] = "";
 }
 
 function get()
@@ -30,8 +31,6 @@ function get()
     $bidhistory = getBidHistory($auction);
     $iteminfo = getItemInfo($auction);
 
-
-
     if(isset($_GET['action'])&&$_GET['action']=="bied"){
         if ($_SESSION['username'] == null || $_SESSION['username'] == "") {
             header("Location: index.php?page=inloggen");
@@ -39,12 +38,19 @@ function get()
         }
         if ($_SESSION['username'] == $iteminfo['verkoper'])
         {
-            $error = "U kunt niet op uw eigen veiling bieden!";
-            $buffer['error'] = $error;
-            header("Location: index.php?page=product&veiling=$_GET[veilingnummer]");
-
+            header("Location: index.php?page=product&veiling=$auction&err=nieteigen");
+        } else {
+            bodPlaatsen(getMinimumVerhoging(hoogsteBod($iteminfo, $bidhistory))+hoogsteBod($iteminfo, $bidhistory), $_SESSION['username'], $iteminfo['voorwerpnummer']);
         }
-        bodPlaatsen(getMinimumVerhoging(hoogsteBod($iteminfo, $bidhistory))+hoogsteBod($iteminfo, $bidhistory), $_SESSION['username'], $iteminfo['voorwerpnummer']);
+    }
+
+    if(isset($_GET['err'])) {
+        if ($_GET['err'] == 'nieteigen') {
+            $buffer['foutmelding'] = "U kunt niet op uw eigen veiling bieden!";
+        }
+        if ($_GET['err'] == 'telaag') {
+            $buffer['foutmelding'] = "Het bod is te laag";
+        }
     }
 
     $bidhistory = getBidHistory($auction);
@@ -132,13 +138,20 @@ function post() {
         $bidhistory = getBidHistory($auction);
 
 
-        if ($_SESSION['username'] == null || $_SESSION['username'] == "" || $_SESSION['username'] == $iteminfo['verkoper']) {
+        if ($_SESSION['username'] == null || $_SESSION['username'] == "") {
             header("Location: index.php?page=inloggen");
             exit;
         }
-        if (bodControle($iteminfo, $bidhistory, $_POST['bodInvoer'])) {
-            //var_dump($_POST);
+        if ($_SESSION['username'] == $iteminfo['verkoper']) {
+            header("Location: index.php?page=product&veiling=$auction&err=nieteigen");
+            exit;
+        }
+        $hoogstebod = hoogsteBod($iteminfo, $bidhistory);
+        if ($_POST['bodInvoer'] >= ($hoogstebod + getMinimumVerhoging($hoogstebod))) {
             bodPlaatsen($_POST['bodInvoer'], $_SESSION['username'], $iteminfo['voorwerpnummer']);
+        } else {
+            header("Location: index.php?page=product&veiling=$auction&err=telaag");
+            exit;
         }
         header("Location: index.php?page=product&veiling=$auction");
         exit;
@@ -194,16 +207,15 @@ function getMinimumVerhoging($huidigeprijs)
     }
 }
 
-function bodControle($itemInfo,$bidhistory, $bod)
-{
+function bodControle($itemInfo,$bidhistory, $bod){
     $hoogstebod = hoogsteBod($itemInfo, $bidhistory);
-
+    var_dump($_POST);
     if ($bod >= $hoogstebod + getMinimumVerhoging($hoogstebod)) {
         return true;
     }
     else {
-    return  $buffer['error']=1;
-}
+        return  $buffer['error']=1;
+    }
 }
 
 function getBidHistory($auction) {
