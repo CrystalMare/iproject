@@ -17,7 +17,7 @@ $CONFIG['sql'] = array(
     ));
 
 $CONFIG['site'] = array(
-    'host'              => 'localhost:8080'
+    'host'              => 'localhost:8080/iproject/hosted'
 );
 
 $CONFIG['mail'] = array(
