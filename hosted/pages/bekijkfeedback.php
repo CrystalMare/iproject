@@ -80,7 +80,7 @@ function getFeedbackinfoGekochteVeiling($user) {
 
 function getFeedbackinfoMijnveilingen($user) {
     global $DB;
-    $tsql = "SELECT Voorwerp.verkoper, Feedback.feedbacktype, Feedback.commentaar
+    $tsql = "SELECT Voorwerp.koper, Feedback.feedbacktype, Feedback.commentaar
              FROM Voorwerp INNER JOIN Feedback ON Voorwerp.voorwerpnummer = Feedback.voorwerpnummer
              WHERE Voorwerp.verkoper=(?) AND Feedback.gebruikersoort='koper'";
     $params = array($user);

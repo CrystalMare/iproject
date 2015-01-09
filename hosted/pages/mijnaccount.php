@@ -47,7 +47,6 @@ function get() {
 
         $Gegevens = artikelGegevens($veiling['voorwerpnummer']);
 
-
         $image = ImageProvider::getImagesForAuction($veiling['voorwerpnummer'])->getImage(0);
         $buffer['artikel1'] .= <<<"END"
                 <div class ="col-md-12 col-xs-12">
@@ -60,7 +59,7 @@ function get() {
                         $Gegevens[beschrijving]
                     </div>
                     <div class ="col-md-3 col-xs-3">
-                        <a href="#" class="btn btn-warning bodplaatsen" data-toggle="modal" data-target="#feedback-modal">Geef feedback</a>
+                        <a href="#" id=$veiling[voorwerpnummer] class="btn btn-warning bodplaatsen" data-toggle="modal" data-target="#feedback-modal">Geef feedback</a>
                     </div>
                 </div>
 END;
@@ -113,7 +112,35 @@ END;
 
 function post() {
     global $buffer;
+    global $DB;
+    $voorwerpnummer = $_GET['veiling'];
+    $commentaar = $_POST['commentaar'];
+    $beoordeling = $_POST['beoordeling'];
+    $gebruiker = $_SESSION['username'];
+    if (isVerkoper($gebruiker, $voorwerpnummer)) {
+        $sql = "INSERT INTO Feedback (commentaar, feedbacktype, gebruikersoort, voorwerpnummer, datumtijd)
+            VALUES (?, ?, 'verkoper', ?, GETDATE())";
+        $params = array ($commentaar, $beoordeling, $voorwerpnummer);
+        sqlsrv_query($DB, $sql, $params);
+    } else {
+        $sql = "INSERT INTO Feedback (commentaar, feedbacktype, gebruikersoort, voorwerpnummer, datumtijd)
+            VALUES (?, ?, 'koper', ?, GETDATE())";
+        $params = array ($commentaar, $beoordeling, $voorwerpnummer);
+        sqlsrv_query($DB, $sql, $params);
+    }
+    get();
 }
+
+function isVerkoper($gebruiker, $veiling) {
+    global $DB;
+    $tsql = "SELECT verkoper FROM Voorwerp WHERE voorwerpnummer = ?;";
+    $stmt = sqlsrv_query($DB, $tsql, array($veiling));
+    if (sqlsrv_has_rows($stmt) && sqlsrv_fetch_array($stmt)['verkoper'] == $gebruiker) {
+        return true;
+    }
+    return false;
+}
+
 
 function setFeedback(){
     global $DB;

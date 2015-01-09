@@ -12,7 +12,7 @@ if (!$stmt) {
     $info['titel'] = "Bestaat niet!";
 } else {
     $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
-    $info['veilingnummer'] = $row['voorwerpnummer'];
+    $info['voorwerpnummer'] = $row['voorwerpnummer'];
     $info['titel'] = $row['titel'];
 }
 

@@ -1,4 +1,4 @@
-    <!-- Page Title -->
+<!-- Page Title -->
 <div class="col-md-12 col-xs-12 ea-title">
     <div class="ea-page-title">Mijn account</div>
 </div>
@@ -63,56 +63,57 @@
 
         </div>
 
-    <div class="panel-body">
-    %artikel2%
+        <div class="panel-body">
+            %artikel2%
         </div>
 
-            <div class="panel panel-info">
-                <div class="panel-heading-product">
-                    <h3 class="panel-title">Nog te geven feedback: Verkoper</h3>
-                </div>
-
+        <div class="panel panel-info">
+            <div class="panel-heading-product">
+                <h3 class="panel-title">Nog te geven feedback: Verkoper</h3>
             </div>
 
-    <div class="panel-body">
-        %artikel1%
+        </div>
+
+        <div class="panel-body">
+            %artikel1%
         </div>
     </div>
 </div>
 
 <div class="modal" id="feedback-modal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-          <input type="hidden" id="veilingid">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 id="modaltitel" class="modal-title">Feedback geven</h4>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
+    <form action="" id="modalform" method="post">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 id="modaltitel" class="modal-title">Feedback geven</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
 
-            <div class="col-lg-6 col-md-6 col-xs-6">
-                <label for="commentaar">Tevredenheid:</label>
-                
-                 <select class="form-control" id="select">
-                    <option>Positief</option>
-                    <option>Neutraal</option>
-                    <option>Negatief</option>
-                </select>
-            </div>
-            <div class="col-lg-12 col-md-12 col-xs-12">
-                <label for="commentaar">Toelichting:</label>
-                <input type="text" class="form-control ea-beschrijving" id="commentaar" placeholder="TEST" autocomplete="off" style="cursor: auto;">
+                        <div class="col-lg-6 col-md-6 col-xs-6">
+                            <label for="commentaar">Tevredenheid:</label>
+
+                            <select name='beoordeling' class="form-control" id="select">
+                                <option value="positief">Positief</option>
+                                <option value="neutraal">Neutraal</option>
+                                <option value="negatief">Negatief</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-xs-12">
+                            <label for="commentaar">Toelichting:</label>
+                            <input type="text" class="form-control ea-beschrijving" id="commentaar" placeholder="TEST" name="commentaar" autocomplete="off" style="cursor: auto;">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="col-lg-12">
+                        <div class="button-center-placeholder">
+                            <button type="button" class="btn btn-warning middle" onclick="$('#modalform').submit()" id="%buttonid%" data-dismiss="modal">Geef feedback</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-      <div class="modal-footer">
-        <div class="col-lg-12">
-            <div class="button-center-placeholder">
-            <button type="button" class="btn btn-warning middle" id="%buttonid%" data-dismiss="modal">Geef feedback</button>
-            </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    </form>
 </div>

@@ -1,5 +1,6 @@
 $('#feedback-modal').on('show.bs.modal', function (e) {
     var ajaxurl = "inc/modalinfo.php?veiling=" + $(e.relatedTarget).attr('id');
+    console.log(ajaxurl);
     var modal = $("#modalmain");
     modal.hide();
     modal.toggleClass("blur");
@@ -7,8 +8,8 @@ $('#feedback-modal').on('show.bs.modal', function (e) {
     $.ajax({
         url: ajaxurl, success: function (result) {
             $('#modaltitel').html(result['titel']);
-            $('#veilingid').attr('value', result['voorwerpnummer']);
-            console.log("DONE");
+            $('#modalform').attr('action', '?page=mijnaccount&veiling=' + result['voorwerpnummer']);
+            //console.log("DONE");
         },
         complete: function () {
         }
