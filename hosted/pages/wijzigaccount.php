@@ -126,9 +126,7 @@ function post()
     get();
     setGegevens($array);
 
-
-
-
+    header("Location: index.php?page=mijnaccount");
 
 }
 
