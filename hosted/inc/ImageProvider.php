@@ -2,6 +2,7 @@
 class ImageProvider
 {
     public static $datalocation = "http://iproject5.icasites.nl/";
+    public static $defaultimage = "img/logo_header.png";
     private static $table = "Bestand";
     
     static function getImagesForAuction($auction)
@@ -47,7 +48,7 @@ class ImageSet
     
     public function getImage($i)
     {
-        if ($i + 1 > $this->getImageCount()) return null;
+        if ($i + 1 > $this->getImageCount()) return ImageProvider::$datalocation . ImageProvider::$defaultimage;
         return ImageProvider::$datalocation . $this->images[$i];
     }
 }

@@ -53,7 +53,7 @@ function changePassword($new, $user)
     $stmt = sqlsrv_query($DB, $tsql, array($user));
     $salt = sqlsrv_fetch_array($stmt)['salt'];
     $hash = hash('sha256', $new . $salt);
-    $tsql = "UPDATE Gebruiker SET wachtwoord = ? WHERE gebruikersnaam =?;";
+    $tsql = "UPDATE Gebruiker SET wachtwoord = ? WHERE gebruikersnaam = ?;";
     $stmt = sqlsrv_query($DB, $tsql, array($hash, $user));
     return sqlsrv_errors() == NULL;
 }

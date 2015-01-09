@@ -1,31 +1,31 @@
 <div class="col-md-12 col-xs-12 ea-title">
     <div class="ea-page-title">
-        Wachtwoord herstel - code invoeren
+
     </div>
 </div>
 <div class="col-md-12 col-xs-12 content-home">
     <div class="panel panel-info">
         <div class="panel-heading">
-            <h3 class="panel-title">Wachtwoord herstel uitleg</h3>
+            <h3 class="panel-title">Wachtwoord wijzigen</h3>
         </div>
         <div class="panel-body">
-            Voer hier het antwoord op uw vraag in, homo.
+
         </div>
     </div>
 </div>
-
-
 <!-- Content -->
 <div class="col-md-12 col-xs-12 content-home">
     <div class="form-group">
         <div id="passwordrecovery">
-            <form action="" method="POST" id="registerForm-1" name="questionAnswer">
-                %error%
+            <form action="" method="POST" id="registerForm-1" name="passwordrecovery">
+                %status%
+                <label for="wachtwoord">Wachtwoord</label>
+                <input type="password" class="form-control" id="wachtwoord" name="wachtwoord" placeholder="Wachtwoord"
+                       autocomplete="off" style="cursor: auto;">
                 <br />
-                <label id="labelleft" class="form-control" for="email">Vraag</label>
-                <input class="form-control" name="vraag" placeholder="%vraag%" type="text" disabled="disabled">
-                <input class="form-control" name="antwoord" placeholder="Voer het antwoord op uw vraag in" type="text">
-                <br />
+                <label for="herhaalWachtwoord">Herhaal wachtwoord</label>
+                <input type="password" class="form-control" id="herhaalWachtwoord" name="herhaalWachtwoord" placeholder="Herhaal wachtwoord"
+                       autocomplete="off" style="cursor: auto;">
                 <button type="submit" name='submit' class="btn btn-warning bold" id="white">Verzenden</button>
             </form>
         </div>
@@ -35,4 +35,3 @@
     <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
     <h1>HELLO WORLD!</h1>
 </div>
-

@@ -22,7 +22,7 @@ function setDefaultBuffer() {
 function get() {
     global $buffer;
     if(!isset($_SESSION['username'])|| $_SESSION['username'] == null) {
-        header('Location: ?page=inloggen.php');
+        header('Location: ?page=inloggen');
         exit();
     }
     if (!isSeller($_SESSION['username'])) {
