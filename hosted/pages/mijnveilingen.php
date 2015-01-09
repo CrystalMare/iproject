@@ -37,7 +37,7 @@ function get() {
                         $veiling[beschrijving];
                     </div>
                     <div class ="col-md-3 col-xs-3">
-                        <a href="?page=product&veiling=$veiling[voorwerpnummer]" class="btn btn-warning bodplaatsen" id="$veiling[voorwerpnummer]" data-id=$veiling[voorwerpnummer] data-toggle="modal" data-target="#feedback-modal">Ga naar veiling</a>
+                        <a href="?page=product&veiling=$veiling[voorwerpnummer]" class="btn btn-warning bodplaatsen" id="$veiling[voorwerpnummer]" >Ga naar veiling</a>
                     </div>
                 </div>
 END;

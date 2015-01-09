@@ -30,10 +30,19 @@ function get()
     $bidhistory = getBidHistory($auction);
     $iteminfo = getItemInfo($auction);
 
+
+
     if(isset($_GET['action'])&&$_GET['action']=="bied"){
-        if ($_SESSION['username'] == null || $_SESSION['username'] == "" || $_SESSION['username'] == $iteminfo['verkoper']) {
+        if ($_SESSION['username'] == null || $_SESSION['username'] == "") {
             header("Location: index.php?page=inloggen");
             exit;
+        }
+        if ($_SESSION['username'] == $iteminfo['verkoper'])
+        {
+            $error = "U kunt niet op uw eigen veiling bieden!";
+            $buffer['error'] = $error;
+            header("Location: index.php?page=product&veiling=$_GET[veilingnummer]");
+
         }
         bodPlaatsen(getMinimumVerhoging(hoogsteBod($iteminfo, $bidhistory))+hoogsteBod($iteminfo, $bidhistory), $_SESSION['username'], $iteminfo['voorwerpnummer']);
     }
@@ -77,7 +86,6 @@ function get()
                     <a href="#" data-toggle="modal" data-target="#basicModal$count">
                         <img src="$image" alt="geen foto" class="img-thumbnail">
                     </a>                </div>
-
                 <div class="modal fade" id="basicModal$count" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -193,7 +201,6 @@ function bodControle($itemInfo,$bidhistory, $bod)
     if ($bod >= $hoogstebod + getMinimumVerhoging($hoogstebod)) {
         return true;
     }
-
     else {
     return  $buffer['error']=1;
 }

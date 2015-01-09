@@ -39,7 +39,6 @@ function post() {
         $newPassword = $_POST['herhaalWachtwoord'];
         $value = changePassword($newPassword, $_SESSION['restore']);
         $buffer['status'] = $value ? "Je wachtwoord is aangepast homo" : " er is iets misgegaan stop met internetten!";
-
     }
 
 }
