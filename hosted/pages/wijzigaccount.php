@@ -17,6 +17,7 @@ function setDefaultBuffer() {
     global $buffer, $DB;
 
     $buffer['status'] = "";
+    $buffer['status2'] = "";
 
 
 
@@ -64,19 +65,21 @@ function post()
     global $buffer;
 
     $array = getGegevens($_SESSION['username']);
-    print_r("WACHTWOORD" . $array['salt'] . "\n");
+    //print_r("WACHTWOORD" . $array['salt'] . "\n");
 
     if($_POST['wachtwoord'] != "" && $_POST['herhaalWachtwoord'] != "" && $_POST['wachtwoord'] == $_POST['herhaalWachtwoord'] && strlen($_POST['wachtwoord']) > 6)
     {
         $newPassword = $_POST['herhaalWachtwoord'];
         $value = changePassword($newPassword, $_SESSION['username']);
-        $buffer['status'] = $value ? "Je wachtwoord is aangepast homo" : " er is iets misgegaan stop met internetten!";
+        $buffer['status'] = $value ? "Je wachtwoord is aangepast " : " er is iets misgegaan stop met internetten!";
 
+    }
+    else if($_POST['wachtwoord'] == "") {
+        $buffer['status'] = "";
     }
     else
     {
-        //maak dit mooier!!!
-        $buffer['status'] = "CONTROLEER INPUT";
+        $buffer['status'] = "Wachtwoorden komen niet overeen of zijn te kort, voer uw wachtwoord opnieuw in";
     }
 
     if($_POST['voornaam'] != $array['voornaam'] && $_POST['voornaam'] != "")
@@ -124,9 +127,11 @@ function post()
     var_dump($array);
 
     get();
-    setGegevens($array);
+    if(setGegevens($array)) {
+        $buffer['status2'] = "Je gegevens zijn aangepast";
+    };
 
-    header("Location: index.php?page=mijnaccount");
+    //header("Location: index.php?page=mijnaccount");
 
 }
 
@@ -152,6 +157,8 @@ function setGegevens($array)
     $params = array($array['voornaam'], $array['achternaam'], $array['adresregel1'], $array['adresregel2'], $array['postcode'], $array['plaatsnaam'],
                     $array['geboortedag'], $OLD['gebruikersnaam']);
     sqlsrv_query($DB, $tsql, $params);
+    return true;
+
 }
 
 function getGegevens($user)
