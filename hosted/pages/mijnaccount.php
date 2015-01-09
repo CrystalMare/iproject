@@ -45,7 +45,7 @@ function get() {
 
     foreach (nogTeGevenFeedbackOpGekochteArtikelen($_SESSION['username']) as $veiling) {
 
-        $Gegevens = artikelGegevens($veiling[voorwerpnummer]);
+        $Gegevens = artikelGegevens($veiling['voorwerpnummer']);
 
 
         $image = ImageProvider::getImagesForAuction($veiling['voorwerpnummer'])->getImage(0);
