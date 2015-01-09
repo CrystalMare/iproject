@@ -20,5 +20,6 @@
 
 	CONSTRAINT pk_gebruikersnaam			PRIMARY KEY (gebruikersnaam),
 	CONSTRAINT chk_mailbox					CHECK		(mailbox LIKE ('_%@_%._%') AND mailbox NOT LIKE ('% %')),
+	CONSTRAINT un_email 					UNIQUE (mailbox),
 	CONSTRAINT un_salt						UNIQUE		(salt)
 )

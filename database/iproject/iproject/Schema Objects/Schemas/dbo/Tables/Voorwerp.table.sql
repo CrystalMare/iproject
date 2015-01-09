@@ -17,7 +17,8 @@
 	gesloten				AS CASE WHEN GETDATE() > DATEADD(DAY, looptijd, looptijdbeginmoment)
 									THEN CAST(1 AS BIT)	ELSE CAST(0 AS BIT)	END,
 	koper					AS dbo.fnKoper(voorwerpnummer),
-	verkoopprijs			AS dbo.fnVerkoopPrijs(voorwerpnummer)
+	verkoopprijs			AS dbo.fnVerkoopPrijs(voorwerpnummer),
+	email						BIT NOT NULL DEFAULT 0
 	
 	CONSTRAINT pk_voorwerp					PRIMARY KEY (voorwerpnummer),
 	CONSTRAINT chk_titel_lang_genoeg		CHECK (LEN(titel) > 2),
