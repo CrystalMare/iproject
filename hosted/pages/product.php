@@ -20,17 +20,25 @@ function setDefaultBuffer() {
     $buffer['error'] = 0;
     $buffer['verzendkosten'] = "geen";
     $buffer['beoordeling'] = "";
-
 }
-
-
 
 function get()
 {
     global $buffer;
+
     $auction = $_GET['veiling'];
     $bidhistory = getBidHistory($auction);
     $iteminfo = getItemInfo($auction);
+
+    if(isset($_GET['action'])&&$_GET['action']=="bied"){
+        if ($_SESSION['username'] == null || $_SESSION['username'] == "" || $_SESSION['username'] == $iteminfo['verkoper']) {
+            header("Location: index.php?page=inloggen");
+            exit;
+        }
+        bodPlaatsen(getMinimumVerhoging(hoogsteBod($iteminfo, $bidhistory))+hoogsteBod($iteminfo, $bidhistory), $_SESSION['username'], $iteminfo['voorwerpnummer']);
+    }
+
+    $bidhistory = getBidHistory($auction);
     $buffer['titel'] = $iteminfo['titel'];
     $buffer['startprijs'] = $iteminfo['startprijs'];
     $buffer['beschrijving'] = $iteminfo['beschrijving'];
@@ -39,7 +47,7 @@ function get()
     $buffer['land'] = $iteminfo['land'];
     $buffer['verkoper'] = $iteminfo['verkoper'];
     $buffer['verzendinstructies'] = $iteminfo['verzendinstructies'];
-    $buffer['eindmoment'] = $iteminfo['looptijdeindmoment']->format('Y-m-d H:i:s');
+    $buffer['eindmoment'] = str_replace(" ","T",$iteminfo['looptijdeindmoment']->format('Y-m-d H:i:s'));
     $buffer['gesloten'] = $iteminfo['gesloten'];
     $buffer['laatstebod'] = $iteminfo['gesloten'];
     $buffer['verzendkosten'] = $iteminfo['verzendkosten'];
@@ -53,7 +61,6 @@ function get()
     } else {
         $buffer['verzendkosten'] = "geen";
     }
-
 
     if (ImageProvider::getImagesForAuction($iteminfo['voorwerpnummer'])->getImageCount() == 0) {
         $buffer['pic'] .= '<img src="img/logo_header.png" alt="geen foto" class="img-thumbnail">';
@@ -88,11 +95,8 @@ function get()
                     </div>
                 </div>
 END;
-
-
         }
     }
-
 
     foreach($bidhistory as $key => $value) {
         $user = $value['gebruikersnaam'];
@@ -121,8 +125,8 @@ function post() {
 
 
         if ($_SESSION['username'] == null || $_SESSION['username'] == "" || $_SESSION['username'] == $iteminfo['verkoper']) {
-            //TODO: naar login pagina
-            return;
+            header("Location: index.php?page=inloggen");
+            exit;
         }
         if (bodControle($iteminfo, $bidhistory, $_POST['bodInvoer'])) {
             //var_dump($_POST);
@@ -146,8 +150,6 @@ function post() {
 
         require inc . 'mail.php';
         sendMail($mailadress, $subject, $body);
-
-
     }
     header("Location: index.php?page=product&veiling=$_GET[veiling]");
     exit();
@@ -161,8 +163,6 @@ function bodPlaatsen($bod,$gebruiker,$veiling){
     $params = array ($veiling, $gebruiker, $bod);
     sqlsrv_query($DB, $sql, $params);
     var_dump(sqlsrv_errors());
-
-
 }
 
 function hoogsteBod($iteminfo, $bidhistory){

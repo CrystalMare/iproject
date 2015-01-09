@@ -15,7 +15,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
 function setDefaultBuffer() {
     global $buffer;
-    $buffer['artikel']="";
+    $buffer['artikel1']="";
     $buffer['artikel2']="";
     $buffer['verkoperAccountAanvragenKnop'] = "";
     $buffer['bevestigingsCodeKnop'] ="";
@@ -43,13 +43,13 @@ function get() {
         $buffer['geboortedatum'] = $getGegevens['geboortedag']->format('Y-m-d');
         $buffer['verkoper'] = $getGegevens['verkoper'];
 
-    foreach (nogTeGevenFeedbackOpGekochteArtikelen($_SESSION['username']) as $veiling) {
+    foreach (nogTeGevenFeedbackAanVerkoper($_SESSION['username']) as $veiling) {
 
-        $Gegevens = artikelGegevens($veiling[voorwerpnummer]);
+        $Gegevens = artikelGegevens($veiling['voorwerpnummer']);
 
 
         $image = ImageProvider::getImagesForAuction($veiling['voorwerpnummer'])->getImage(0);
-        $buffer['artikel'] .= <<<"END"
+        $buffer['artikel1'] .= <<<"END"
                 <div class ="col-md-12 col-xs-12">
                     <div class ="col-md-2 col-xs-2">
                         <img src="$image" alt="geen foto" class="img-thumbnail" >
@@ -123,14 +123,14 @@ function setFeedback(){
     sqlsrv_query($DB,$tsql,$params);
 }
 
-function nogTeGevenFeedbackOpGekochteArtikelen($user){
+function nogTeGevenFeedbackAanVerkoper($user){
     global $DB;
     $tsql = "SELECT Voorwerp.voorwerpnummer
     FROM Voorwerp
     WHERE Voorwerp.koper=?
     AND NOT EXISTS (SELECT Voorwerp.voorwerpnummer
-                      FROM Voorwerp INNER JOIN Feedback ON Voorwerp.voorwerpnummer = Feedback.voorwerpnummer
-                      WHERE Voorwerp.koper=? AND Feedback.gebruikersoort='verkoper')";
+                    FROM Voorwerp INNER JOIN Feedback ON Voorwerp.voorwerpnummer = Feedback.voorwerpnummer
+                    WHERE Voorwerp.koper=? AND Feedback.gebruikersoort='koper')";
     $params = array($user, $user);
     $stmt = sqlsrv_query($DB, $tsql, $params);
     $feedback = array();
@@ -144,10 +144,10 @@ function nogTeGevenFeedbackAanKoper($user){
     global $DB;
     $tsql = "SELECT Voorwerp.voorwerpnummer
     FROM Voorwerp
-    WHERE Voorwerp.verkoper=?
+    WHERE Voorwerp.verkoper=? AND Voorwerp.gesloten=1
     AND NOT EXISTS (SELECT Voorwerp.voorwerpnummer
                       FROM Voorwerp INNER JOIN Feedback ON Voorwerp.voorwerpnummer = Feedback.voorwerpnummer
-                      WHERE Voorwerp.verkoper=? AND Feedback.gebruikersoort='koper')";
+                      WHERE Voorwerp.verkoper=? AND Feedback.gebruikersoort='verkoper')";
     $params = array($user, $user);
     $stmt = sqlsrv_query($DB, $tsql, $params);
     $feedback = array();
