@@ -126,11 +126,10 @@ function setFeedback(){
 function nogTeGevenFeedbackAanVerkoper($user){
     global $DB;
     $tsql = "SELECT Voorwerp.voorwerpnummer
-    FROM Voorwerp
-    WHERE Voorwerp.koper=?
-    AND NOT EXISTS (SELECT Voorwerp.voorwerpnummer
-                    FROM Voorwerp INNER JOIN Feedback ON Voorwerp.voorwerpnummer = Feedback.voorwerpnummer
-                    WHERE Voorwerp.koper=? AND Feedback.gebruikersoort='koper')";
+             FROM Voorwerp LEFT JOIN Feedback ON Voorwerp.voorwerpnummer = Feedback.voorwerpnummer
+             WHERE Voorwerp.koper=(?) AND Voorwerp.gesloten = 1 AND Voorwerp.voorwerpnummer NOT IN(SELECT Voorwerp.voorwerpnummer
+             FROM Voorwerp INNER JOIN Feedback ON Voorwerp.voorwerpnummer = Feedback.voorwerpnummer
+             WHERE Feedback.gebruikersoort='koper' AND Voorwerp.koper=(?))";
     $params = array($user, $user);
     $stmt = sqlsrv_query($DB, $tsql, $params);
     $feedback = array();
@@ -143,11 +142,10 @@ function nogTeGevenFeedbackAanVerkoper($user){
 function nogTeGevenFeedbackAanKoper($user){
     global $DB;
     $tsql = "SELECT Voorwerp.voorwerpnummer
-    FROM Voorwerp
-    WHERE Voorwerp.verkoper=? AND Voorwerp.gesloten=1
-    AND NOT EXISTS (SELECT Voorwerp.voorwerpnummer
-                      FROM Voorwerp INNER JOIN Feedback ON Voorwerp.voorwerpnummer = Feedback.voorwerpnummer
-                      WHERE Voorwerp.verkoper=? AND Feedback.gebruikersoort='verkoper')";
+             FROM Voorwerp LEFT JOIN Feedback ON Voorwerp.voorwerpnummer = Feedback.voorwerpnummer
+             WHERE Voorwerp.verkoper=(?) AND Voorwerp.gesloten = 1 AND Voorwerp.koper IS NOT NULL AND Voorwerp.voorwerpnummer NOT IN(SELECT Voorwerp.voorwerpnummer
+             FROM Voorwerp INNER JOIN Feedback ON Voorwerp.voorwerpnummer = Feedback.voorwerpnummer
+             WHERE Feedback.gebruikersoort='verkoper' AND Voorwerp.verkoper=(?))";
     $params = array($user, $user);
     $stmt = sqlsrv_query($DB, $tsql, $params);
     $feedback = array();
@@ -156,9 +154,6 @@ function nogTeGevenFeedbackAanKoper($user){
     }
     return $feedback;
 }
-
-
-
 
 function getGegevens($user)
 {
