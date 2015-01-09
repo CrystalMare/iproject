@@ -22,7 +22,7 @@ function setDefaultBuffer() {
 function get() {
     global $buffer;
     if (!isset($_SESSION['category1'])) {
-        header('Location: index.php?page=productveilgen');
+        header('Location: index.php?page=productveilen');
         exit();
     }
 
@@ -55,8 +55,11 @@ function post() {
 
 
     $_SESSION['category1'] = $high1;
+
     header('Location: index.php?page=productplaatsen');
     exit();
+
+    
 }
 
 function getHigh1()
