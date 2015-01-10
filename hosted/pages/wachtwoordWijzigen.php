@@ -17,6 +17,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
 function setDefaultBuffer() {
     global $buffer;
 
+    $buffer['status'] = "";
 }
 
 function get() {
@@ -37,8 +38,18 @@ function post() {
     if($_POST['wachtwoord'] != "" && $_POST['herhaalWachtwoord'] != "" && $_POST['wachtwoord'] == $_POST['herhaalWachtwoord'] && strlen($_POST['wachtwoord']) > 6)
     {
         $newPassword = $_POST['herhaalWachtwoord'];
-        $value = changePassword($newPassword, $_SESSION['restore']);
-        $buffer['status'] = $value ? "Je wachtwoord is aangepast homo" : " er is iets misgegaan stop met internetten!";
+
+        $buffer['status'] = changePassword($newPassword, $_SESSION['restore']) ? "Je wachtwoord is aangepast homo" : " er is iets misgegaan stop met internetten!";
+        session_destroy();
+        //GEEF GET PARAMETER MEE OM GEBRUIKER TE NOTIFICEREN
+        header("Location: index.php?page=inloggen");
+    }
+    else if($_POST['wachtwoord'] == "") {
+        $buffer['status'] = "Wachtwoord is niet ingevuld";
+    }
+    else
+    {
+        $buffer['status'] = "Wachtwoorden komen niet overeen of zijn te kort, voer uw wachtwoord opnieuw in";
     }
 
 }
