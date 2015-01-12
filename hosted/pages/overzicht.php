@@ -123,7 +123,7 @@ function doSearch($searchvalue, $category, $order) {
 
     while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         $titel = $row['titel'];
-        $voorwerpnummer=$row['voorwerpnummer'];
+        $voorwerpnummer = $row['voorwerpnummer'];
         $bodbedrag = "&#8364;" . (($row['bodbedrag'] == null) ? $row['startprijs'] : $row['bodbedrag']);
         $veiling = $row['voorwerpnummer'];
         $img = ImageProvider::getImagesForAuction($row['voorwerpnummer'])->getImage(0);
@@ -173,7 +173,7 @@ function doSearch($searchvalue, $category, $order) {
                 </p>
                 <div class="col-md-12 knoppen-snelentoon col-xs-12">
 
-                <a href="?page=product&veiling=$veiling&action=bied" class="btn btn-warning btn-lg">Snel bieden</a>
+                <button type="button" onclick="sure($veiling);" class="btn btn-warning btn-lg">Snel bieden</a>
                 <a href="index.php?page=product&veiling=$veiling" class="btn btn-primary btn-lg">Toon veiling</a>
                 </div>
             </div>

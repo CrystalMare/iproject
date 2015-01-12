@@ -53,3 +53,12 @@
 <script language="JavaScript" type="application/javascript">
     %counters%
 </script>
+
+<script language="JavaScript" type="application/javascript">
+    function sure(veiling) {
+        if (confirm("Weet u zeker dat u wilt bieden?")) {
+            window.location.href = '?page=product&veiling=' + veiling + '&action=bied'
+        }
+    }
+    
+</script>
