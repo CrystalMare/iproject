@@ -110,6 +110,9 @@ if(isset($_POST['artikelnaam'])) {
     }
     get();
 }
+    else {
+        $buffer['error'] = "Niet alle onderdelen zijn ingevuld.";
+    }
     get();
     
 }
@@ -162,7 +165,7 @@ function checkStartprijs($startprijs) {
     return "";
 }
 function checkBeschrijving($beschrijving) {
-    if (strlen($beschrijving) < 3) {
+    if (strlen($beschrijving) < 3 || $beschrijving == "") {
         return false;
     }
     return true;

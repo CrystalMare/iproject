@@ -112,7 +112,7 @@ function getUploadedFiles($auction)
     $validfiles = copyFiles($auction);
     var_dump($validfiles);
     var_dump($_FILES);
-    foreach ($validfiles['filenaam'] as $key => $value) {
+    foreach ($_FILES['filenaam'] as $key => $value) {
         if ($value['size'] > 2000000)
             continue;
         if ($value['name'] != "" && ($value['type'] == "image/png" || $value['type'] == "image/jpg" || $value['type'] == "image/jpeg")) {
