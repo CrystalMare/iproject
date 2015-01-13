@@ -22,20 +22,23 @@ function get() {
     global $buffer;
 }
 
-function post() {
+function post()
+{
     global $buffer;
 
-    $buffer['meldingbevestigingscode']="";
-    if(empty($_POST['bevestigingscodeverkoper']) or empty($_POST['bank']) or empty($_POST['rekeningnummer'])){
-        $buffer['meldingbevestigingscode']="Voer alle velden in.";
-    } else if($_POST['submit'] == 'bevestig'){
-        $hash = hash('sha256', $_SESSION['username']."post");
-        if($hash == $_POST['bevestigingscodeverkoper']){
-            registrerenVerkoper($_SESSION['username'], $_POST['bank'], $_POST['rekeningnummer']);
-            verkoperverificatieVerwijder($_SESSION['username']);
-            header('Location: index.php');
+    $buffer['meldingbevestigingscode'] = "";
+    if ($_POST['submit'] == 'bevestig') {
+        if (empty($_POST['bevestigingscodeverkoper']) or empty($_POST['bank']) or empty($_POST['rekeningnummer'])) {
+            $buffer['meldingbevestigingscode'] = "Voer alle velden in.";
         } else {
-            $buffer['meldingbevestigingscode']="Bevestigingsode is niet correct.";
+            $hash = hash('md5', $_SESSION['username'] . "post");
+            if ($hash == $_POST['bevestigingscodeverkoper']) {
+                registrerenVerkoper($_SESSION['username'], $_POST['bank'], $_POST['rekeningnummer']);
+                verkoperverificatieVerwijder($_SESSION['username']);
+                header('Location: index.php');
+            } else {
+                $buffer['meldingbevestigingscode'] = "Bevestigingsode is niet correct.";
+            }
         }
     }
 }
