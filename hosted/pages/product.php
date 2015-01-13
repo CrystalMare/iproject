@@ -21,6 +21,9 @@ function setDefaultBuffer() {
     $buffer['verzendkosten'] = "geen";
     $buffer['beoordeling'] = "";
     $buffer['foutmelding'] = "";
+    $buffer['categorie1'] = "";
+    $buffer['categorie2'] = "";
+    $buffer['minimalebedrag'] = "";
 }
 
 function get()
@@ -70,6 +73,9 @@ function get()
     $buffer['voorwerpnummer'] = $iteminfo['voorwerpnummer'];
     $buffer['beoordeling'] = DatabaseTools::getBeoordelingStars($iteminfo['verkoper']);
     $buffer['beschrijvingsrc'] = "inc/body.php?veiling=" . $iteminfo['voorwerpnummer'];
+    $buffer['categorie1'] = getCategorie($auction)['categorie1'];
+    $buffer['categorie2'] = getCategorie($auction)['categorie2'];
+    $buffer['minimalebedrag'] = sprintf('%01.2f', minimalebedrag($auction));
 
     if ($iteminfo['verzendkosten'] == null) {
         $buffer['verzendkosten'] = $iteminfo['verzendkosten'];
@@ -124,6 +130,13 @@ END;
     }
 }
 
+function minimalebedrag($auction){
+    $iteminfo = getItemInfo($auction);
+    $bidhistory = getBidHistory($auction);
+    $hoogstebod = hoogsteBod($iteminfo, $bidhistory);
+    return $hoogstebod + getMinimumVerhoging($hoogstebod);
+}
+
 function post() {
     global $buffer;
     global $DB;
@@ -167,7 +180,6 @@ function post() {
         $params = array($_GET['veiling']);
         $stmt = sqlsrv_query($DB, $tsql, $params);
         $mailadress = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)['mailbox'];
-        var_dump($mailadress);
 
         require inc . 'mail.php';
         sendMail($mailadress, $subject, $body);
@@ -209,7 +221,6 @@ function getMinimumVerhoging($huidigeprijs)
 
 function bodControle($itemInfo,$bidhistory, $bod){
     $hoogstebod = hoogsteBod($itemInfo, $bidhistory);
-    var_dump($_POST);
     if ($bod >= $hoogstebod + getMinimumVerhoging($hoogstebod)) {
         return true;
     }
@@ -238,3 +249,18 @@ function getItemInfo($auction) {
     $stmt = sqlsrv_query($DB, $tsql, $params);
     return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
 }
+
+function getCategorie($auction) {
+    global $DB;
+    $tsql = "SELECT Rubriek.rubrieknaam
+             FROM Rubriek INNER JOIN Voorwerpinrubriek ON Rubriek.rubrieknummer = Voorwerpinrubriek.rubrieknummer
+             WHERE Voorwerpinrubriek.voorwerpnummer=?;";
+    $params = array($auction);
+    $stmt = sqlsrv_query($DB, $tsql, $params);
+    $categorie = array();
+    $categorie['categorie1'] = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)['rubrieknaam'];
+    $categorie['categorie2'] = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)['rubrieknaam'];
+    return $categorie;
+}
+
+

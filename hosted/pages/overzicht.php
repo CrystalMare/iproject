@@ -171,9 +171,11 @@ function doSearch($searchvalue, $category, $order) {
                     Geen beschrijving gevonden.
                     </iframe>
                 </p>
-                <div class="col-md-12 knoppen-snelentoon col-xs-12">
+                <div class="col-md-6 knoppen-snelentoon col-xs-6">
 
                 <button type="button" onclick="sure($veiling);" class="btn btn-warning btn-lg">Snel bieden</a>
+                </div>
+                <div class="col-md-6 knoppen-snelentoon col-xs-6">
                 <a href="index.php?page=product&veiling=$veiling" class="btn btn-primary btn-lg">Toon veiling</a>
                 </div>
             </div>
