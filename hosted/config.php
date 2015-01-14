@@ -25,7 +25,7 @@ $CONFIG['mail'] = array(
     'tls'               => true,
     'port'              => 587,
     'username'          => 'eenmaalandermaal@heaven-craft.net',
-    'password'          => 'verkocht',
+    'password'          => 'verkocht2',
     'from'              => 'eenmaalandermaal@heaven-craft.net',
     'fullname'          => 'Eenmaal Andermaal'
 );
