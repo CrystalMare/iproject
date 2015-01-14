@@ -9,6 +9,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         break;
     case 'POST':
         postHeader();
+        getHeaderCategories();
         break;
     default:
         getHeader();

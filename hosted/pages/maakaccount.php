@@ -53,6 +53,20 @@ function verifyRegistration() {
     $stmt = sqlsrv_query($DB, $sql, array($user));
     if (!$stmt) return "user_exsits";
     if (sqlsrv_has_rows($stmt)) return "user_exists";
+    if (strlen($user) <= 2) return "userempty";
+    if (strlen($_POST['firstname']) <= 1) return "firstnameempty";
+    if (strlen($_POST['lastname']) <= 1) return "lastnameempty";
+    if (strlen($_POST['adres']) <= 1 || strlen($_POST['adres']) >= 35) return "adresserror";
+    if (strlen($_POST['questionAnswer']) <= 1) return "questionerror";
+    if (strlen($_POST['adres2']) > 35) return "adres2error";
+    if (strlen($_POST['zipcode']) <= 3) return "zipcodeerror";
+    if (strlen($_POST['town']) <= 3) return "townerror";
+    if ($_POST['phone1'] != "" || $_POST['phone2'] != "")
+    {
+        if (strlen($_POST['phone1']) > 15 || strlen($_POST['phone2']) > 15) return "phonelong";
+        if (strlen($_POST['phone1']) < 10 || strlen($_POST['phone2']) < 10) return "phoneshort";
+    }
+
 
     //Check pw
     if (strlen(($_POST['password'])) < 6) {
@@ -60,6 +74,8 @@ function verifyRegistration() {
     } elseif ($_POST['password'] != $_POST['repeatpassword']) {
         return "pw_notsame";
     }
+
+    //check user
 
     if ($_SESSION['register']['key'] != $_GET['key']) return "key_error";
     return 'ok';

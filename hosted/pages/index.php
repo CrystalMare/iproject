@@ -51,7 +51,7 @@ function get() {
         </div>
     </div>
 END;
-        $date = str_replace(" ", "T", $row['looptijdeindmoment']->format("Y-m-d h:i:s"));
+        $date = str_replace(" ", "T", $row['looptijdeindmoment']->format("Y-m-d H:i:s"));
         $buffer['script'] .= "getCount(new Date('$date'), 'timer$count');\n";
         $count++;
     }

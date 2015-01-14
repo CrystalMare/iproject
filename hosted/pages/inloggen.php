@@ -20,8 +20,6 @@ function setDefaultBuffer() {
 
 function get() {
     global $buffer, $DB;
-    $buffer['hallo'] = "hoi";
-
 }
 
 function post() {

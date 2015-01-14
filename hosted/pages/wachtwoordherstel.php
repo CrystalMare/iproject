@@ -36,12 +36,12 @@ function post()
         $buffer['emailerror'] = "Dit is geen geldig emailadres";
         return;
     }
-    return;
-}
+    //return;
+
     //EMAIL VALIDEREN!!!!
     require(inc . 'mail.php');
 
-    if(isset($_POST['email']) && $_POST['email'] != "") {
+    if (isset($_POST['email']) && $_POST['email'] != "") {
         $gegevens = getAccountGegevens($_POST['email']);
 
         if (sendMail($_POST['email'], "Wachtwoord vergeten - Eenmaal Andermaal", getBody($gegevens['gebruikersnaam'], $gegevens['salt']))) {
@@ -52,7 +52,7 @@ function post()
         }
     }
     return;
-
+}
 function getAccountGegevens($email)
 {
     global $DB;
