@@ -87,7 +87,10 @@ function get()
         $sort = "looptijdeindmoment DESC";
     }
 
-    $offset = 0;
+    $page = isset($_GET['pagenum']) ? intval($_GET['pagenum']) : 1;
+
+
+    $offset = $page * 10;
 
     doSearch($search, $cat, $sort, $offset);
 
@@ -95,6 +98,20 @@ function get()
     $buffer['action'] = isset($_GET['action']) ? $_GET['action'] : "search";
     $buffer['category'] = isset($_GET['category']) ? $_GET['category'] : "";
     setCategories(!isset($_GET['category']) ? -1 : $_GET['category']);
+
+
+    //page buttons;
+    var_dump($page);
+    if ($page == 1) {
+        $buffer['botbuttons'] = '<a href="?pagenum=' . ($page + 1) . '&category=' . $cat . '&action=search&search=' . $search . '&page=overzicht&looptijd=' . $looptijd . '" class="btn btn-warning ">Volgende pagina ></a>';
+    } else {
+        $buffer['botbuttons'] = '<a href="?pagenum=' . ($page - 1) . '&category=' . $cat . '&action=search&search=' . $search . '&page=overzicht&looptijd=' . $looptijd . '" class="btn btn-warning ">< Vorige pagina</a>';
+        $buffer['botbuttons'] .= '<a href="?pagenum=' . ($page + 1) . '&category=' . $cat . '&action=search&search=' . $search . '&page=overzicht&looptijd=' . $looptijd . '" class="btn btn-warning ">Volgende pagina ></a>';
+    }
+    /*
+     *         <a href="?page=wijzigaccount" class="btn btn-warning ">Volgende pagina > </a>
+        <a href="?page=wijzigaccount" class="btn btn-warning ">< Vorige pagina</a>
+     */
 }
 
 
