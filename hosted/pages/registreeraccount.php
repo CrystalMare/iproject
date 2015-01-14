@@ -79,11 +79,17 @@ function get() {
             case 'zipcodeerror':
                 $buffer['error'] = "Postcode is te kort";
                 break;
-            case 'phonelong':
-                $buffer['error'] = "Telefoonnummer is te lang";
+            case 'phone1long':
+                $buffer['error'] = "Telefoonnummer 1 is te lang";
                 break;
-            case 'phoneshort';
-                $buffer['error'] = "Telefoonnummer is te kort";
+            case 'phone1short';
+                $buffer['error'] = "Telefoonnummer 1 is te kort";
+                break;
+            case 'phone2short':
+                $buffer['error'] = "Telefoonnummer 2 is te kort";
+                break;
+            case 'phone2long':
+                $buffer['error'] = "Telefoonnummer 2 is te lang";
                 break;
             default:
                 $buffer['error'] = "Controleer uw invoer.";

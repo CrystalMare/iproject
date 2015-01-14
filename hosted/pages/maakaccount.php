@@ -61,10 +61,16 @@ function verifyRegistration() {
     if (strlen($_POST['adres2']) > 35) return "adres2error";
     if (strlen($_POST['zipcode']) <= 3) return "zipcodeerror";
     if (strlen($_POST['town']) <= 3) return "townerror";
-    if ($_POST['phone1'] != "" || $_POST['phone2'] != "")
+
+    if ($_POST['phone1'] != "")
     {
-        if (strlen($_POST['phone1']) > 15 || strlen($_POST['phone2']) > 15) return "phonelong";
-        if (strlen($_POST['phone1']) < 10 || strlen($_POST['phone2']) < 10) return "phoneshort";
+        if (strlen($_POST['phone1']) > 15) return "phone1long";
+        if (strlen($_POST['phone1']) < 10) return "phone1short";
+    }
+    if ($_POST['phone2'] != "")
+    {
+        if (strlen($_POST['phone2']) < 10) return "phone2short";
+        if (strlen($_POST['phone2']) > 15) return "phone2long";
     }
 
 
