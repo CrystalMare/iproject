@@ -16,40 +16,42 @@
         <input type="hidden" value="%action%" name="action">
         <input type="hidden" value="%search%" name="search">
         <input type="hidden" value="overzicht" name="page">
-        Prijs
+        Looptijd
         <div class="form-group">
-            <select class="form-control" onchange="$('#filterform').submit()" id="prijsvolgorde" name="sorteerPrijs" form="filterform">
-                <option value="asc">Laag naar hoog</option>
-                <option selected="selected" value="desc">Hoog naar laag</option>
+            <select class="form-control" onchange="$('#filterform').submit()" id="looptijdsorteer" name="looptijd" form="filterform">
+                <option %selectedbox1% value="asc">Laag naar hoog</option>
+                <option %selectedbox2% value="desc">Hoog naar laag</option>
             </select>
         </div>
     </div>
     <div class="col-md-2 col-xs-2">
-        Looptijd
-        <div class="form-group">
-            <select class="form-control" onchange="$('#filterform').submit()" id="looptijdsorteer" name="looptijd" form="filterform">
-                <option selected="selected" value="asc">Laag naar hoog</option>
-                <option value="desc">Hoog naar laag</option>
-            </select>
-        </div>
+
     </div>
     <div class="col-md-2 col-xs-2">
     </div>
     </form>
 </div>
 
-<div class="col-md-4 col-xs-4">
-<div class="acdPlaceholder">
-<div id="acdnmenu">
-    %acdn%
-</div>
-</div>
-</div>
+        <div class="col-md-4 col-xs-4">
+            <div class="acdPlaceholder">
+                <div id="acdnmenu">
+                    %acdn%
+                </div>
+            </div>
+        </div>
 
 <form action="" method="post">
     %veilingen%
 </form>
 
+<div class="col-md-12 col-xs-12">
+
+    <div class="col-md-4 col-md-offset-9 col-xs-4">
+        %botbuttons%
+
+    </div>
+
+</div>
 <script language="JavaScript" type="application/javascript">
     %counters%
 </script>
