@@ -58,9 +58,35 @@ function get() {
             case 'error':
                 $buffer['error'] = "Er is iets mis gegaan, probeer het opnieuw.";
                 break;
+            case 'userempty':
+                $buffer['error'] = "Gebrukersnaam is te kort";
+                break;
+            case 'firstnameempty':
+                $buffer['error'] = "Voornaam te kort";
+                break;
+            case 'lastnameempty':
+                $buffer['error'] = "Achternaam is te kort";
+                break;
+            case 'adresserror':
+                $buffer['error'] = "Adres is te kort, of te lang";
+                break;
+            case 'questionerror':
+                $buffer['error'] = "Vraag is te kort";
+                break;
+            case 'townerror':
+                $buffer['error'] = "Plaatsnaam is te kort";
+                break;
+            case 'zipcodeerror':
+                $buffer['error'] = "Postcode is te kort";
+                break;
+            case 'phonelong':
+                $buffer['error'] = "Telefoonnummer is te lang";
+                break;
+            case 'phoneshort';
+                $buffer['error'] = "Telefoonnummer is te kort";
+                break;
             default:
                 $buffer['error'] = "Controleer uw invoer.";
-                break;
         }
     }
 
