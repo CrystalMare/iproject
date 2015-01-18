@@ -100,18 +100,27 @@ function post()
         );
         sqlsrv_query($DB, $tsql, $params);
     }
-    //now the files need to be retrieved from the temporary table 'tijdelijkBestand'
-    convertFilesToJPGAndSave(getUploadedFiles($auction), $auction);
 
-    header("Location: index.php?page=mijnveilingen");
+    $tsql = "INSERT INTO Bestand VALUES (?, ?);";
+    $totalcount = 0;
+    var_dump($_SESSION['imagecount']);
+    var_dump($auction);
+    while ($totalcount < $_SESSION['imagecount']) {
+        sqlsrv_query($DB, $tsql , array('upload/auction_' . $auction . '_' . $totalcount . '.jpg', $auction));
+        $totalcount++;
+    }
+
+
+    //now the files need to be retrieved from the temporary table 'tijdelijkBestand'
+    //convertFilesToJPGAndSave(getUploadedFiles($auction), $auction);
+
+    //header("Location: index.php?page=mijnveilingen");
 
 }
 
 function getUploadedFiles($auction)
 {
     $validfiles = copyFiles($auction);
-    var_dump($validfiles);
-    var_dump($_FILES);
     foreach ($_FILES['filenaam'] as $key => $value) {
         if ($value['size'] > 2000000)
             continue;

@@ -103,6 +103,8 @@ if(isset($_POST['artikelnaam'])) {
         $_SESSION['locatie'] = $_POST['locatie'];
         $_SESSION['verzendkosten'] = $_POST['verzendkosten'];
         $_SESSION['verzendinstructies'] = $_POST['verzendinstructies'];
+        $_SESSION['newvoorwerp'] = $auction;
+        $_SESSION['imagecount'] = count(getUploadedFiles());
         convertFilesToJPGAndSave(getUploadedFiles(), $auction);
         header("Location: index.php?page=productnacontrole");
     } else {
